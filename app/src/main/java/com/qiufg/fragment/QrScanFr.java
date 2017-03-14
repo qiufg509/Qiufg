@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.zxing.WriterException;
+import com.qiufg.Constants;
 import com.qiufg.R;
 import com.qiufg.activity.CaptureAct;
 import com.qiufg.fragment.base.BasePageFragment;
@@ -141,7 +142,7 @@ public class QrScanFr extends BasePageFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //扫描结果回调
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) { //RESULT_OK = -1
+        if (requestCode == REQUEST_CODE && resultCode == Constants.RESULT_CODE_QR_SCAN) { //RESULT_OK = -1
             Bundle bundle = data.getExtras();
             String scanResult = bundle.getString("qr_scan_result");
             //将扫描出的信息显示出来

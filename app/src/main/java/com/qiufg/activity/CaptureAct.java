@@ -48,6 +48,8 @@ import java.util.Vector;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.qiufg.Constants.EXTRA_KEY_QR_SCAN;
+import static com.qiufg.Constants.RESULT_CODE_QR_SCAN;
 import static com.qiufg.R.id.toolbar;
 
 
@@ -77,8 +79,6 @@ public class CaptureAct extends AppCompatActivity implements Callback {
     private boolean vibrate;
     private String photo_path;
     //	private Button cancelScanButton;
-    public static final int RESULT_CODE_QR_SCAN = 0xA1;
-    public static final String INTENT_EXTRA_KEY_QR_SCAN = "qr_scan_result";
 
     /**
      * Called when the activity is first created.
@@ -152,7 +152,7 @@ public class CaptureAct extends AppCompatActivity implements Callback {
 //                                handler.sendMessage(m);
                                 Intent resultIntent = new Intent();
                                 Bundle bundle = new Bundle();
-                                bundle.putString(INTENT_EXTRA_KEY_QR_SCAN, result.getText());
+                                bundle.putString(EXTRA_KEY_QR_SCAN, result.getText());
 //                                Logger.d("saomiao",result.getText());
 //                                bundle.putParcelable("bitmap",result.get);
                                 resultIntent.putExtras(bundle);
@@ -272,7 +272,7 @@ public class CaptureAct extends AppCompatActivity implements Callback {
         } else {
             Intent resultIntent = new Intent();
             Bundle bundle = new Bundle();
-            bundle.putString(INTENT_EXTRA_KEY_QR_SCAN, resultString);
+            bundle.putString(EXTRA_KEY_QR_SCAN, resultString);
             // 不能使用Intent传递大于40kb的bitmap，可以使用一个单例对象存储这个bitmap
 //            bundle.putParcelable("bitmap", barcode);
 //            Logger.d("saomiao",resultString);
