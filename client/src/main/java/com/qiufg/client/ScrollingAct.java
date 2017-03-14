@@ -14,9 +14,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.qiufg.IManager;
+import com.qiufg.client.util.Toast;
 import com.qiufg.model.Person;
 
 import java.util.List;
@@ -59,7 +59,7 @@ public class ScrollingAct extends AppCompatActivity {
                         for (Person p : list) {
                             response += p.toString() + "\n\t";
                         }
-                        Toast.makeText(ScrollingAct.this, response, Toast.LENGTH_LONG).show();
+                        Toast.show(ScrollingAct.this, response);
                         Snackbar.make(view, "money=" + money, Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     } catch (RemoteException e) {

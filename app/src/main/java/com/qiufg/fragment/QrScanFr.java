@@ -18,6 +18,7 @@ import com.google.zxing.WriterException;
 import com.qiufg.R;
 import com.qiufg.activity.CaptureAct;
 import com.qiufg.fragment.base.BasePageFragment;
+import com.qiufg.util.Toast;
 import com.qiufg.zxing.EncodingHandler;
 
 import butterknife.BindView;
@@ -124,14 +125,14 @@ public class QrScanFr extends BasePageFragment {
 
         @Override
         public void onError(Throwable e) {
-            showToast("文本信息不能为空！");
+            Toast.show(getContext(), "文本信息不能为空！");
         }
 
         @Override
         public void onNext(Bitmap bitmap) {
             if (bitmap != null) {
                 mQrCode.setImageBitmap(bitmap);
-                showToast("二维码生成成功！");
+                Toast.show(getContext(), "二维码生成成功！");
             }
         }
     };
@@ -157,7 +158,7 @@ public class QrScanFr extends BasePageFragment {
                 startActivityForResult(intent, REQUEST_CODE);
 
             } else {
-                showToast("需要开启权限才能拨打电话!");
+                Toast.show(getContext(), "需要开启权限才能拨打电话!");
             }
         }
     }

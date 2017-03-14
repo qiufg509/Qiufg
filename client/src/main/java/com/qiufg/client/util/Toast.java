@@ -1,4 +1,4 @@
-package com.qiufg.util;
+package com.qiufg.client.util;
 
 import android.content.Context;
 import android.view.Gravity;

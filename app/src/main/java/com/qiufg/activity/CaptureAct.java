@@ -23,7 +23,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
@@ -35,6 +34,7 @@ import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.qiufg.R;
+import com.qiufg.util.Toast;
 import com.qiufg.zxing.CameraManager;
 import com.qiufg.zxing.CaptureActivityHandler;
 import com.qiufg.zxing.InactivityTimer;
@@ -75,9 +75,7 @@ public class CaptureAct extends AppCompatActivity implements Callback {
     private boolean playBeep;
     private static final float BEEP_VOLUME = 0.10f;
     private boolean vibrate;
-    private ProgressDialog mProgress;
     private String photo_path;
-    private Bitmap scanBitmap;
     //	private Button cancelScanButton;
     public static final int RESULT_CODE_QR_SCAN = 0xA1;
     public static final String INTENT_EXTRA_KEY_QR_SCAN = "qr_scan_result";
@@ -138,7 +136,7 @@ public class CaptureAct extends AppCompatActivity implements Callback {
                         }
                         cursor.close();
                     }
-                    mProgress = new ProgressDialog(CaptureAct.this);
+                    ProgressDialog mProgress = new ProgressDialog(CaptureAct.this);
                     mProgress.setMessage("正在扫描...");
                     mProgress.setCancelable(false);
                     mProgress.show();
@@ -189,7 +187,7 @@ public class CaptureAct extends AppCompatActivity implements Callback {
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true; // 先获取原大小
-        scanBitmap = BitmapFactory.decodeFile(path, options);
+        Bitmap scanBitmap = BitmapFactory.decodeFile(path, options);
         options.inJustDecodeBounds = false; // 获取新的大小
         int sampleSize = (int) (options.outHeight / (float) 200);
         if (sampleSize <= 0)
@@ -270,12 +268,11 @@ public class CaptureAct extends AppCompatActivity implements Callback {
         String resultString = result.getText();
         //FIXME
         if (TextUtils.isEmpty(resultString)) {
-            Toast.makeText(CaptureAct.this, "Scan failed!", Toast.LENGTH_SHORT).show();
+            Toast.show(CaptureAct.this, "扫描失败");
         } else {
             Intent resultIntent = new Intent();
             Bundle bundle = new Bundle();
             bundle.putString(INTENT_EXTRA_KEY_QR_SCAN, resultString);
-            System.out.println("sssssssssssssssss scan 0 = " + resultString);
             // 不能使用Intent传递大于40kb的bitmap，可以使用一个单例对象存储这个bitmap
 //            bundle.putParcelable("bitmap", barcode);
 //            Logger.d("saomiao",resultString);

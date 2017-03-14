@@ -19,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.qiufg.Constants;
 import com.qiufg.R;
@@ -30,6 +29,7 @@ import com.qiufg.fragment.GankAndroidFr;
 import com.qiufg.fragment.HomeFr;
 import com.qiufg.fragment.QrScanFr;
 import com.qiufg.fragment.base.BasePageFragment;
+import com.qiufg.util.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +98,9 @@ public class MainAct extends AppCompatActivity
             public void onClick(View view) {
                 WindowManager windowManager = getWindowManager();
                 Display display = windowManager.getDefaultDisplay();
+                //noinspection deprecation
                 int screenWidth = display.getWidth();
+                //noinspection deprecation
                 int screenHeight = display.getHeight();
 
                 // 方法2
@@ -190,7 +192,7 @@ public class MainAct extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -239,11 +241,11 @@ public class MainAct extends AppCompatActivity
 
     @OnPermissionDenied({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET})
     void onDeniedPermission() {
-        Toast.makeText(this, "禁止", Toast.LENGTH_SHORT).show();
+        Toast.show(this, "禁止");
     }
 
     @OnNeverAskAgain({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET})
     void onNeverAskPermission() {
-        Toast.makeText(this, "不再提示", Toast.LENGTH_SHORT).show();
+        Toast.show(this, "不再提示");
     }
 }

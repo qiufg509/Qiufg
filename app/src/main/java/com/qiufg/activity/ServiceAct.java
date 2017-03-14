@@ -10,7 +10,6 @@ import android.os.RemoteException;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.qiufg.Constants;
 import com.qiufg.IManager;
@@ -19,6 +18,7 @@ import com.qiufg.model.Person;
 import com.qiufg.service.BindService;
 import com.qiufg.service.ForegroundService;
 import com.qiufg.service.StartService;
+import com.qiufg.util.Toast;
 
 import java.util.List;
 
@@ -85,7 +85,7 @@ public class ServiceAct extends AppCompatActivity {
     public void aidl() {
         if (!SERVICE_AIDL) {
             bindRemoteService();
-            Toast.makeText(this, "当前与服务处于断开状态，正在尝试重连，请稍候再试", Toast.LENGTH_SHORT).show();
+            Toast.show(this, "当前与服务处于断开状态，正在尝试重连，请稍候再试");
         }
         if (iManager != null) {
             try {
@@ -105,7 +105,7 @@ public class ServiceAct extends AppCompatActivity {
                 for (Person p : list) {
                     response += p.toString() + "\n\t";
                 }
-                Toast.makeText(this, response, Toast.LENGTH_LONG).show();
+                Toast.show(this, response);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
