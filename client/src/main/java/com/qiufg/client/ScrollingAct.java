@@ -89,7 +89,7 @@ public class ScrollingAct extends AppCompatActivity {
 
     private void bindRemoteService() {
         Intent intent = new Intent();
-        intent.setAction("com.qiufg.IMyAidlInterface");
+        intent.setAction("com.qiufg.remote");
         intent.setPackage("com.qiufg");
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }

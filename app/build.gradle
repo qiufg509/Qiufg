@@ -9,16 +9,49 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
-    buildTypes {
+
+    signingConfigs {
+        debug {
+        }
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildTypes {
+        debug {
+            buildConfigField "boolean", "ISDEBUG", "true"
+            signingConfig signingConfigs.debug
+        }
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            zipAlignEnabled true
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileName = "Qiufg_v${defaultConfig.versionName}_${buildTime()}_alpha.apk"//内测版
+//                        def fileName = "Qiufg_v${defaultConfig.versionName}_${buildTime()}_beta.apk"//公测版
+//                        def fileName = "Qiufg_v${defaultConfig.versionName}_${buildTime()}_release.apk"//预览版
+//                        def fileName = "Qiufg_v${defaultConfig.versionName}_${buildTime()}_stable.apk"//稳定版
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
+        }
+    }
+}
+
+def buildTime() {
+    return new Date().format("yyyyMMdd")
 }
 
 dependencies {

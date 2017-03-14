@@ -55,7 +55,7 @@
             android:permission="com.qiufg.permission"
             android:process=":remote">
             <intent-filter>
-                <action android:name="com.qiufg.IMyAidlInterface"/>
+                <action android:name="com.qiufg.remote"/>
             </intent-filter>
         </service>
 

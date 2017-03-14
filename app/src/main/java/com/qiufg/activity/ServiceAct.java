@@ -114,7 +114,7 @@ public class ServiceAct extends AppCompatActivity {
 
     private void bindRemoteService() {
         Intent aidlIntent = new Intent();
-        aidlIntent.setAction("com.qiufg.IMyAidlInterface");
+        aidlIntent.setAction("com.qiufg.remote");
         aidlIntent.setPackage(getPackageName());//Android5.0后隐式调用需要设置包名//此处设置为服务的包名，当前为同一个model里所以可以直接getPackageName，否则需要完整写出
         bindService(aidlIntent, mAidlConnection, Context.BIND_AUTO_CREATE);
     }
