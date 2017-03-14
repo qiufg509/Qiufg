@@ -1,5 +1,6 @@
 package com.qiufg.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,11 +14,11 @@ import android.view.ViewGroup;
 
 import com.qiufg.R;
 import com.qiufg.adapter.GirlAdapter;
-import com.qiufg.fragment.base.BaseFragment;
 import com.qiufg.fragment.base.BasePageFragment;
 import com.qiufg.model.GirlBean;
 import com.qiufg.network.NetWork;
 import com.qiufg.network.convert.GirlParser;
+import com.qiufg.util.Toast;
 
 import java.util.List;
 
@@ -84,6 +85,11 @@ public class HomeFr extends BasePageFragment {
         mGridSwipeRefresh.setProgressViewOffset(false, 0,
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                         24, getResources().getDisplayMetrics()));
+        mGridSwipeRefresh.setColorSchemeResources(
+                R.color.swipe_color_1,
+                R.color.swipe_color_2,
+                R.color.swipe_color_3,
+                R.color.swipe_color_4);
     }
 
     @Override
@@ -113,6 +119,7 @@ public class HomeFr extends BasePageFragment {
         });
         mRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             int lastVisibleItemPosition;
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -153,14 +160,14 @@ public class HomeFr extends BasePageFragment {
         @Override
         public void onError(Throwable e) {
             mGridSwipeRefresh.setRefreshing(false);
-            showToast("数据加载失败");
+            Toast.show(getContext(), "数据加载失败");
         }
 
         @Override
         public void onNext(List<GirlBean> girlBeens) {
             if (page > 1) {
                 if (girlBeens == null || girlBeens.isEmpty()) {
-                    showToast("数据已经加载完全");
+                    Toast.show(getContext(), "数据已经加载完全");
                 } else {
                     adapter.addData(girlBeens);
                 }

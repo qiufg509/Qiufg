@@ -129,7 +129,7 @@ public class MainAct extends AppCompatActivity
         HomeFr homeFr = HomeFr.newInstance("test");
         QrScanFr qrScanFr = QrScanFr.newInstance();
         CommandFr commandFr = CommandFr.newInstance();
-        GankAndroidFr gankAndroidFr = GankAndroidFr.newInstance("", "");
+        GankAndroidFr gankAndroidFr = GankAndroidFr.newInstance();
         List<BasePageFragment> list = new ArrayList<>();
         list.add(homeFr);
         list.add(qrScanFr);
@@ -150,23 +150,6 @@ public class MainAct extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-//    private void test() {
-//        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-//        try {
-//            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.MATCH_UNINSTALLED_PACKAGES);
-//
-//        } catch (PackageManager.NameNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//        PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
-//        PowerManager.WakeLock wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, "PostLocationService");
-//
-//        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//
-//
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

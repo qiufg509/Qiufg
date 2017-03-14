@@ -1,7 +1,6 @@
 package com.qiufg.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +15,7 @@ import com.qiufg.fragment.base.BasePageFragment;
 import com.qiufg.model.AndroidBean;
 import com.qiufg.network.NetWork;
 import com.qiufg.network.convert.AndroidParser;
+import com.qiufg.util.Toast;
 
 import java.util.List;
 
@@ -26,22 +26,16 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
- * Use the {@link GankAndroidFr#newInstance} factory method to
- * create an instance of this fragment.
+ * Description
+ * Author qiufg
+ * Date 2017/2/20
  */
 public class GankAndroidFr extends BasePageFragment {
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     @BindView(R.id.recycler)
     RecyclerView mRecycler;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
 
-    private String mParam1;
-    private String mParam2;
     private AndroidAdapter adapter;
     private LinearLayoutManager layoutManager;
     private int page = 1;
@@ -51,30 +45,8 @@ public class GankAndroidFr extends BasePageFragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment GankAndroidFr.
-     */
-    public static GankAndroidFr newInstance(String param1, String param2) {
-        GankAndroidFr fragment = new GankAndroidFr();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public static GankAndroidFr newInstance() {
+        return new GankAndroidFr();
     }
 
     @Override
@@ -89,7 +61,6 @@ public class GankAndroidFr extends BasePageFragment {
         return view;
     }
 
-
     private void init() {
         layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mRecycler.setLayoutManager(layoutManager);
@@ -99,6 +70,11 @@ public class GankAndroidFr extends BasePageFragment {
         mRefreshLayout.setProgressViewOffset(false, 0,
                 (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                         24, getResources().getDisplayMetrics()));
+        mRefreshLayout.setColorSchemeResources(
+                R.color.swipe_color_1,
+                R.color.swipe_color_2,
+                R.color.swipe_color_3,
+                R.color.swipe_color_4);
     }
 
     private void initListener() {
@@ -155,7 +131,7 @@ public class GankAndroidFr extends BasePageFragment {
         @Override
         public void onError(Throwable e) {
             mRefreshLayout.setRefreshing(false);
-            showToast("数据加载失败");
+            Toast.show(getContext(), "数据加载失败");
 
         }
 
@@ -165,7 +141,7 @@ public class GankAndroidFr extends BasePageFragment {
                 if (androidBeen != null && !androidBeen.isEmpty()) {
                     adapter.addData(androidBeen);
                 } else {
-                    showToast("数据加载完全");
+                    Toast.show(getContext(), "数据加载完全");
                 }
             } else {
                 adapter.setData(androidBeen);

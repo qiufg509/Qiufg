@@ -6,14 +6,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.qiufg.R;
 import com.qiufg.fragment.base.BasePageFragment;
 import com.qiufg.util.Commands;
+import com.qiufg.util.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -41,6 +44,8 @@ public class CommandFr extends BasePageFragment {
 
     @BindView(R.id.text)
     TextView mText;
+    @BindView(R.id.scrollView)
+    ScrollView mScrollView;
     private Subscription subscription;
 
     public CommandFr() {
@@ -57,6 +62,7 @@ public class CommandFr extends BasePageFragment {
         View view = inflater.inflate(R.layout.f_command, container, false);
         ButterKnife.bind(this, view);
 
+        ViewCompat.setNestedScrollingEnabled(mScrollView, true);
         return view;
     }
 
@@ -95,7 +101,7 @@ public class CommandFr extends BasePageFragment {
 
         @Override
         public void onError(Throwable e) {
-            showToast("指令读取文件失败");
+            Toast.show(getContext(), "指令读取文件失败");
         }
 
         @Override

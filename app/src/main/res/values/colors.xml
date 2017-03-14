@@ -12,5 +12,9 @@
     <color name="laser_color">#0F0</color>
     <color name="corner_color">#00FF00</color>
     <!-- QRCode scanner color end -->
+    <color name="swipe_color_1">#903f71f5</color>
+    <color name="swipe_color_2">#55ff0000</color>
+    <color name="swipe_color_3">#5500ff00</color>
+    <color name="swipe_color_4">#550000ff</color>
 
 </resources>
