@@ -80,13 +80,13 @@
 -keep public class * extends android.support.v4.**
 -keep public class * extends android.app.Fragment
 
-####################################################################
+####### 参考http://www.jianshu.com/p/0ef702c206fa ##########
 -dontwarn javax.annotation.**
 -dontwarn javax.inject.**
-# OkHttp3
--dontwarn okhttp3.logging.**
--keep class okhttp3.internal.**{*;}
--dontwarn okio.**
+# OkHttp3   （retrofit 里的okhttp3 和我的拦截器 版本不一致 compile 'com.squareup.okhttp3:logging-interceptor:3.0.0-RC1' 时需要设置）
+#-dontwarn okhttp3.logging.**
+#-keep class okhttp3.internal.**{*;}
+#-dontwarn okio.**
 # Retrofit
 -dontwarn retrofit2.**
 -keep class retrofit2.** { *; }
@@ -106,8 +106,8 @@
 }
 
 # Gson
--keep class com.google.gson.stream.** { *; }
--keepattributes EnclosingMethod
+#-keep class com.google.gson.stream.** { *; }
+#-keepattributes EnclosingMethod
 #这是你定义的实体类，将整个包不混淆，或者将gson解析相关的bean分别不混淆
 #-keep class com.qiufg.model.**{*;}
 -keep class com.qiufg.model.GirlBean{*;}
