@@ -186,9 +186,10 @@ public class MainAct extends AppCompatActivity
             intent.putExtra(Constants.EXTRA_SERVICE_ACT, bundle);
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
+            startActivity(new Intent(this, DownloadAct.class));
 
         } else if (id == R.id.nav_slideshow) {
-
+            startActivity(new Intent(this, HotfixAct.class));
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {

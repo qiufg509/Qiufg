@@ -1,4 +1,4 @@
-package com.qiufg.network.convert;
+package com.qiufg.net.convert;
 
 import com.qiufg.model.GirlBean;
 import com.qiufg.model.GirlResult;

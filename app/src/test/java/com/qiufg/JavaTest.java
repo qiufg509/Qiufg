@@ -7,6 +7,8 @@ import com.qiufg.content.ContentBean;
 import com.qiufg.content.MyTask;
 import com.qiufg.content.ResultBean;
 
+import org.junit.Test;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
@@ -40,6 +42,15 @@ public class JavaTest {
 
     public JavaTest() {
         sop("");
+    }
+
+    @Test
+    public void test19(){
+
+        String fileUrl="the-south-snowing/Qiufg/archive/master.zip";
+        String substring = fileUrl.substring(fileUrl.lastIndexOf("/"));
+        sop(substring);
+
     }
 
     @org.junit.Test

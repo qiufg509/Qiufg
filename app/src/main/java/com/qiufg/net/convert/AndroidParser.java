@@ -1,4 +1,4 @@
-package com.qiufg.network.convert;
+package com.qiufg.net.convert;
 
 import com.qiufg.model.AndroidBean;
 import com.qiufg.model.AndroidResult;

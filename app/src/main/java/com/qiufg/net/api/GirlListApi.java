@@ -1,4 +1,4 @@
-package com.qiufg.network.api;
+package com.qiufg.net.api;
 
 
 import com.qiufg.model.GirlResult;

@@ -15,8 +15,8 @@ import com.qiufg.R;
 import com.qiufg.adapter.GirlAdapter;
 import com.qiufg.fragment.base.BasePageFragment;
 import com.qiufg.model.GirlBean;
-import com.qiufg.network.NetWork;
-import com.qiufg.network.convert.GirlParser;
+import com.qiufg.net.NetWork;
+import com.qiufg.net.convert.GirlParser;
 import com.qiufg.util.Toast;
 
 import java.util.List;

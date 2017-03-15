@@ -13,8 +13,8 @@ import com.qiufg.R;
 import com.qiufg.adapter.AndroidAdapter;
 import com.qiufg.fragment.base.BasePageFragment;
 import com.qiufg.model.AndroidBean;
-import com.qiufg.network.NetWork;
-import com.qiufg.network.convert.AndroidParser;
+import com.qiufg.net.NetWork;
+import com.qiufg.net.convert.AndroidParser;
 import com.qiufg.util.Toast;
 
 import java.util.List;

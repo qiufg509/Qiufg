@@ -12,12 +12,29 @@ android {
         versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+
+        externalNativeBuild {
+            cmake {
+                cppFlags "-frtti -fexceptions"
+            }
+        }
     }
 
     signingConfigs {
         debug {
         }
         release {
+            storeFile file("D:\\Projects\\Qiufg.jks")
+            storePassword "010101"
+            keyAlias "qiufg"
+            keyPassword "010101"
+        }
+    }
+
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
         }
     }
 

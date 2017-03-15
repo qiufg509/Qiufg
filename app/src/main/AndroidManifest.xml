@@ -67,6 +67,11 @@
             android:enabled="true"
             android:exported="false">
         </receiver>
+
+        <activity android:name=".activity.DownloadAct">
+        </activity>
+        <activity android:name=".activity.HotfixAct">
+        </activity>
     </application>
 
 </manifest>
