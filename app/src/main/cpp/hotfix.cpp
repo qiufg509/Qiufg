@@ -5,7 +5,6 @@
 #include <string>
 
 #include "com_qiufg_hotfix_BugFixManager.h"
-#include "common.h"
 #include "art.h"
 
 using namespace art::mirror;

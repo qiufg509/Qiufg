@@ -45,16 +45,37 @@ public class JavaTest {
     }
 
     @Test
-    public void test19(){
+    public void test19() {
 
-        String fileUrl="the-south-snowing/Qiufg/archive/master.zip";
-        String substring = fileUrl.substring(fileUrl.lastIndexOf("/"));
+        int i = 5;
+        if (i > 1)
+            sop("i>5");
+        else if (i > 4)
+            sop("i>4");
+        else if (i < 6)
+            sop("i<6");
+        else if (i < 10)
+            sop("i<10");
+        else
+            sop("i=5");
+
+//
+//        int a[] = new int[5];
+//        int a[5]={
+//            1, 2, 2, 2, 2
+//        };
+//        int[2] a;
+//        int[5] a = {1, 2, 2, 3, 2};
+//        int a[];
+
+        String fileUrl = "the-south-snowing/Qiufg/archive/master.zip";
+        String substring = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
         sop(substring);
 
     }
 
     @org.junit.Test
-    public void test18(){
+    public void test18() {
         String input = "463606400";
         SparseArray<String> num = new SparseArray<>(10);
         num.append(0, "零");
@@ -88,7 +109,7 @@ public class JavaTest {
             sb.append(num.get(i));
         }
         String money = sb.reverse().toString();
-        money=money.replaceAll("[零]+","零");
+        money = money.replaceAll("[零]+", "零");
         sop(money);
     }
 
@@ -101,19 +122,19 @@ public class JavaTest {
 //
 //        Map<String, Integer> map = {"key" : 1};
 //        int value = map["key"];
-        String a="hello";
-        String b="he"+"llo";
-        sop("a==b:"+(a==b));
+        String a = "hello";
+        String b = "he" + "llo";
+        sop("a==b:" + (a == b));
 
-        String c=new String("hello");
-        sop("a.equals(c):"+(a.equals(c)));
-        sop("a==c:"+(a==c));
-        float f=3.4f;
-        StringBuffer sb=new StringBuffer();
+        String c = new String("hello");
+        sop("a.equals(c):" + (a.equals(c)));
+        sop("a==c:" + (a == c));
+        float f = 3.4f;
+        StringBuffer sb = new StringBuffer();
         sb.append(new Ball(""));
 
-        HashMap map=new HashMap();
-        map.put(null,"");
+        HashMap map = new HashMap();
+        map.put(null, "");
 
     }
 

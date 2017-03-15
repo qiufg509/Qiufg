@@ -15,7 +15,7 @@ public class BugFixManager {
     private Context mContext;
 
     static {
-        System.loadLibrary("andfix");
+        System.loadLibrary("hotfix");
     }
 
     public BugFixManager(Context context) {

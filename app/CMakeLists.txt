@@ -1,10 +1,10 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-add_library( andfix
+add_library( hotfix
              SHARED
 
-             src/main/cpp/andfix.cpp )
+             src/main/cpp/hotfix.cpp )
 
 find_library( # Sets the name of the path variable.
               log-lib
@@ -15,6 +15,6 @@ find_library( # Sets the name of the path variable.
 
 
 target_link_libraries( # Specifies the target library.
-                       andfix
+                       hotfix
 
                        ${log-lib} )
