@@ -52,8 +52,8 @@ public class BugFixManager {
 
             try {
                 Class<?> badClazz = Class.forName(badClazzName);
-//                Method badMethod = badClazz.getDeclaredMethod(badMethodName, okMethod.getParameterTypes());
-                Method badMethod = badClazz.getDeclaredMethod(badMethodName);
+                Method badMethod = badClazz.getDeclaredMethod(badMethodName, okMethod.getParameterTypes());
+//                Method badMethod = badClazz.getDeclaredMethod(badMethodName);
 
                 replaceMethod(badMethod, okMethod);
             } catch (ClassNotFoundException e) {

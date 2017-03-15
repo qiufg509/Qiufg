@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.PhoneNumberUtils;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Menu;
@@ -179,6 +180,15 @@ public class MainAct extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+//        ArgbEvaluator argbEvaluator=ArgbEvaluator.getInstance();
+//        argbEvaluator.evaluate()
+        PhoneNumberUtils.convertKeypadLettersToDigits("");
+//        ThumbnailUtils.createVideoThumbnail(String filePath, int kind)
+//        ThumbnailUtils.extractThumbnail(Bitmap source, int width, int height)
+//        PackageManager.getInstalledPackages
+
+//        PathAnimView
+
         if (id == R.id.nav_camera) {
             Intent intent = new Intent(this, ServiceAct.class);
             Bundle bundle = new Bundle();
@@ -191,6 +201,7 @@ public class MainAct extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
             startActivity(new Intent(this, HotfixAct.class));
         } else if (id == R.id.nav_manage) {
+            startActivity(new Intent(this, AnimAct.class));
 
         } else if (id == R.id.nav_share) {
 

@@ -72,6 +72,8 @@
         </activity>
         <activity android:name=".activity.HotfixAct">
         </activity>
+        <activity android:name=".activity.AnimAct">
+        </activity>
     </application>
 
 </manifest>

@@ -6,16 +6,23 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.qiufg.R;
 import com.qiufg.adapter.AndroidAdapter;
 import com.qiufg.fragment.base.BasePageFragment;
 import com.qiufg.model.AndroidBean;
 import com.qiufg.net.NetWork;
 import com.qiufg.net.convert.AndroidParser;
+import com.qiufg.util.LogUtils;
 import com.qiufg.util.Toast;
+import com.qiufg.view.ImageSliderLayout;
 
 import java.util.List;
 
@@ -35,9 +42,12 @@ public class GankAndroidFr extends BasePageFragment {
     RecyclerView mRecycler;
     @BindView(R.id.refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.slider)
+    ImageSliderLayout mSlider;
 
     private AndroidAdapter adapter;
     private LinearLayoutManager layoutManager;
+    private boolean isVisibleToUser;
     private int page = 1;
 
 
@@ -75,6 +85,13 @@ public class GankAndroidFr extends BasePageFragment {
                 R.color.swipe_color_2,
                 R.color.swipe_color_3,
                 R.color.swipe_color_4);
+
+        createDeadData();
+
+        mSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+        mSlider.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
+        mSlider.setCustomAnimation(new DescriptionAnimation());
+        mSlider.setDuration(4000);
     }
 
     private void initListener() {
@@ -106,6 +123,36 @@ public class GankAndroidFr extends BasePageFragment {
 
             }
         });
+
+
+        mSlider.setTouchEvent(new ImageSliderLayout.onInterceptTouchEvent() {
+            @Override
+            public void intercept(MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_MOVE:
+                        if (event.getY() <= mSlider.getHeight()) {
+                            mRefreshLayout.setEnabled(false);
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        mRefreshLayout.setEnabled(true);
+                        break;
+                }
+            }
+        });
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (!isVisibleToUser && this.isVisibleToUser) {//由可见变为不可见
+            mSlider.stopAutoCycle();
+        } else if (isVisibleToUser) {
+            mSlider.startAutoCycle();
+        }
+        this.isVisibleToUser = isVisibleToUser;
     }
 
     @Override
@@ -150,4 +197,35 @@ public class GankAndroidFr extends BasePageFragment {
 
         }
     };
+
+    private BaseSliderView.OnSliderClickListener onSliderClickListener = new BaseSliderView.OnSliderClickListener() {
+        @Override
+        public void onSliderClick(BaseSliderView baseSliderView) {
+//            Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
+//            intent.putExtra("url", baseSliderView.getBundle().getString("url"));
+//            startActivity(intent);
+        }
+    };
+
+    private void createDeadData() {
+        String[] title = getResources().getStringArray(R.array.recommend_slider);
+        int[] resID = {R.mipmap.a, R.mipmap.b, R.mipmap.c, R.mipmap.d, R.mipmap.e};
+        String[] urls = {"http://222.243.215.132/10/s/q/e/r/sqerphwhboqjcgkgphqnlpnwniisjr/hc.yinyuetai.com/3132014EF85A8CE3ADF791CC5E279802.flv?sc=504c36cdb211a59e",
+                "http://hc.yinyuetai.com/uploads/videos/common/49C7013A1BAA13783C89309B89787324.flv?sc=1495ba36e19f984e",
+                "http://hc.yinyuetai.com/uploads/videos/common/30130132CB5CF7E3242B959B0FA69A4D.flv?sc=6cbc0efe2cc78af8",
+                "http://hc.yinyuetai.com/uploads/videos/common/88D40148B154D6E4C3D314C95E16682B.flv?sc=fda31c7df2879aa5",
+                "http://hc.yinyuetai.com/uploads/videos/common/321A013F30A2C13A4A7BB694CA2C63DC.flv?sc=9bf16d2aea478c45"};
+        for (int index = 0; index < urls.length; index++) {
+            TextSliderView textSliderView = new TextSliderView(getActivity());
+            // initialize a SliderLayout
+            Bundle bundle = new Bundle();
+            bundle.putString("url", urls[index]);
+            textSliderView.bundle(bundle)
+                    .description(title[index])
+                    .image(resID[index])
+                    .setScaleType(BaseSliderView.ScaleType.Fit)
+                    .setOnSliderClickListener(onSliderClickListener);
+            mSlider.addSlider(textSliderView);
+        }
+    }
 }

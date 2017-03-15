@@ -1,21 +1,58 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.qiufg.fragment.GankAndroidFr">
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                              xmlns:custom="http://schemas.android.com/apk/res-auto"
+                                              xmlns:tools="http://schemas.android.com/tools"
+                                              android:id="@+id/refresh_layout"
+                                              android:layout_width="match_parent"
+                                              android:layout_height="match_parent"
+                                              tools:context="com.qiufg.fragment.GankAndroidFr">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refresh_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp">
+        android:layout_height="match_parent">
+
+        <com.qiufg.view.ImageSliderLayout
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            custom:auto_cycle="false"
+            custom:indicator_visibility="visible"
+            custom:pager_animation="Accordion"
+            custom:pager_animation_span="1100"/>
+
+        <com.daimajia.slider.library.Indicators.PagerIndicator
+            android:id="@+id/indicator1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            custom:selected_color="#0095BF"
+            custom:selected_drawable="@mipmap/bird"
+            custom:selected_height="6dp"
+            custom:selected_padding_left="5dp"
+            custom:selected_padding_right="5dp"
+            custom:selected_width="6dp"
+            custom:shape="oval"
+            custom:unselected_color="#55333333"
+            custom:unselected_height="6dp"
+            custom:unselected_padding_left="5dp"
+            custom:unselected_padding_right="5dp"
+            custom:unselected_width="6dp"/>
+
+        <com.daimajia.slider.library.Indicators.PagerIndicator
+            android:id="@+id/indicator2"
+            style="@style/AndroidImageSlider_Corner_Oval_Orange"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/slider"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="6dp"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
 
-</FrameLayout>
+    </RelativeLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
