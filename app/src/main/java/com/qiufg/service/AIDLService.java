@@ -2,6 +2,7 @@ package com.qiufg.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
@@ -31,6 +32,10 @@ public class AIDLService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        //鉴权，防止任意客户端调用
+        if (checkCallingOrSelfPermission("com.qiufg.remote") == PackageManager.PERMISSION_DENIED) {
+            return null;
+        }
         return mStub;
     }
 

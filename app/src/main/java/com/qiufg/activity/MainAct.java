@@ -78,12 +78,7 @@ public class MainAct extends AppCompatActivity
         MainActPermissionsDispatcher.checkPermissionsWithCheck(this);
         checkPermissions();
 
-        Bundle bundle = getIntent().getBundleExtra(Constants.EXTRA_SERVICE_ACT);
-        if (bundle != null) {
-            Intent serviceActIntent = new Intent(this, ServiceAct.class);
-            serviceActIntent.putExtra(Constants.EXTRA_SERVICE_ACT, bundle);
-            startActivity(serviceActIntent);
-        }
+        jump();
     }
 
     private void initListener() {
@@ -202,9 +197,8 @@ public class MainAct extends AppCompatActivity
             startActivity(new Intent(this, HotfixAct.class));
         } else if (id == R.id.nav_manage) {
             startActivity(new Intent(this, AnimAct.class));
-
         } else if (id == R.id.nav_share) {
-
+            startActivity(new Intent(this, AlarmAct.class));
         } else if (id == R.id.nav_send) {
 
         }
@@ -217,6 +211,24 @@ public class MainAct extends AppCompatActivity
     @Override
     public void toggleActiveFragment(int btnID, String... args) {
 
+    }
+
+    private void jump() {
+        Bundle bundle = getIntent().getBundleExtra(Constants.EXTRA_SERVICE_ACT);
+        if (bundle != null) {
+            switch (bundle.getInt(Constants.EXTRA_DESTINATION, 0)) {
+                case 1:
+                    Intent serviceActIntent = new Intent(this, ServiceAct.class);
+                    serviceActIntent.putExtra(Constants.EXTRA_SERVICE_ACT, bundle);
+                    startActivity(serviceActIntent);
+                    break;
+                case 2:
+                    Intent alarmActIntent = new Intent(this, ServiceAct.class);
+                    alarmActIntent.putExtra(Constants.EXTRA_SERVICE_ACT, bundle);
+                    startActivity(alarmActIntent);
+                    break;
+            }
+        }
     }
 
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET})

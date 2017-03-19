@@ -9,4 +9,5 @@ public interface Constants {
     String EXTRA_SERVICE_ACT = "serviceAct";
     int RESULT_CODE_QR_SCAN = 0xA1;
     String EXTRA_KEY_QR_SCAN = "qr_scan_result";
+    String EXTRA_DESTINATION = "Destination";
 }

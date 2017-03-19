@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.IBinder;
 
+import com.qiufg.Constants;
 import com.qiufg.R;
 import com.qiufg.receiver.NotificationReceiver;
 
@@ -45,9 +46,11 @@ public class ForegroundService extends Service {
             startForeground = null;
             stopForeground = null;
         }
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(this, NotificationReceiver.class),
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        intent.setAction("com.qiufg.destination");
+        intent.putExtra(Constants.EXTRA_DESTINATION, 1);
+        intent.putExtra("money", "89556000.001");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Notification notification;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             notification = new Notification.Builder(this)

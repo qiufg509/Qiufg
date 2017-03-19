@@ -66,6 +66,9 @@
             android:name=".receiver.NotificationReceiver"
             android:enabled="true"
             android:exported="false">
+            <intent-filter>
+                <action android:name="com.qiufg.destination"/>
+            </intent-filter>
         </receiver>
 
         <activity android:name=".activity.DownloadAct">
@@ -73,6 +76,8 @@
         <activity android:name=".activity.HotfixAct">
         </activity>
         <activity android:name=".activity.AnimAct">
+        </activity>
+        <activity android:name=".activity.AlarmAct">
         </activity>
     </application>
 
