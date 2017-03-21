@@ -25,6 +25,8 @@ import rx.schedulers.Schedulers;
 
 public class DownloadAct extends AppCompatActivity {
 
+    private static final String FILE_URL_1 = "31E8015A9F80B50A8168A91150848466.mp4?sc=6e3b688a74d0020d";
+    private static final String FILE_URL_2 = "D1E9015A4C00A76EDBBFDDD9F6E70995.mp4?sc=fa771a79e5c66d74";
     @BindView(R.id.download1)
     TextView mDownload1;
     @BindView(R.id.download2)
@@ -34,8 +36,6 @@ public class DownloadAct extends AppCompatActivity {
     @BindView(R.id.download4)
     TextView mDownload4;
     private Subscription mSubscription;
-    private String fileUrl_1 = "31E8015A9F80B50A8168A91150848466.mp4?sc=6e3b688a74d0020d";
-    private String fileUrl_2 = "D1E9015A4C00A76EDBBFDDD9F6E70995.mp4?sc=fa771a79e5c66d74";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +56,12 @@ public class DownloadAct extends AppCompatActivity {
     @OnClick(R.id.download1)
     public void download1() {
         mSubscription = NetWork.getDownLoadApi()
-                .downloadFile(fileUrl_1)
+                .downloadFile(FILE_URL_1)
                 .map(new Func1<ResponseBody, Boolean>() {
                     @Override
                     public Boolean call(ResponseBody responseBody) {
 
-                        return WriteFileManager.writeResponseBodyToDisk(responseBody, fileUrl_1.substring(fileUrl_1.lastIndexOf("/") + 1));
+                        return WriteFileManager.writeResponseBodyToDisk(responseBody, FILE_URL_1.substring(FILE_URL_1.lastIndexOf("/") + 1));
                     }
                 })
                 .subscribeOn(Schedulers.io())
@@ -91,8 +91,8 @@ public class DownloadAct extends AppCompatActivity {
     @OnClick(R.id.download2)
     public void download2() {
         ArrayList<String> mDownloadList = new ArrayList<>();
-        mDownloadList.add(fileUrl_1);
-        mDownloadList.add(fileUrl_2);
+        mDownloadList.add(FILE_URL_1);
+        mDownloadList.add(FILE_URL_2);
 
         List<Observable<Boolean>> observables = new ArrayList<>();
         //将所有的Observable放到List中

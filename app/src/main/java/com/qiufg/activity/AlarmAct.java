@@ -10,6 +10,7 @@ import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.os.Vibrator;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,10 +19,12 @@ import android.view.View;
 import com.qiufg.Constants;
 import com.qiufg.R;
 import com.qiufg.receiver.NotificationReceiver;
+import com.qiufg.util.Toast;
 
 import java.io.IOException;
 import java.util.Calendar;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AlarmAct extends AppCompatActivity {
@@ -29,10 +32,14 @@ public class AlarmAct extends AppCompatActivity {
     private MediaPlayer mMediaPlayer;
     private Vibrator vibrator;
 
+    private long[] mHits = new long[2];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_alarm);
+
+        ButterKnife.bind(this);
 
         if (getIntent().getIntExtra(Constants.EXTRA_DESTINATION, 0) == 2) {
             startMultiMedia();
@@ -128,10 +135,26 @@ public class AlarmAct extends AppCompatActivity {
             // windowStartMillis：首次执行时间
             // windowLengthMillis：两次执行的间隔时间
             // operation：响应动作
-            am.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, /*calendar.getTimeInMillis()*/System.currentTimeMillis() + 50000, pendingIntent);
+            am.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, /*calendar.getTimeInMillis()*/System.currentTimeMillis() + 5000, pendingIntent);
         } else {
 //            am.setRepeating();//重复闹钟
             am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(), pendingIntent);//一次性闹钟
+        }
+    }
+
+    /**
+     * 双击退出app
+     */
+    @OnClick(R.id.exit)
+    public void exit() {
+        System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+        mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+        if (SystemClock.uptimeMillis() - mHits[0] < 1000) {
+            Intent exit = new Intent(this, MainAct.class);
+            exit.putExtra(Constants.EXTRA_APP_EXIT, true);
+            startActivity(exit);
+        } else {
+            Toast.show(this, "再次点击退出应用");
         }
     }
 }
