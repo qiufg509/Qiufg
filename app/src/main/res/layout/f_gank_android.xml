@@ -4,7 +4,6 @@
                                               android:id="@+id/refresh_layout"
                                               android:layout_width="match_parent"
                                               android:layout_height="match_parent"
-                                              android:overScrollMode="never"
                                               tools:context="com.qiufg.fragment.GankAndroidFr">
 
     <RelativeLayout
@@ -53,7 +52,8 @@
             android:layout_below="@id/slider"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="6dp"/>
+            android:layout_marginTop="6dp"
+            android:overScrollMode="never"/>
 
     </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>
