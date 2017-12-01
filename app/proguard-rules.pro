@@ -121,7 +121,3 @@
 # can be remapped
 -renamesourcefileattribute SourceFile
 -keepattributes SourceFile,LineNumberTable
-
-
--injars      libs
--outjars     bin/classes-processed.jar

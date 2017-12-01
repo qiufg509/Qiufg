@@ -1,7 +1,5 @@
 package com.qiufg;
 
-import android.util.SparseArray;
-
 import com.qiufg.content.ContentApi;
 import com.qiufg.content.ContentBean;
 import com.qiufg.content.MyTask;
@@ -47,6 +45,12 @@ public class JavaTest {
     @Test
     public void test19() {
 
+
+    }
+
+    @org.junit.Test
+    public void test18() {
+
         int i = 5;
         if (i > 1)
             sop("i>5");
@@ -71,46 +75,6 @@ public class JavaTest {
         String fileUrl = "the-south-snowing/Qiufg/archive/master.zip";
         String substring = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
         sop(substring);
-
-    }
-
-    @org.junit.Test
-    public void test18() {
-        String input = "463606400";
-        SparseArray<String> num = new SparseArray<>(10);
-        num.append(0, "零");
-        num.append(1, "壹");
-        num.append(2, "贰");
-        num.append(3, "叁");
-        num.append(4, "肆");
-        num.append(5, "伍");
-        num.append(6, "陆");
-        num.append(7, "柒");
-        num.append(8, "捌");
-        num.append(9, "玖");
-        String[] unit = {"元", "拾", "佰", "仟", "万", "亿"};
-        StringBuilder sb = new StringBuilder();
-        char[] chars = input.toCharArray();
-        for (int i = chars.length - 1, count = 0; i >= 0; i--, count++) {
-            switch (count) {
-                case 0:
-                    sb.append(unit[0]);
-                    break;
-                case 1:
-                    sb.append(unit[1]);
-                    break;
-                case 2:
-                    sb.append(unit[2]);
-                    break;
-                case 3:
-                    sb.append(unit[3]);
-                    break;
-            }
-            sb.append(num.get(i));
-        }
-        String money = sb.reverse().toString();
-        money = money.replaceAll("[零]+", "零");
-        sop(money);
     }
 
     @org.junit.Test
@@ -443,8 +407,10 @@ public class JavaTest {
     @org.junit.Test
     public void test6() {
         double i;
+        int sum = 0;
         for (i = 9; i != 10; i += 0.1) {
             System.out.printf("%f\n", i);
+            if (sum++ > 1000) break;
         }
         "ss".hashCode();
     }
