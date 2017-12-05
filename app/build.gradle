@@ -63,7 +63,7 @@ android {
                 variant.outputs.each { output ->
                     def outputFile = output.outputFile
                     if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        def fileName = "Qiufg_v${variant.versionName}_${buildTime()}_${variant.flavorName}.apk"
+                        def fileName = "Qiufg_v${variant.versionName}_${buildTime()}_${variant.flavorName}_${variant.name}.apk"
                         output.outputFileName = new File(variant.name, fileName)
                     }
 //                }
