@@ -10,6 +10,7 @@ import com.mcxtzhang.pathanimlib.res.StoreHousePath;
 import com.mcxtzhang.pathanimlib.utils.PathParserUtils;
 import com.mcxtzhang.pathanimlib.utils.SvgPathParser;
 import com.qiufg.R;
+import com.qiufg.view.RoundImageView;
 
 import java.text.ParseException;
 
@@ -27,6 +28,8 @@ public class AnimAct extends AppCompatActivity {
     PathAnimView mFont;
     @BindView(R.id.girl)
     PathAnimView mGirl;
+    @BindView(R.id.round)
+    RoundImageView mRound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class AnimAct extends AppCompatActivity {
         super.onStart();
         mFont.startAnim();
         mGirl.startAnim();
+        mRound.startAnimation();
     }
 
     @Override
@@ -50,7 +54,7 @@ public class AnimAct extends AppCompatActivity {
         mFont.stopAnim();
         mGirl.clearAnim();
         mGirl.clearAnim();
-
+        mRound.stopAnimation();
     }
 
     private void initAnim() {
@@ -77,5 +81,7 @@ public class AnimAct extends AppCompatActivity {
         }
 
         mGirl.getPathAnimHelper().setAnimTime(5000);
+
+        mRound.setDrawPoint(true);
     }
 }

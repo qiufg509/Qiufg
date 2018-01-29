@@ -9,4 +9,12 @@
     <string name="code_text">请输入生成二维码的文本信息</string>
     <string name="qrcodetext">这里显示扫描结果</string>
 
+    <string-array name="recommend_slider">
+        <item>少女时代LIVE失误cut Yuri猛击秀英屁股</item>
+        <item>邓超惊叹杨幂有39D胸 游泳池大秀美胸走光</item>
+        <item>酒店服务生爆料 明星住店的不堪往事</item>
+        <item>《左耳》饶雪漫苏有朋有分歧打磨剧本难</item>
+        <item>90后小美女迅速崛起的秘密 清纯才是王道？</item>
+    </string-array>
+
 </resources>

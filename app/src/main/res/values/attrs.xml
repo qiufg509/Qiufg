@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="ViewfinderView">
-        <attr name="corner_color" format="color"/>
-        <attr name="laser_color" format="color"/>
+        <attr name="corner_color" format="color" />
+        <attr name="laser_color" format="color" />
         <attr name="frame_color" format="color" />
         <attr name="mask_color" format="color" />
-        <attr name="result_point_color" format="color"/>
+        <attr name="result_point_color" format="color" />
         <attr name="result_color" format="color" />
-        <attr name="label_text_color" format="color"/>
-        <attr name="label_text" format="string"/>
-        <attr name="label_text_size" format="float"/>
+        <attr name="label_text_color" format="color" />
+        <attr name="label_text" format="string" />
+        <attr name="label_text_size" format="float" />
     </declare-styleable>
 
-    <string-array name="recommend_slider">
-        <item>少女时代LIVE失误cut Yuri猛击秀英屁股</item>
-        <item>邓超惊叹杨幂有39D胸 游泳池大秀美胸走光</item>
-        <item>酒店服务生爆料 明星住店的不堪往事</item>
-        <item>《左耳》饶雪漫苏有朋有分歧打磨剧本难</item>
-        <item>90后小美女迅速崛起的秘密 清纯才是王道？</item>
-    </string-array>
+    <declare-styleable name="RoundImageView">
+        <attr name="outer_circle_width" format="dimension"/>
+    </declare-styleable>
 </resources>
