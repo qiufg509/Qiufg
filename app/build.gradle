@@ -4,7 +4,6 @@ apply plugin: 'jacoco'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.qiufg"
         minSdkVersion 15
@@ -20,7 +19,7 @@ android {
             }
         }
         ndk {
-            abiFilters 'armeabi', 'x86'/*, 'armeabi-v7a', 'x86_64', 'arm64-v8a'*/
+            abiFilters /*'armeabi', */"armeabi-v7a", /*"arm64-v8a",*/ "x86"/*, "x86_64"*///高版本NDK不支持mips、armeabi，需要的话要下载低版本的NDK
         }
     }
 
@@ -59,16 +58,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
 
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        def fileName = "Qiufg_v${variant.versionName}_${buildTime()}_${variant.flavorName}_${variant.name}.apk"
-                        output.outputFileName = new File(variant.name, fileName)
-                    }
+//            variant.outputs.all {
+//                outputFileName = "Qiufg_v${variant.versionName}_${buildTime()}_${variant.versionCode}.apk"
+//            }
+
+//            applicationVariants.all { variant ->
+//                variant.outputs.each { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        def fileName = "Qiufg_v${variant.versionName}_${buildTime()}_${variant.flavorName}_${variant.name}.apk"
+//                        output.outputFileName = new File(variant.name, fileName)
+//                    }
+////                }
 //                }
-                }
-            }
+//            }
         }
     }
 }
