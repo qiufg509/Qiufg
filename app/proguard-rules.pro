@@ -67,17 +67,17 @@
 -keepattributes Exceptions,InnerClasses,Signature,SourceFile,LineNumberTable
 -keepattributes *Annotation*
 
--keep class android.support.v4.** { *; }
--keep interface android.support.v4.app.** { *; }
--dontwarn android.support.v4.*
--dontwarn android.support.**
+#-keep class android.support.v4.** { *; }
+#-keep interface android.support.v4.app.** { *; }
+#-dontwarn android.support.v4.*
+#-dontwarn android.support.**
 
 -keep class **.R$* {*;}
 -keep class **.R{*;}
 
 #-libraryjars libs/android-support-v4.jar
 
--keep public class * extends android.support.v4.**
+#-keep public class * extends android.support.v4.**
 -keep public class * extends android.app.Fragment
 
 ####### 参考http://www.jianshu.com/p/0ef702c206fa ##########

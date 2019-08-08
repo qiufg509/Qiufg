@@ -3,7 +3,7 @@ package com.qiufg.activity;
 import android.graphics.Color;
 import android.graphics.Path;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mcxtzhang.pathanimlib.PathAnimView;
 import com.mcxtzhang.pathanimlib.res.StoreHousePath;

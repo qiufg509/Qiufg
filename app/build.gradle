@@ -1,16 +1,14 @@
 apply plugin: 'com.android.application'
-//代码覆盖率插件
-apply plugin: 'jacoco'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.qiufg"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
         externalNativeBuild {
@@ -45,6 +43,11 @@ android {
         abortOnError false
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         debug {
             buildConfigField "boolean", "ISDEBUG", "true"
@@ -58,20 +61,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
 
-//            variant.outputs.all {
-//                outputFileName = "Qiufg_v${variant.versionName}_${buildTime()}_${variant.versionCode}.apk"
-//            }
-
-//            applicationVariants.all { variant ->
-//                variant.outputs.each { output ->
-//                    def outputFile = output.outputFile
-//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-//                        def fileName = "Qiufg_v${variant.versionName}_${buildTime()}_${variant.flavorName}_${variant.name}.apk"
-//                        output.outputFileName = new File(variant.name, fileName)
-//                    }
-////                }
-//                }
-//            }
         }
     }
 }
@@ -82,12 +71,12 @@ static def buildTime() {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //与permissionsDispatcher冲突，需要加上这句
-    implementation 'com.android.support:appcompat-v7:25.3.1'
-    implementation 'com.android.support:design:25.3.1'
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.google.zxing:core:3.3.0'
     implementation 'com.github.hotchemi:permissionsdispatcher:2.1.3'
     implementation 'io.reactivex:rxjava:1.2.6'
@@ -97,37 +86,12 @@ dependencies {
     implementation 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta2'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.jakewharton:butterknife:8.5.1'
-    implementation 'com.android.support:cardview-v7:25.3.1'
-    implementation 'com.android.support:support-v4:25.3.1'
-    implementation 'com.android.support:support-vector-drawable:25.3.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.vectordrawable:vectordrawable:1.0.0'
     implementation 'com.github.mcxtzhang:PathAnimView:V1.0.0'
     implementation 'com.daimajia.slider:library:1.1.5'
     testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.1.3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-}
-
-task jacocoTestReport(type: JacocoReport) {
-    group = "Reporting"
-    description = "Generate Jacoco coverage reports after running tests."
-    reports {
-        xml.enabled = false
-        html.enabled = true
-        csv.enabled = false
-    }
-    classDirectories = fileTree(
-            dir: "$buildDir/intermediates/classes/debug",
-            excludes: [
-                    '**/*Test.class',
-                    '**/R.class',
-                    '**/R$*.class',
-                    '**/BuildConfig.*',
-                    '**/Manifest*.*'
-            ]
-    )
-    def coverageSourceDirs = ['src/main/java']
-    additionalSourceDirs = files(coverageSourceDirs)
-    sourceDirectories = files(coverageSourceDirs)
-    additionalClassDirs = files(coverageSourceDirs)
-    executionData = files("$buildDir/outputs/code-coverage/connected/coverage.ec")
 }
