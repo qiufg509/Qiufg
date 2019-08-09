@@ -4,7 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
-import android.os.RemoteException;
+
 import androidx.annotation.Nullable;
 
 import com.qiufg.IManager;
@@ -33,15 +33,15 @@ public class AIDLService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         //鉴权，防止任意客户端调用
-        if (checkCallingOrSelfPermission("com.qiufg.remote") == PackageManager.PERMISSION_DENIED) {
-            return null;
-        }
+//        if (checkCallingOrSelfPermission("com.qiufg.remote") == PackageManager.PERMISSION_DENIED) {
+//            return null;
+//        }
         return mStub;
     }
 
     IManager.Stub mStub = new IManager.Stub() {
         @Override
-        public String switchMoney(String money) throws RemoteException {
+        public String switchMoney(String money) {
             try {
                 return Money.switchMoney(money);
             } catch (Exception e) {
@@ -51,12 +51,12 @@ public class AIDLService extends Service {
         }
 
         @Override
-        public List<Person> getPerson() throws RemoteException {
-            return mPersons == null ? new ArrayList<Person>() : mPersons;
+        public List<Person> getPerson() {
+            return mPersons == null ? new ArrayList<>() : mPersons;
         }
 
         @Override
-        public void addPerson(Person person) throws RemoteException {
+        public void addPerson(Person person) {
             if (mPersons == null) {
                 mPersons = new ArrayList<>();
             }

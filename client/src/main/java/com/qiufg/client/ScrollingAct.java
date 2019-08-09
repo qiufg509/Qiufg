@@ -7,14 +7,14 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.qiufg.IManager;
 import com.qiufg.client.util.Toast;
 import com.qiufg.model.Person;
@@ -32,39 +32,36 @@ public class ScrollingAct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_scrolling);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> {
 
-                if (!mBinded) {
-                    bindRemoteService();
-                    Snackbar.make(view, "当前与服务处于断开状态，正在尝试重连，请稍候再试", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-                if (iManager != null) {
-                    try {
-                        String money = iManager.switchMoney("480034503.26");
+            if (!mBinded) {
+                bindRemoteService();
+                Snackbar.make(view, "当前与服务处于断开状态，正在尝试重连，请稍候再试", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+            if (iManager != null) {
+                try {
+                    String money = iManager.switchMoney("480034503.26");
 
-                        Person person = new Person();
-                        person.setName("王五" + tag++);
-                        person.setAge(tag * 2 + tag / 3);
-                        iManager.addPerson(person);
-                        List<Person> list = iManager.getPerson();
+                    Person person = new Person();
+                    person.setName("王五" + tag++);
+                    person.setAge(tag * 2 + tag / 3);
+                    iManager.addPerson(person);
+                    List<Person> list = iManager.getPerson();
 
-                        String response = "服务返回：\n\t";
-                        for (Person p : list) {
-                            response += p.toString() + "\n\t";
-                        }
-                        Toast.show(ScrollingAct.this, response);
-                        Snackbar.make(view, "money=" + money, Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
+                    StringBuilder response = new StringBuilder("服务返回：\n\t");
+                    for (Person p : list) {
+                        response.append(p.toString()).append("\n\t");
                     }
+                    Toast.show(ScrollingAct.this, response.toString());
+                    Snackbar.make(view, "money=" + money, Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } catch (RemoteException e) {
+                    e.printStackTrace();
                 }
             }
         });

@@ -7,14 +7,16 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.qiufg.Constants;
 import com.qiufg.IManager;
 import com.qiufg.R;
 import com.qiufg.model.Person;
+import com.qiufg.service.AIDLService;
 import com.qiufg.service.BindService;
 import com.qiufg.service.ForegroundService;
 import com.qiufg.service.StartService;
@@ -93,19 +95,17 @@ public class ServiceAct extends AppCompatActivity {
                 String money = iManager.switchMoney(args);
                 Snackbar.make(mAidl, "switchMoney=" + money, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-
-
                 Person person = new Person();
                 person.setName("张三" + tag++);
                 person.setAge(tag * 3 + tag / 2);
                 iManager.addPerson(person);
                 List<Person> list = iManager.getPerson();
 
-                String response = "服务返回：\n\t";
+                StringBuilder response = new StringBuilder("服务返回：\n\t");
                 for (Person p : list) {
-                    response += p.toString() + "\n\t";
+                    response.append(p.toString()).append("\n\t");
                 }
-                Toast.show(this, response);
+                Toast.show(this, response.toString());
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -113,16 +113,17 @@ public class ServiceAct extends AppCompatActivity {
     }
 
     private void bindRemoteService() {
-        Intent aidlIntent = new Intent();
-        aidlIntent.setAction("com.qiufg.remote");
-        aidlIntent.setPackage(getPackageName());//Android5.0后隐式调用需要设置包名//此处设置为服务的包名，当前为同一个model里所以可以直接getPackageName，否则需要完整写出
-        bindService(aidlIntent, mAidlConnection, Context.BIND_AUTO_CREATE);
+//        Intent aidlIntent = new Intent();
+//        aidlIntent.setAction("com.qiufg.remote");
+//        aidlIntent.setPackage(getPackageName());//Android5.0后隐式调用需要设置包名//此处设置为服务的包名，当前为同一个model里所以可以直接getPackageName，否则需要完整写出
+//        bindService(aidlIntent, mAidlConnection, Context.BIND_AUTO_CREATE);
+        bindService(new Intent(this, AIDLService.class), mAidlConnection, Context.BIND_AUTO_CREATE);
     }
 
     private ServiceConnection mBindConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            if (service != null && service instanceof BindService.MyBinder) {
+            if (service instanceof BindService.MyBinder) {
                 BindService.MyBinder binder = (BindService.MyBinder) service;
                 binder.downLoad();
             }

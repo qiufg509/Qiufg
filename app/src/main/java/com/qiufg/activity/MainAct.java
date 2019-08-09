@@ -3,22 +3,22 @@ package com.qiufg.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.core.view.GravityCompat;
-import androidx.viewpager.widget.ViewPager;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.qiufg.Constants;
 import com.qiufg.R;
 import com.qiufg.adapter.PagerAdapter;
@@ -28,6 +28,7 @@ import com.qiufg.fragment.GankAndroidFr;
 import com.qiufg.fragment.HomeFr;
 import com.qiufg.fragment.QrScanFr;
 import com.qiufg.fragment.base.BasePageFragment;
+import com.qiufg.service.AIDLService;
 import com.qiufg.util.Toast;
 
 import java.util.ArrayList;
@@ -75,7 +76,7 @@ public class MainAct extends AppCompatActivity
         initViewpager();
         MainActPermissionsDispatcher.checkPermissionsWithCheck(this);
         checkPermissions();
-
+//        startService(new Intent(this, AIDLService.class));
         jump();
     }
 
@@ -87,34 +88,29 @@ public class MainAct extends AppCompatActivity
 
         mNavView.setNavigationItemSelectedListener(this);
 
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WindowManager windowManager = getWindowManager();
-                Display display = windowManager.getDefaultDisplay();
-                //noinspection deprecation
-                int screenWidth = display.getWidth();
-                //noinspection deprecation
-                int screenHeight = display.getHeight();
+        mFab.setOnClickListener(view -> {
+            WindowManager windowManager = getWindowManager();
+            Display display = windowManager.getDefaultDisplay();
+            int screenWidth = display.getWidth();
+            int screenHeight = display.getHeight();
 
-                // 方法2
-                DisplayMetrics dm = new DisplayMetrics();
-                getWindowManager().getDefaultDisplay().getMetrics(dm);
-                float width = dm.widthPixels * dm.density;
-                float height = dm.heightPixels * dm.density;
+            // 方法2
+            DisplayMetrics dm = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(dm);
+            float width = dm.widthPixels * dm.density;
+            float height = dm.heightPixels * dm.density;
 
-                DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-                int screenWidth2 = displayMetrics.widthPixels;
-                int screenHeight2 = displayMetrics.heightPixels;
+            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            int screenWidth2 = displayMetrics.widthPixels;
+            int screenHeight2 = displayMetrics.heightPixels;
 
-                double b
-                        = screenWidth + screenHeight
-                        + width + height
-                        + screenWidth2 + screenHeight2;
+            double b
+                    = screenWidth + screenHeight
+                    + width + height
+                    + screenWidth2 + screenHeight2;
 
-                Snackbar.make(view, "Replace with your own action" + b, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
+            Snackbar.make(view, "Replace with your own action" + b, Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
         });
     }
 
