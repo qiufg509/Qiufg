@@ -4,14 +4,13 @@ import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
 import com.qiufg.mvp.R;
-import com.qiufg.mvp.base.App;
+import com.qiufg.mvp.App;
 import com.qiufg.mvp.db.DBManager;
 import com.qiufg.mvp.net.api.ServiceApi;
 import com.qiufg.mvp.util.Logger;
 import com.qiufg.mvp.util.SPUtils;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.Proxy;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
@@ -63,59 +62,90 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * path = "http://host:port/aa/apath", baseUrl = "http://host:port/a/b"
  * Url = "http://host:port/aa/apath"
  */
-abstract class HttpClient {
+public class HttpClient {
 
     private static final String TAG = "HttpClient";
-    private ServiceApi mForestServiceApi;
-    public static String SERVER_URL = ServiceUrls.SERVER_URL;
+    private static String SERVER_URL = ServiceUrls.SERVER_URL;
+    private static HttpClient sHttpClient = null;
+    private static Retrofit sRetrofit = null;
 
-    HttpClient() {
+    private HttpClient() {
     }
 
-    private final OkHttpClient.Builder mBuilder = App.getInstance().isDebug()
-            ? new OkHttpClient.Builder()
-            .addInterceptor(new HttpLogInterceptor(HttpClient.class.getSimpleName()))
-            : new OkHttpClient.Builder();
-    private final OkHttpClient client = mBuilder
-            .sslSocketFactory(getSSLSocketFactory())
-            .hostnameVerifier(new UnSafeHostnameVerifier())
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .proxy(Proxy.NO_PROXY)
-            .build();
+    public static HttpClient getInstance() {
+        if (sHttpClient == null) {
+            synchronized (HttpClient.class) {
+                if (sHttpClient == null) {
+                    sHttpClient = new HttpClient();
+                }
+            }
+        }
+        return sHttpClient;
+    }
+
+    public <T> T createApi(Class<T> cls) {
+        return getRetrofit().create(cls);
+    }
 
     /**
      * 获取网络请求接口
      *
      * @return 上传数据结果 {@link ServiceApi}
      */
-    ServiceApi getServiceApi() {
-        if (mForestServiceApi == null) {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .client(client)
-                    .baseUrl(SERVER_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build();
-            mForestServiceApi = retrofit.create(ServiceApi.class);
+    private Retrofit getRetrofit() {
+        if (sRetrofit == null) {
+            synchronized (HttpClient.class) {
+                if (sRetrofit == null) {
+                    sRetrofit = new Retrofit.Builder()
+                            .client(newClient())
+                            .baseUrl(SERVER_URL)
+                            .addConverterFactory(GsonConverterFactory.create())
+                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                            .build();
+                }
+            }
         }
-        return mForestServiceApi;
+        return sRetrofit;
     }
 
+    /**
+     * 创建新的OkHttpClient
+     *
+     * @return OkHttpClient
+     */
+    private OkHttpClient newClient() {
+        OkHttpClient.Builder builder = App.getInstance().isDebug()
+                ? new OkHttpClient.Builder()
+                .addInterceptor(new HttpLogInterceptor(HttpClient.class.getSimpleName()))
+                : new OkHttpClient.Builder();
+        return builder.sslSocketFactory(getSSLSocketFactory())
+                .hostnameVerifier(new UnSafeHostnameVerifier())
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .proxy(Proxy.NO_PROXY)
+                .build();
+    }
+
+    /**
+     * 重置请求域名
+     *
+     * @param serverUrl 新地址
+     */
     public void resetBaseUrl(String serverUrl) {
         if (TextUtils.isEmpty(serverUrl) || !serverUrl.startsWith("http")) return;
         SERVER_URL = serverUrl;
         Logger.e(TAG, "doNext: 退出 清理数据");
         DBManager.getInstance().clearAll();
         SPUtils.clearUser();
-        mForestServiceApi = null;
+        sRetrofit = null;
     }
 
     private SSLSocketFactory getSSLSocketFactory() {
         try {
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-            Collection<? extends Certificate> certificates = certificateFactory.generateCertificates(App.getInstance().getResources().openRawResource(R.raw.https));
+            Collection<? extends Certificate> certificates = certificateFactory.generateCertificates(
+                    App.getInstance().getResources().openRawResource(R.raw.https));
             if (certificates.isEmpty()) {
                 throw new IllegalArgumentException("expected non-empty set of trusted certificates");
             }
@@ -158,8 +188,7 @@ abstract class HttpClient {
     private KeyStore newEmptyKeyStore(char[] password) throws GeneralSecurityException {
         try {
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-            InputStream in = null; // By convention, 'null' creates an empty key store.
-            keyStore.load(in, password);
+            keyStore.load(null, password);
             return keyStore;
         } catch (IOException e) {
             throw new AssertionError(e);

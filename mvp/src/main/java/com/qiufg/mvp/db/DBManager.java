@@ -3,11 +3,11 @@ package com.qiufg.mvp.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.qiufg.mvp.base.App;
-import com.qiufg.mvp.module.main.m.DaoMaster;
-import com.qiufg.mvp.module.main.m.DaoSession;
-import com.qiufg.mvp.module.main.m.UserInfo;
-import com.qiufg.mvp.module.main.m.UserInfoDao;
+import com.qiufg.mvp.App;
+import com.qiufg.mvp.module.main.model.DaoMaster;
+import com.qiufg.mvp.module.main.model.DaoSession;
+import com.qiufg.mvp.module.main.model.UserInfo;
+import com.qiufg.mvp.module.main.model.UserInfoDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 

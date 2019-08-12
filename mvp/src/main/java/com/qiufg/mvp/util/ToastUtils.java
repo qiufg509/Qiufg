@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import androidx.annotation.StringRes;
 
-import com.qiufg.mvp.base.App;
+import com.qiufg.mvp.App;
 
 /**
  * Created by fengguang.qiu on 2019/08/07 10:43.

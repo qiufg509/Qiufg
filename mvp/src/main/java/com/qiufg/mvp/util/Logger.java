@@ -5,7 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.qiufg.mvp.base.App;
+import com.qiufg.mvp.App;
 
 import org.json.JSONArray;
 import org.json.JSONException;

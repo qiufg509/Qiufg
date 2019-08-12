@@ -1,7 +1,9 @@
-package com.qiufg.mvp;
+package com.qiufg.mvp.module.main.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.qiufg.mvp.R;
 
 /**
  * Created by fengguang.qiu on 2019/08/07 11:43.

@@ -33,9 +33,9 @@ public class AIDLService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         //鉴权，防止任意客户端调用
-//        if (checkCallingOrSelfPermission("com.qiufg.remote") == PackageManager.PERMISSION_DENIED) {
-//            return null;
-//        }
+        if (checkCallingOrSelfPermission("com.qiufg.permission") == PackageManager.PERMISSION_DENIED) {
+            return null;
+        }
         return mStub;
     }
 

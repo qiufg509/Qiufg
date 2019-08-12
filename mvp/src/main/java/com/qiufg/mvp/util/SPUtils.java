@@ -3,8 +3,8 @@ package com.qiufg.mvp.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.qiufg.mvp.base.App;
-import com.qiufg.mvp.base.Const;
+import com.qiufg.mvp.App;
+import com.qiufg.mvp.Const;
 
 /**
  * Created by fengguang.qiu on 2019/03/22 10:04.

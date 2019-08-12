@@ -1,4 +1,4 @@
-package com.qiufg.mvp.base;
+package com.qiufg.mvp;
 
 import android.app.Activity;
 import android.app.Application;

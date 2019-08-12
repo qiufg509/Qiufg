@@ -3,7 +3,7 @@ package com.qiufg.mvp.util;
 import android.app.ActivityManager;
 import android.content.Context;
 
-import com.qiufg.mvp.base.App;
+import com.qiufg.mvp.App;
 
 /**
  * Created by fengguang.qiu on 2019/08/07 11:24.

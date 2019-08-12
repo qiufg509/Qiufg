@@ -70,7 +70,7 @@ public class HttpLogInterceptor implements Interceptor {
 
     private void logRequest(Request request) {
         try {
-            String requestStr = URLDecoder.decode(request.toString());
+            String requestStr = URLDecoder.decode(request.toString(), "utf-8");
             String headers = headerToString(request.headers());
             String contentType = "unknown";
             String body = null;
@@ -104,14 +104,14 @@ public class HttpLogInterceptor implements Interceptor {
 
     private Response logResponse(Response response) {
         if (!showResponse) {
-            Logger.i(mTag, "showResponse:" + showResponse + ", will not log the response");
+            Logger.i(mTag, "showResponse: false, will not log the response");
             return response;
         }
 
         Response.Builder builder = response.newBuilder();
 
         try {
-            String responseStr = URLDecoder.decode(response.toString());
+            String responseStr = URLDecoder.decode(response.toString(), "utf-8");
             String contentType = "unknown";
             String headers = headerToString(response.headers());
             String body = null;
@@ -171,7 +171,7 @@ public class HttpLogInterceptor implements Interceptor {
             requestBody.writeTo(buffer);
             String body = buffer.readUtf8();
 
-            return URLDecoder.decode(body);
+            return URLDecoder.decode(body, "utf-8");
 
         } catch (final IOException e) {
             return "something error, e:" + e.getMessage();

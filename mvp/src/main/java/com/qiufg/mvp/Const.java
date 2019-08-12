@@ -1,4 +1,4 @@
-package com.qiufg.mvp.base;
+package com.qiufg.mvp;
 
 /**
  * Created by fengguang.qiu on 2019/08/07 10:43.

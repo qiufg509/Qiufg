@@ -56,6 +56,7 @@
             android:name=".service.AIDLService"
             android:enabled="true"
             android:exported="true"
+            android:permission="com.qiufg.permission"
             android:process=":remote">
             <intent-filter>
                 <action android:name="com.qiufg.remote" />
