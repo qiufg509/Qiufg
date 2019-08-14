@@ -1,7 +1,5 @@
 package com.qiufg.mvp.exception;
 
-import android.text.TextUtils;
-
 import com.qiufg.mvp.net.respond.ResultArray;
 import com.qiufg.mvp.net.respond.ResultObject;
 
@@ -30,17 +28,21 @@ public class ForestException extends Exception {
     }
 
     public ForestException(ResultObject resultObject) {
-        this((TextUtils.isEmpty(resultObject.getMsg()) || resultObject.getRet() == 1)
-                ? getApiExceptionMessage(resultObject.getRet())
-                : resultObject.getMsg());
-        setErrorCode(resultObject.getRet());
+//        this((TextUtils.isEmpty(resultObject.getMsg()) || resultObject.getRet() == 1)
+//                ? getApiExceptionMessage(resultObject.getRet())
+//                : resultObject.getMsg());
+//        setErrorCode(resultObject.getRet());
+        this(getApiExceptionMessage(resultObject.isError() ? ForestCode.CODE_OTHER : ForestCode.CODE_OTHER));
+        setErrorCode(ForestCode.CODE_HTTP_ERROR);
     }
 
     public ForestException(ResultArray resultArray) {
-        this((TextUtils.isEmpty(resultArray.getMsg()) || resultArray.getRet() == 1)
-                ? getApiExceptionMessage(resultArray.getRet())
-                : resultArray.getMsg());
-        setErrorCode(resultArray.getRet());
+//        this((TextUtils.isEmpty(resultArray.getMsg()) || resultArray.getRet() == 1)
+//                ? getApiExceptionMessage(resultArray.getRet())
+//                : resultArray.getMsg());
+//        setErrorCode(resultArray.getRet());
+        this(getApiExceptionMessage(resultArray.isError() ? ForestCode.CODE_OTHER : ForestCode.CODE_OTHER));
+        setErrorCode(ForestCode.CODE_HTTP_ERROR);
     }
 
     int getErrorCode() {

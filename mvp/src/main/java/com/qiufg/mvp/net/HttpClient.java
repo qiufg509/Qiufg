@@ -3,10 +3,9 @@ package com.qiufg.mvp.net;
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
 
-import com.qiufg.mvp.R;
 import com.qiufg.mvp.App;
+import com.qiufg.mvp.R;
 import com.qiufg.mvp.db.DBManager;
-import com.qiufg.mvp.net.api.ServiceApi;
 import com.qiufg.mvp.util.Logger;
 import com.qiufg.mvp.util.SPUtils;
 
@@ -41,7 +40,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * <p>
  * Desc：网络请求controller
  * <p>
- * 网络请求步骤 见{@link ServiceApi}
+ * 网络请求步骤 见{@link com.qiufg.mvp.module.main.model.GirlApi}
  * <p>
  * 一个服务器地址对应一个api
  * 调用不同服务器接口需要在此对应api获取方法
@@ -90,7 +89,7 @@ public class HttpClient {
     /**
      * 获取网络请求接口
      *
-     * @return 上传数据结果 {@link ServiceApi}
+     * @return 上传数据结果 {@link com.qiufg.mvp.module.main.model.GirlApi}
      */
     private Retrofit getRetrofit() {
         if (sRetrofit == null) {
@@ -118,9 +117,12 @@ public class HttpClient {
                 ? new OkHttpClient.Builder()
                 .addInterceptor(new HttpLogInterceptor(HttpClient.class.getSimpleName()))
                 : new OkHttpClient.Builder();
-        return builder.sslSocketFactory(getSSLSocketFactory())
-                .hostnameVerifier(new UnSafeHostnameVerifier())
-                .connectTimeout(30, TimeUnit.SECONDS)
+        SSLSocketFactory sslSocketFactory = getSSLSocketFactory();
+        if (sslSocketFactory != null) {
+            builder.sslSocketFactory(sslSocketFactory)
+                    .hostnameVerifier(new UnSafeHostnameVerifier());
+        }
+        return builder.connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .proxy(Proxy.NO_PROXY)

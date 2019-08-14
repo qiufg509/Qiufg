@@ -1,7 +1,7 @@
 package com.qiufg.mvp.module.main.model;
 
 import com.qiufg.mvp.net.ServiceUrls;
-import com.qiufg.mvp.net.respond.ResultObject;
+import com.qiufg.mvp.net.respond.ResultArray;
 
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
@@ -12,7 +12,7 @@ import retrofit2.http.Path;
  * <p>
  * Desc：
  */
-public interface DataApi {
+public interface GirlApi {
 
     /**
      * http://gank.io/api/data/福利/1/2
@@ -22,5 +22,5 @@ public interface DataApi {
      * @return result
      */
     @GET(ServiceUrls.TEST_TEST_GANK)
-    Flowable<ResultObject> getData(@Path("number") int number, @Path("page") int page);
+    Flowable<ResultArray<GirlsBean>> getData(@Path("number") int number, @Path("page") int page);
 }

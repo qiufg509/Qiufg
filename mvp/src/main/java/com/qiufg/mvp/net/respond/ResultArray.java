@@ -2,8 +2,6 @@ package com.qiufg.mvp.net.respond;
 
 import androidx.annotation.NonNull;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 /**
@@ -12,48 +10,37 @@ import java.util.List;
  * Desc：接口统一解析bean（data为Array）
  */
 public class ResultArray<T> {
+
     /**
-     * ret : 0
-     * msg :
-     * data : []
+     * error : false
+     * results : []
      */
 
-    private int ret;
-    private String msg;
-    @SerializedName("data")
-    private List<T> data;
+    private boolean error;
+    private List<T> results;
 
-    public int getRet() {
-        return ret;
+    public boolean isError() {
+        return error;
     }
 
-    public void setRet(int ret) {
-        this.ret = ret;
+    public void setError(boolean error) {
+        this.error = error;
     }
 
-    public String getMsg() {
-        return msg;
+    public List<?> getResults() {
+        return results;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public List<T> getData() {
-        return data;
-    }
-
-    public void setData(List<T> data) {
-        this.data = data;
+    public void setResults(List<T> results) {
+        this.results = results;
     }
 
     @NonNull
     @Override
     public String toString() {
-        return "ResultObject{" +
-                "ret=" + ret +
-                ", msg='" + msg + '\'' +
-                ", data=" + (data == null ? "" : data.toString()) +
+        return "ResultArray{" +
+                "error=" + error +
+                ", results=" + (results == null ? "" : results.toString()) +
                 '}';
     }
 }

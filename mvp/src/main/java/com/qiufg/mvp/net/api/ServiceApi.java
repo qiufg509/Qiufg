@@ -35,6 +35,7 @@ import retrofit2.http.Url;
  * 9. @FormUrlEncoded、@Multipart、@Body三者互斥，任意两个不能同时使用
  * 10. @Path、@Url不能同时使用
  */
+@Deprecated
 public interface ServiceApi {
 
     /**

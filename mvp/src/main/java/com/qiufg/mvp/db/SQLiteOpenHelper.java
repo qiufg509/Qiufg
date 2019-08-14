@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.qiufg.mvp.module.main.model.DaoMaster;
-import com.qiufg.mvp.module.main.model.UserInfoDao;
+import com.qiufg.mvp.module.main.model.GirlsBeanDao;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -44,6 +44,6 @@ public class SQLiteOpenHelper extends DaoMaster.OpenHelper {
             public void onDropAllTables(Database db, boolean ifExists) {
                 DaoMaster.dropAllTables(db, ifExists);
             }
-        }, UserInfoDao.class);
+        }, GirlsBeanDao.class);
     }
 }

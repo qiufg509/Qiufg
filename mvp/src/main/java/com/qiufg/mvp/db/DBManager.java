@@ -5,14 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.qiufg.mvp.App;
 import com.qiufg.mvp.module.main.model.DaoMaster;
-import com.qiufg.mvp.module.main.model.DaoSession;
-import com.qiufg.mvp.module.main.model.UserInfo;
-import com.qiufg.mvp.module.main.model.UserInfoDao;
-
-import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.lang.ref.SoftReference;
-import java.util.List;
 
 /**
  * Created by fengguang.qiu on 2019/03/22 15:15.
@@ -73,84 +67,5 @@ public class DBManager {
         DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
         DaoMaster.dropAllTables(daoMaster.getDatabase(), true);
         DaoMaster.createAllTables(daoMaster.getDatabase(), true);
-    }
-
-    /**
-     * 插入一条记录
-     *
-     * @param userInfo 用户信息
-     */
-    public void insertUserInfo(UserInfo userInfo) {
-        DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
-        DaoSession daoSession = daoMaster.newSession();
-        UserInfoDao userInfoDao = daoSession.getUserInfoDao();
-        userInfoDao.insertOrReplace(userInfo);
-    }
-
-    /**
-     * 插入用户集合
-     *
-     * @param userInfos 用户信息List集合
-     */
-    public void insertUserInfo(List<UserInfo> userInfos) {
-        if (userInfos == null || userInfos.isEmpty()) {
-            return;
-        }
-        DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
-        DaoSession daoSession = daoMaster.newSession();
-        UserInfoDao userInfoDao = daoSession.getUserInfoDao();
-        userInfoDao.insertInTx(userInfos);
-    }
-
-    /**
-     * 删除一条记录
-     *
-     * @param userInfo 用户信息
-     */
-    public void deleteUserInfo(UserInfo userInfo) {
-        DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
-        DaoSession daoSession = daoMaster.newSession();
-        UserInfoDao userInfoDao = daoSession.getUserInfoDao();
-        userInfoDao.delete(userInfo);
-    }
-
-    /**
-     * 更新一条记录
-     *
-     * @param userInfo 用户信息
-     */
-    public void updateUserInfo(UserInfo userInfo) {
-        DaoMaster daoMaster = new DaoMaster(getWritableDatabase());
-        DaoSession daoSession = daoMaster.newSession();
-        UserInfoDao userInfoDao = daoSession.getUserInfoDao();
-        userInfoDao.update(userInfo);
-    }
-
-    /**
-     * 查询所有用户
-     *
-     * @return 用户信息集合
-     */
-    public List<UserInfo> queryUserInfos() {
-        DaoMaster daoMaster = new DaoMaster(getReadableDatabase());
-        DaoSession daoSession = daoMaster.newSession();
-        UserInfoDao userInfoDao = daoSession.getUserInfoDao();
-        QueryBuilder<UserInfo> qb = userInfoDao.queryBuilder();
-        return qb.list();
-    }
-
-    /**
-     * 查询用户列表
-     *
-     * @param gender 性别
-     * @return 用户信息集合
-     */
-    public List<UserInfo> queryUserInfos(int gender) {
-        DaoMaster daoMaster = new DaoMaster(getReadableDatabase());
-        DaoSession daoSession = daoMaster.newSession();
-        UserInfoDao userInfoDao = daoSession.getUserInfoDao();
-        QueryBuilder<UserInfo> qb = userInfoDao.queryBuilder();
-        qb.where(UserInfoDao.Properties.Gender.eq(gender)).orderAsc(UserInfoDao.Properties.Age);
-        return qb.list();
     }
 }
