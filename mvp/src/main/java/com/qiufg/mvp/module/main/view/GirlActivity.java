@@ -1,10 +1,7 @@
 package com.qiufg.mvp.module.main.view;
 
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.qiufg.mvp.R;
+import com.qiufg.mvp.module.base.BaseActivity;
 import com.qiufg.mvp.module.main.presenter.GirlPresenter;
 import com.qiufg.mvp.util.ToastUtils;
 
@@ -16,22 +13,21 @@ import butterknife.OnClick;
  * <p>
  * Desc：主页面
  */
-public class GirlActivity extends AppCompatActivity implements GirlView {
-
-    private GirlPresenter mPresenter;
+public class GirlActivity extends BaseActivity<GirlPresenter> implements GirlView {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        mPresenter = new GirlPresenter(this);
+    protected int createView() {
+        return R.layout.activity_main;
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter = null;
+    protected GirlPresenter createPresenter() {
+        return new GirlPresenter();
+    }
+
+    @Override
+    protected void viewCreated() {
+        ButterKnife.bind(this);
     }
 
     @Override

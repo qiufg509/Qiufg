@@ -1,4 +1,4 @@
-package com.qiufg.mvp.module.main.model;
+package com.qiufg.mvp.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -2,16 +2,14 @@ package com.qiufg.mvp.module.main.presenter;
 
 import com.qiufg.mvp.exception.ErrorAction;
 import com.qiufg.mvp.exception.ForestException;
-import com.qiufg.mvp.module.base.IPresenter;
-import com.qiufg.mvp.module.base.IView;
-import com.qiufg.mvp.module.main.view.GirlView;
+import com.qiufg.mvp.module.base.BasePresenter;
 import com.qiufg.mvp.module.main.model.GirlModel;
-import com.qiufg.mvp.module.main.model.GirlsBean;
+import com.qiufg.mvp.bean.GirlsBean;
+import com.qiufg.mvp.module.main.view.GirlView;
 import com.qiufg.mvp.net.respond.ResultArray;
 
 import java.lang.ref.WeakReference;
 
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
@@ -20,33 +18,20 @@ import io.reactivex.functions.Consumer;
  * <p>
  * Desc：
  */
-public class GirlPresenter implements IPresenter {
+public class GirlPresenter extends BasePresenter<GirlView> {
 
-    private GirlView mView;
     private GirlModel mModel;
-    private CompositeDisposable mDisposable;
 
-    public GirlPresenter(GirlView view) {
+    public GirlPresenter() {
         mModel = new GirlModel();
-        mDisposable = new CompositeDisposable();
-    }
-
-    @Override
-    public void attach(IView view) {
-    }
-
-    @Override
-    public void detach() {
-        if (mDisposable != null && !mDisposable.isDisposed()) {
-            mDisposable.dispose();
-        }
-        mView=null;
     }
 
     public void getData(int number, int page) {
+        mView.showLoading();
         Disposable disposable = mModel.getData(number, page, new Subscriber(mView), new ErrorAction() {
             @Override
             public void doNext(ForestException e) {
+                mView.hideLoading();
                 mView.getDataFail();
             }
         });
@@ -63,7 +48,9 @@ public class GirlPresenter implements IPresenter {
         @Override
         public void accept(ResultArray<GirlsBean> data) {
             if (mReference != null && mReference.get() != null) {
-                mReference.get().getDataSuccess();
+                GirlView view = mReference.get();
+                view.getDataSuccess();
+                view.hideLoading();
             }
         }
     }

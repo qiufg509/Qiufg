@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.qiufg.mvp.App;
-import com.qiufg.mvp.module.main.model.DaoMaster;
+import com.qiufg.mvp.bean.DaoMaster;
 
 import java.lang.ref.SoftReference;
 

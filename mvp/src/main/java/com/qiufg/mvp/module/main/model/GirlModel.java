@@ -1,5 +1,6 @@
 package com.qiufg.mvp.module.main.model;
 
+import com.qiufg.mvp.bean.GirlsBean;
 import com.qiufg.mvp.bus.RxSchedulers;
 import com.qiufg.mvp.exception.ErrorAction;
 import com.qiufg.mvp.net.HttpClient;

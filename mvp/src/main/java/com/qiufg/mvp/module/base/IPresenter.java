@@ -5,9 +5,9 @@ package com.qiufg.mvp.module.base;
  * <p>
  * Desc：
  */
-public interface IPresenter {
+public interface IPresenter<V extends IView> {
 
-    void attach(IView view);
+    void attach(V view);
 
     void detach();
 }

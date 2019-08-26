@@ -1,8 +1,8 @@
 package com.qiufg.mvp.module.base;
 
 import android.os.Bundle;
-import android.view.View;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
  * <p>
  * Desc：
  */
-public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivity implements IView {
+public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity implements IView {
 
-    protected T mPresenter;
+    protected P mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,17 +24,18 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
         if (mPresenter == null) {
             throw new IllegalStateException("Please call mPresenter in BaseMVPActivity(createPresenter) to create!");
         } else {
+            //noinspection unchecked
             mPresenter.attach(this);
         }
-
         viewCreated();
     }
 
+    protected abstract @LayoutRes
+    int createView();
+
+    protected abstract P createPresenter();
+
     protected abstract void viewCreated();
-
-    protected abstract T createPresenter();
-
-    protected abstract View createView();
 
     @Override
     protected void onDestroy() {

@@ -1,5 +1,6 @@
 package com.qiufg.mvp.module.main.model;
 
+import com.qiufg.mvp.bean.GirlsBean;
 import com.qiufg.mvp.net.ServiceUrls;
 import com.qiufg.mvp.net.respond.ResultArray;
 

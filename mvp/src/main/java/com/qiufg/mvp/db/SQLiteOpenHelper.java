@@ -3,8 +3,8 @@ package com.qiufg.mvp.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.qiufg.mvp.module.main.model.DaoMaster;
-import com.qiufg.mvp.module.main.model.GirlsBeanDao;
+import com.qiufg.mvp.bean.DaoMaster;
+import com.qiufg.mvp.bean.GirlsBeanDao;
 
 import org.greenrobot.greendao.database.Database;
 
