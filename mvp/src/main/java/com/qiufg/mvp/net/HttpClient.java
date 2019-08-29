@@ -9,12 +9,20 @@ import com.qiufg.mvp.db.DBManager;
 import com.qiufg.mvp.util.Logger;
 import com.qiufg.mvp.util.SPUtils;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Proxy;
-import java.security.GeneralSecurityException;
+import java.security.KeyManagementException;
 import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
@@ -117,16 +125,53 @@ public class HttpClient {
                 ? new OkHttpClient.Builder()
                 .addInterceptor(new HttpLogInterceptor(HttpClient.class.getSimpleName()))
                 : new OkHttpClient.Builder();
-        SSLSocketFactory sslSocketFactory = getSSLSocketFactory();
-        if (sslSocketFactory != null) {
-            builder.sslSocketFactory(sslSocketFactory)
-                    .hostnameVerifier(new UnSafeHostnameVerifier());
-        }
+//        trustSafeHost(builder);
+//        trustAll(builder);
         return builder.connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .proxy(Proxy.NO_PROXY)
                 .build();
+    }
+
+    /**
+     * 信任证书认证
+     *
+     * @param builder OkHttpClient.Builder
+     */
+    private void trustSafeHost(OkHttpClient.Builder builder) {
+        char[] password = getPassword();
+        KeyStore keyStore = getKeyStore(password);
+        X509TrustManager trustManager = getTrustManager(keyStore);
+        SSLSocketFactory sslSocketFactory = getSSLSocketFactory(password, keyStore, trustManager);
+//        SSLSocketFactory sslSocketFactory1 = _getSSLSocketFactory();
+        if (sslSocketFactory != null && trustManager != null) {
+            builder.sslSocketFactory(sslSocketFactory, trustManager)
+                    .hostnameVerifier(new UnSafeHostnameVerifier());
+        }
+    }
+
+    /**
+     * 全部信任
+     *
+     * @param builder OkHttpClient.Builder
+     */
+    private void trustAll(OkHttpClient.Builder builder) {
+        try {
+            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+            trustManagerFactory.init((KeyStore) null);
+            TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
+            if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
+                throw new IllegalStateException("Unexpected default trust managers:" + Arrays.toString(trustManagers));
+            }
+            X509TrustManager trustManager = (X509TrustManager) trustManagers[0];
+            SSLContext sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, new TrustManager[]{trustManager}, null);
+            SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+            builder.sslSocketFactory(sslSocketFactory, trustManager);
+        } catch (NoSuchAlgorithmException | KeyStoreException | KeyManagementException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -143,7 +188,38 @@ public class HttpClient {
         sRetrofit = null;
     }
 
-    private SSLSocketFactory getSSLSocketFactory() {
+    /**
+     * pem格式证书
+     *
+     * @return SSLSocketFactory
+     */
+    private SSLSocketFactory getSSLSocketFactory(char[] password, KeyStore keyStore, X509TrustManager trustManager) {
+        try {
+            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(
+                    KeyManagerFactory.getDefaultAlgorithm());
+            keyManagerFactory.init(keyStore, password);
+            SSLContext ssContext = SSLContext.getInstance("SSL");
+            ssContext.init(keyManagerFactory.getKeyManagers(), new TrustManager[]{trustManager}, null);
+            return ssContext.getSocketFactory();
+        } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException | KeyManagementException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private char[] getPassword() {
+        try {
+            BufferedSource buffer = Okio.buffer(Okio.source(App.getInstance().getResources().openRawResource(R.raw.https_key)));
+            String result = buffer.readByteString().utf8();
+            buffer.close();
+            return result.toCharArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private KeyStore getKeyStore(char[] password) {
         try {
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
             Collection<? extends Certificate> certificates = certificateFactory.generateCertificates(
@@ -151,22 +227,22 @@ public class HttpClient {
             if (certificates.isEmpty()) {
                 throw new IllegalArgumentException("expected non-empty set of trusted certificates");
             }
-
-            // Put the certificates a key store.
-            String clientKetPassword = getPassword();
-            char[] password = clientKetPassword.toCharArray(); // Any password will work.
-            KeyStore keyStore = newEmptyKeyStore(password);
+            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+            keyStore.load(null, password);
             int index = 0;
             for (Certificate certificate : certificates) {
                 String certificateAlias = Integer.toString(index++);
                 keyStore.setCertificateEntry(certificateAlias, certificate);
             }
+            return keyStore;
+        } catch (CertificateException | KeyStoreException | IOException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-            //  keyStore.load(in,clientKetPassword.toCharArray());
-            // Use it to build an X509 trust manager.
-            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(
-                    KeyManagerFactory.getDefaultAlgorithm());
-            keyManagerFactory.init(keyStore, password);
+    private X509TrustManager getTrustManager(KeyStore keyStore) {
+        try {
             TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(
                     TrustManagerFactory.getDefaultAlgorithm());
             trustManagerFactory.init(keyStore);
@@ -175,39 +251,11 @@ public class HttpClient {
                 throw new IllegalStateException("Unexpected default trust managers:"
                         + Arrays.toString(trustManagers));
             }
-
-            SSLContext ssContext = SSLContext.getInstance("SSL");
-            ssContext.init(keyManagerFactory.getKeyManagers(), trustManagers, null);
-            //return (X509TrustManager) trustManagers[0];
-            return ssContext.getSocketFactory();
-        } catch (GeneralSecurityException e) {
+            return (X509TrustManager) trustManagers[0];
+        } catch (NoSuchAlgorithmException | KeyStoreException e) {
             e.printStackTrace();
         }
         return null;
-    }
-
-
-    private KeyStore newEmptyKeyStore(char[] password) throws GeneralSecurityException {
-        try {
-            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-            keyStore.load(null, password);
-            return keyStore;
-        } catch (IOException e) {
-            throw new AssertionError(e);
-        }
-    }
-
-    private String getPassword() {
-        String result;
-        try {
-            BufferedSource buffer = Okio.buffer(Okio.source(App.getInstance().getResources().openRawResource(R.raw.https_key)));
-            result = buffer.readByteString().utf8();
-            buffer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            result = "";
-        }
-        return result;
     }
 
     private class UnSafeHostnameVerifier implements HostnameVerifier {
@@ -216,5 +264,49 @@ public class HttpClient {
         public boolean verify(String hostname, SSLSession session) {
             return true;//自行添加判断逻辑，true->Safe，false->unsafe
         }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * crt格式证书
+     *
+     * @return SSLSocketFactory
+     */
+    private SSLSocketFactory _getSSLSocketFactory() {
+        InputStream caInput = null;
+        try {
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+            // uwca.crt 打包在 asset 中，该证书可以从https://itconnect.uw.edu/security/securing-computer/install/safari-os-x/下载
+            caInput = new BufferedInputStream(App.getInstance().getAssets().open("https.crt"));
+            Certificate ca = cf.generateCertificate(caInput);
+            Logger.i("Longer", "ca=" + ((X509Certificate) ca).getSubjectDN());
+            Logger.i("Longer", "key=" + ca.getPublicKey());
+            // Create a KeyStore containing our trusted CAs
+            String keyStoreType = KeyStore.getDefaultType();
+            KeyStore keyStore = KeyStore.getInstance(keyStoreType);
+            keyStore.load(null, null);
+            keyStore.setCertificateEntry("ca", ca);
+            // Create a TrustManager that trusts the CAs in our KeyStore
+            String tmfAlgorithm = TrustManagerFactory.getDefaultAlgorithm();
+            TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlgorithm);
+            tmf.init(keyStore);
+            // Create an SSLContext that uses our TrustManager
+            SSLContext context = SSLContext.getInstance("TLSv1", "AndroidOpenSSL");
+            context.init(null, tmf.getTrustManagers(), null);
+            return context.getSocketFactory();
+        } catch (CertificateException | IOException | NoSuchAlgorithmException
+                | KeyStoreException | KeyManagementException | NoSuchProviderException e) {
+            e.printStackTrace();
+        } finally {
+            if (caInput != null) {
+                try {
+                    caInput.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
     }
 }

@@ -1,10 +1,10 @@
 package com.qiufg.mvp.module.main.presenter;
 
+import com.qiufg.mvp.bean.GirlsBean;
 import com.qiufg.mvp.exception.ErrorAction;
 import com.qiufg.mvp.exception.ForestException;
 import com.qiufg.mvp.module.base.BasePresenter;
 import com.qiufg.mvp.module.main.model.GirlModel;
-import com.qiufg.mvp.bean.GirlsBean;
 import com.qiufg.mvp.module.main.view.GirlView;
 import com.qiufg.mvp.net.respond.ResultArray;
 
