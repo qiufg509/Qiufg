@@ -1,4 +1,4 @@
-package com.qiufg.mvp.module.main.view;
+package com.qiufg.mvp.module.girl.view;
 
 import com.qiufg.mvp.module.base.IView;
 

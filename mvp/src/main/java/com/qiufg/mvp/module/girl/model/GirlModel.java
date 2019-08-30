@@ -1,4 +1,4 @@
-package com.qiufg.mvp.module.main.model;
+package com.qiufg.mvp.module.girl.model;
 
 import com.qiufg.mvp.bean.GirlsBean;
 import com.qiufg.mvp.bus.RxSchedulers;

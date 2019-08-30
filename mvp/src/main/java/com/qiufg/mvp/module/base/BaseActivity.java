@@ -6,6 +6,8 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.gyf.immersionbar.ImmersionBar;
+
 /**
  * Created by fengguang.qiu on 2019/08/12 15:43.
  * <p>
@@ -19,7 +21,7 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(createView());
-
+        ImmersionBar.with(this).navigationBarEnable(false).init();
         mPresenter = createPresenter();
         if (mPresenter == null) {
             throw new IllegalStateException("Please call mPresenter in BaseMVPActivity(createPresenter) to create!");

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.qiufg.mvp.App;
 import com.qiufg.mvp.R;
 import com.qiufg.mvp.db.DBManager;
+import com.qiufg.mvp.module.girl.model.GirlApi;
 import com.qiufg.mvp.util.Logger;
 import com.qiufg.mvp.util.SPUtils;
 
@@ -48,7 +49,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * <p>
  * Desc：网络请求controller
  * <p>
- * 网络请求步骤 见{@link com.qiufg.mvp.module.main.model.GirlApi}
+ * 网络请求步骤 见{@link GirlApi}
  * <p>
  * 一个服务器地址对应一个api
  * 调用不同服务器接口需要在此对应api获取方法
@@ -97,7 +98,7 @@ public class HttpClient {
     /**
      * 获取网络请求接口
      *
-     * @return 上传数据结果 {@link com.qiufg.mvp.module.main.model.GirlApi}
+     * @return 上传数据结果 {@link GirlApi}
      */
     private Retrofit getRetrofit() {
         if (sRetrofit == null) {

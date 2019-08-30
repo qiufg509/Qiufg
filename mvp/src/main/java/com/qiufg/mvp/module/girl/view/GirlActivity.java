@@ -1,8 +1,8 @@
-package com.qiufg.mvp.module.main.view;
+package com.qiufg.mvp.module.girl.view;
 
 import com.qiufg.mvp.R;
 import com.qiufg.mvp.module.base.BaseActivity;
-import com.qiufg.mvp.module.main.presenter.GirlPresenter;
+import com.qiufg.mvp.module.girl.presenter.GirlPresenter;
 import com.qiufg.mvp.util.ToastUtils;
 
 import butterknife.ButterKnife;
@@ -17,7 +17,7 @@ public class GirlActivity extends BaseActivity<GirlPresenter> implements GirlVie
 
     @Override
     protected int createView() {
-        return R.layout.activity_main;
+        return R.layout.activity_girl;
     }
 
     @Override

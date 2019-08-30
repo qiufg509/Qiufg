@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".module.main.view.GirlActivity">
+        <activity
+            android:name=".module.main.view.MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -26,6 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".module.girl.view.GirlActivity"
+            android:launchMode="singleTop" />
 
         <meta-data
             android:name="com.openinstall.APP_KEY"
