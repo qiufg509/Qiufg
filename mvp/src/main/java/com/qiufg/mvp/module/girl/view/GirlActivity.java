@@ -21,7 +21,7 @@ public class GirlActivity extends BaseActivity<GirlPresenter> implements GirlVie
     }
 
     @Override
-    protected GirlPresenter createPresenter() {
+    protected GirlPresenter initPresenter() {
         return new GirlPresenter();
     }
 

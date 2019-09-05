@@ -21,10 +21,14 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(createView());
-        ImmersionBar.with(this).navigationBarEnable(false).init();
-        mPresenter = createPresenter();
+        ImmersionBar.with(this)
+                .statusBarDarkFont(true, 0.2f)
+                .navigationBarEnable(false)
+                .fitsSystemWindows(true)
+                .init();
+        mPresenter = initPresenter();
         if (mPresenter == null) {
-            throw new IllegalStateException("Please call mPresenter in BaseMVPActivity(createPresenter) to create!");
+            throw new IllegalStateException("Please call mPresenter in BaseActivity(initPresenter) to create!");
         } else {
             //noinspection unchecked
             mPresenter.attach(this);
@@ -35,7 +39,7 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     protected abstract @LayoutRes
     int createView();
 
-    protected abstract P createPresenter();
+    protected abstract P initPresenter();
 
     protected abstract void viewCreated();
 

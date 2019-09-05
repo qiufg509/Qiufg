@@ -1,20 +1,26 @@
 package com.qiufg.mvp.module.main.view;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.viewpager.widget.ViewPager;
 
 import com.qiufg.mvp.R;
+import com.qiufg.mvp.adapter.MainPagerAdapter;
+import com.qiufg.mvp.listener.OnFragmentInteractionListener;
 import com.qiufg.mvp.module.base.BaseActivity;
+import com.qiufg.mvp.module.base.BaseFragment;
 import com.qiufg.mvp.module.main.presenter.MainPresenter;
 import com.qiufg.mvp.wedget.CustomViewPager;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainView, ViewPager.OnPageChangeListener {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainView, ViewPager.OnPageChangeListener, OnFragmentInteractionListener {
 
     private static final int NAVI_INDEX_HOME = 0;
     private static final int NAVI_INDEX_CATEGORY = 1;
@@ -37,7 +43,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     }
 
     @Override
-    protected MainPresenter createPresenter() {
+    protected MainPresenter initPresenter() {
         return new MainPresenter();
     }
 
@@ -45,6 +51,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     protected void viewCreated() {
         ButterKnife.bind(this);
         mViewPager.addOnPageChangeListener(this);
+
+        List<BaseFragment> fragments = mPresenter.getFragments();
+        MainPagerAdapter pagerAdapter = new MainPagerAdapter<>(getSupportFragmentManager(), fragments);
+        mViewPager.setOffscreenPageLimit(3);//用来控制Fragment不重走生命周期的方法
+        mViewPager.setAdapter(pagerAdapter);
+        mLayoutHome.setSelected(true);
     }
 
     @OnClick({R.id.ll_home, R.id.ll_category, R.id.ll_service, R.id.ll_mine})
@@ -101,5 +113,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
         mLayoutService.setSelected(false);
         mLayoutMine.setSelected(false);
         layout.setSelected(true);
+    }
+
+    @Override
+    public void onFragmentInteraction(Bundle bundle) {
+
     }
 }
