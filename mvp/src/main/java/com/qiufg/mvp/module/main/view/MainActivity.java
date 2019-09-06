@@ -1,11 +1,13 @@
 package com.qiufg.mvp.module.main.view;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.LinearLayout;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 import com.qiufg.mvp.R;
 import com.qiufg.mvp.adapter.MainPagerAdapter;
 import com.qiufg.mvp.listener.OnFragmentInteractionListener;
@@ -18,24 +20,19 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainView, ViewPager.OnPageChangeListener, OnFragmentInteractionListener {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainView,
+        ViewPager.OnPageChangeListener, NavigationView.OnNavigationItemSelectedListener,
+        OnFragmentInteractionListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     private static final int NAVI_INDEX_HOME = 0;
     private static final int NAVI_INDEX_CATEGORY = 1;
-    private static final int NAVI_INDEX_SERVICE = 2;
+    private static final int NAVI_INDEX_NOTE = 2;
     private static final int NAVI_INDEX_MINE = 3;
     @BindView(R.id.viewPager)
     CustomViewPager mViewPager;
-    @BindView(R.id.ll_home)
-    LinearLayout mLayoutHome;
-    @BindView(R.id.ll_category)
-    LinearLayout mLayoutCategory;
-    @BindView(R.id.ll_service)
-    LinearLayout mLayoutService;
-    @BindView(R.id.ll_mine)
-    LinearLayout mLayoutMine;
+    @BindView(R.id.nav_view)
+    BottomNavigationView mNaviView;
 
     @Override
     protected int createView() {
@@ -54,31 +51,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
 
         List<BaseFragment> fragments = mPresenter.getFragments();
         MainPagerAdapter pagerAdapter = new MainPagerAdapter<>(getSupportFragmentManager(), fragments);
-        mViewPager.setOffscreenPageLimit(3);//用来控制Fragment不重走生命周期的方法
+        mViewPager.setOffscreenPageLimit(fragments.size() - 1);//用来控制Fragment不重走生命周期的方法
         mViewPager.setAdapter(pagerAdapter);
-        mLayoutHome.setSelected(true);
-    }
-
-    @OnClick({R.id.ll_home, R.id.ll_category, R.id.ll_service, R.id.ll_mine})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ll_home:
-                mViewPager.setCurrentItem(NAVI_INDEX_HOME);
-                tabSelected(mLayoutHome);
-                break;
-            case R.id.ll_category:
-                mViewPager.setCurrentItem(NAVI_INDEX_CATEGORY);
-                tabSelected(mLayoutCategory);
-                break;
-            case R.id.ll_service:
-                mViewPager.setCurrentItem(NAVI_INDEX_SERVICE);
-                tabSelected(mLayoutService);
-                break;
-            case R.id.ll_mine:
-                mViewPager.setCurrentItem(NAVI_INDEX_MINE);
-                tabSelected(mLayoutMine);
-                break;
-        }
+        mNaviView.setOnNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -89,16 +64,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     public void onPageSelected(int position) {
         switch (position) {
             case NAVI_INDEX_HOME:
-                tabSelected(mLayoutHome);
+                mNaviView.setSelectedItemId(R.id.navigation_home);
                 break;
             case NAVI_INDEX_CATEGORY:
-                tabSelected(mLayoutCategory);
+                mNaviView.setSelectedItemId(R.id.navigation_catalog);
                 break;
-            case NAVI_INDEX_SERVICE:
-                tabSelected(mLayoutService);
+            case NAVI_INDEX_NOTE:
+                mNaviView.setSelectedItemId(R.id.navigation_note);
                 break;
             case NAVI_INDEX_MINE:
-                tabSelected(mLayoutMine);
+                mNaviView.setSelectedItemId(R.id.navigation_mine);
                 break;
         }
     }
@@ -107,16 +82,41 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     public void onPageScrollStateChanged(int state) {
     }
 
-    private void tabSelected(LinearLayout layout) {
-        mLayoutHome.setSelected(false);
-        mLayoutCategory.setSelected(false);
-        mLayoutService.setSelected(false);
-        mLayoutMine.setSelected(false);
-        layout.setSelected(true);
-    }
-
     @Override
     public void onFragmentInteraction(Bundle bundle) {
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.navigation_home:
+                mViewPager.setCurrentItem(NAVI_INDEX_HOME,
+                        mViewPager.getCurrentItem() == NAVI_INDEX_CATEGORY);
+                return true;
+            case R.id.navigation_catalog:
+                mViewPager.setCurrentItem(NAVI_INDEX_CATEGORY,
+                        mViewPager.getCurrentItem() == NAVI_INDEX_HOME
+                                || mViewPager.getCurrentItem() == NAVI_INDEX_NOTE);
+                return true;
+            case R.id.navigation_note:
+                mViewPager.setCurrentItem(NAVI_INDEX_NOTE,
+                        mViewPager.getCurrentItem() == NAVI_INDEX_CATEGORY
+                                || mViewPager.getCurrentItem() == NAVI_INDEX_MINE);
+                return true;
+            case R.id.navigation_mine:
+                mViewPager.setCurrentItem(NAVI_INDEX_MINE,
+                        mViewPager.getCurrentItem() == NAVI_INDEX_NOTE);
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        mViewPager.removeOnPageChangeListener(this);
+        mViewPager.setAdapter(null);
+        mNaviView.setOnNavigationItemSelectedListener(null);
+        super.onDestroy();
     }
 }
