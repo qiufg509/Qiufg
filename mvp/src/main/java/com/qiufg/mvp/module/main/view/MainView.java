@@ -5,7 +5,7 @@ import com.qiufg.mvp.module.base.IView;
 /**
  * Created by fengguang.qiu on 2019/08/29 11:52.
  * <p>
- * Desc：
+ * Desc：主界面View接口
  */
 public interface MainView extends IView {
 }

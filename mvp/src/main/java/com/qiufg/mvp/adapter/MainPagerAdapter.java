@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by fengguang.qiu on 2019/09/03 14:09.
  * <p>
- * Desc：
+ * Desc：主页界面切换适配器
  */
 public class MainPagerAdapter<T extends BaseFragment> extends FragmentPagerAdapter {
 

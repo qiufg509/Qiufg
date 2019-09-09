@@ -21,6 +21,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Created by fengguang.qiu on 2019/08/8 18:09.
+ * <p>
+ * Desc：主界面Activity
+ */
 public class MainActivity extends BaseActivity<MainPresenter> implements MainView,
         ViewPager.OnPageChangeListener, NavigationView.OnNavigationItemSelectedListener,
         OnFragmentInteractionListener, BottomNavigationView.OnNavigationItemSelectedListener {

@@ -2,6 +2,7 @@ package com.qiufg.mvp.wedget;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
@@ -11,7 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 /**
  * Created by fengguang.qiu on 2019/08/30 11:03.
  * <p>
- * Desc：
+ * Desc：可以禁用滑动功能的ViewPager
  */
 public class CustomViewPager extends ViewPager {
 
@@ -48,6 +49,11 @@ public class CustomViewPager extends ViewPager {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         return isScroll && super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
+    public boolean executeKeyEvent(@NonNull KeyEvent event) {
+        return isScroll && super.executeKeyEvent(event);
     }
 
     @Override

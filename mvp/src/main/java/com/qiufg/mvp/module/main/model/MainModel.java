@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by fengguang.qiu on 2019/08/29 11:45.
  * <p>
- * Desc：
+ * Desc：主界面Model
  */
 public class MainModel {
 

@@ -42,6 +42,10 @@ public class App extends Application {
         return (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
     }
 
+    public static RefWatcher getRefWatcher() {
+        return INSTANCE.mRefWatcher;
+    }
+
     private void registerLifecycle() {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override

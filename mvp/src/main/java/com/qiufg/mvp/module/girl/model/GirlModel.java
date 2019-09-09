@@ -12,7 +12,7 @@ import io.reactivex.functions.Consumer;
 /**
  * Created by fengguang.qiu on 2019/08/12 17:11.
  * <p>
- * Desc：
+ * Desc：首页（美女们）Model
  */
 public class GirlModel {
 

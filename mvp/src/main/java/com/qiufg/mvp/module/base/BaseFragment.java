@@ -10,13 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.qiufg.mvp.App;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
  * Created by fengguang.qiu on 2019/08/12 15:44.
  * <p>
- * Desc：
+ * Desc：基类Fragment
  */
 public abstract class BaseFragment<P extends IPresenter> extends Fragment implements IView {
 
@@ -52,6 +54,12 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
         if (mBinder != null) {
             mBinder.unbind();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        App.getRefWatcher().watch(this);
     }
 
     protected abstract @LayoutRes

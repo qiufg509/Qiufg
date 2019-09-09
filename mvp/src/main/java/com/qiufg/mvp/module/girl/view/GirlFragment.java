@@ -12,6 +12,11 @@ import com.qiufg.mvp.module.girl.presenter.GirlPresenter;
 
 import butterknife.BindView;
 
+/**
+ * Created by fengguang.qiu on 2019/08/12 17:51.
+ * <p>
+ * Desc：首页（美女们）页面
+ */
 public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlView {
 
     private static final String ARG_TITLE = "title";

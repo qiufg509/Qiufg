@@ -11,7 +11,7 @@ import retrofit2.http.Path;
 /**
  * Created by fengguang.qiu on 2019/08/12 17:08.
  * <p>
- * Desc：
+ * Desc：首页（美女们）服务器数据接口
  */
 public interface GirlApi {
 

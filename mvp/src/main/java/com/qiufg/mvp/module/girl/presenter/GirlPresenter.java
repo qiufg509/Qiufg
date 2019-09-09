@@ -16,7 +16,7 @@ import io.reactivex.functions.Consumer;
 /**
  * Created by fengguang.qiu on 2019/08/12 17:54.
  * <p>
- * Desc：
+ * Desc：首页（美女们）Presenter
  */
 public class GirlPresenter extends BasePresenter<GirlView> {
 

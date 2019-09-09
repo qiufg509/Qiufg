@@ -12,7 +12,7 @@ import org.greenrobot.greendao.annotation.Generated;
 /**
  * Created by fengguang.qiu on 2019/08/13 11:13.
  * <p>
- * Desc：
+ * Desc：首页（美女们）数据bean
  */
 @Entity
 public class GirlsBean implements Parcelable {

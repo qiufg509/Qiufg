@@ -11,7 +11,7 @@ import com.gyf.immersionbar.ImmersionBar;
 /**
  * Created by fengguang.qiu on 2019/08/12 15:43.
  * <p>
- * Desc：
+ * Desc：基类Activity
  */
 public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity implements IView {
 

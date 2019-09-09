@@ -10,14 +10,15 @@ android {
         minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
+        resConfigs('zh-rCN')
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
         release {
+            shrinkResources false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -30,6 +31,14 @@ android {
 
     greendao {
         schemaVersion 1 //数据库版本号
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    lintOptions {
+        abortOnError false
     }
 }
 
@@ -59,5 +68,4 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.zxing:core:3.3.3'
     implementation 'com.meituan.android.walle:library:1.1.6'
-
 }

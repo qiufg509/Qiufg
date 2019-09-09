@@ -5,7 +5,7 @@ import io.reactivex.disposables.CompositeDisposable;
 /**
  * Created by fengguang.qiu on 2019/08/22 09:33.
  * <p>
- * Desc：
+ * Desc：基类IPresenter
  */
 public class BasePresenter<V extends IView> implements IPresenter<V> {
 
