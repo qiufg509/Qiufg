@@ -7,8 +7,6 @@ package com.qiufg.mvp.net;
  */
 public interface ServiceUrls {
 
-    String SERVER_URL = "https://gank.io/";
+    String SERVER_URL = "http://gank.io/";
     String TEST_TEST_GANK = "api/data/福利/{number}/{page}";
-    String TEST_TEST_BAIKE = "api/openapi/BaikeLemmaCardApi";
-    String API_TEST_UPLOAD = "v1/user/upload";
 }

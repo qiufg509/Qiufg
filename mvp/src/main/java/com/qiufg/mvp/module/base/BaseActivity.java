@@ -55,9 +55,4 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     public void showLoading() {
 
     }
-
-    @Override
-    public void hideLoading() {
-
-    }
 }

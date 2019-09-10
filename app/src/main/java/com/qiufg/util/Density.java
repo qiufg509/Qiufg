@@ -5,7 +5,7 @@ import android.content.Context;
 /**
  * Density
  *
- * @author 丘凤光
+ * @author fengguang.qiu
  * @description AndroidUI相关单位互换
  * @date 2015-4-1
  * @modifier

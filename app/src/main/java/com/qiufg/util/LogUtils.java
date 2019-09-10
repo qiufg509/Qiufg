@@ -7,7 +7,7 @@ import com.qiufg.BuildConfig;
 /**
  * LogUtils
  *
- * @author 丘凤光
+ * @author fengguang.qiu
  * @description 日志工具类
  * @date 2015-3-3
  * @modifier victor

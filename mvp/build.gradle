@@ -68,4 +68,6 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.zxing:core:3.3.3'
     implementation 'com.meituan.android.walle:library:1.1.6'
+    implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
 }

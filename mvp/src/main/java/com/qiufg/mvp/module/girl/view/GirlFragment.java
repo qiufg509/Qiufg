@@ -3,12 +3,16 @@ package com.qiufg.mvp.module.girl.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.qiufg.mvp.R;
 import com.qiufg.mvp.listener.OnFragmentInteractionListener;
 import com.qiufg.mvp.module.base.BaseFragment;
 import com.qiufg.mvp.module.girl.presenter.GirlPresenter;
+import com.youth.banner.Banner;
 
 import butterknife.BindView;
 
@@ -20,8 +24,14 @@ import butterknife.BindView;
 public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlView {
 
     private static final String ARG_TITLE = "title";
-    @BindView(R.id.title)
-    TextView mTitle;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.banner)
+    Banner mBanner;
+    @BindView(R.id.recycler)
+    RecyclerView mRecycler;
+    @BindView(R.id.refreshLayout)
+    TwinklingRefreshLayout mRefreshLayout;
 
     private String mTitleString;
 
@@ -72,16 +82,22 @@ public class GirlFragment extends BaseFragment<GirlPresenter> implements GirlVie
 
     @Override
     protected void viewCreated(View view) {
-        mTitle.setText(mTitleString);
+        mToolbar.setTitle(mTitleString);
+        mPresenter.getHeadImage(5, 1);
+//        mBanner.setImages(mImages)
+//                .setImageLoader(new GlideImageLoader())
+//                .setDelayTime(5000)
+//                .start();
     }
 
     @Override
     public void getDataSuccess() {
-
+        mStatusManager.showComplete();
     }
 
     @Override
     public void getDataFail() {
-
+        mStatusManager.showError(mRefreshLayout);
+        mRecycler.setVisibility(View.GONE);
     }
 }

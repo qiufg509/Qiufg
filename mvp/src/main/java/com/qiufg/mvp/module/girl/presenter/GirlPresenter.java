@@ -26,12 +26,11 @@ public class GirlPresenter extends BasePresenter<GirlView> {
         mModel = new GirlModel();
     }
 
-    public void getData(int number, int page) {
+    public void getHeadImage(int number, int page) {
         mView.showLoading();
         Disposable disposable = mModel.getData(number, page, new Subscriber(mView), new ErrorAction() {
             @Override
             public void doNext(ForestException e) {
-                mView.hideLoading();
                 mView.getDataFail();
             }
         });
@@ -50,7 +49,6 @@ public class GirlPresenter extends BasePresenter<GirlView> {
             if (mReference != null && mReference.get() != null) {
                 GirlView view = mReference.get();
                 view.getDataSuccess();
-                view.hideLoading();
             }
         }
     }

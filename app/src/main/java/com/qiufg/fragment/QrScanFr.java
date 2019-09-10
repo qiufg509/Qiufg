@@ -59,7 +59,7 @@ import static com.qiufg.R.id.QrCode;
  * 9、 DecodeHandler.decode ZXing解码的核心类
  * 10、CaptureActivityHandler 当DecodeHandler.decode完成解码后，系统会向CaptureActivityHandler发消息。如果编码成功则调用CaptureActivity.handleDecode方法对扫描到的结果进行分类处理。
  *
- * @author 丘凤光
+ * @author fengguang.qiu
  */
 public class QrScanFr extends BasePageFragment {
 

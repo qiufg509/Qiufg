@@ -4,7 +4,7 @@ package com.qiufg.events;
  * 
  * ModulesCallBack
  * 
- * @author 丘凤光
+ * @author fengguang.qiu
  * @description 模块切换的回调
  * @date 2015-3-5
  * @modifier victor qiu

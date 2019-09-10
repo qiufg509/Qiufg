@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.qiufg.mvp.App;
+import com.qiufg.mvp.util.StatusManager;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -23,8 +24,10 @@ import butterknife.Unbinder;
 public abstract class BaseFragment<P extends IPresenter> extends Fragment implements IView {
 
     protected P mPresenter;
-    protected View mRootView;
+    private View mRootView;
     private Unbinder mBinder;
+
+    protected final StatusManager mStatusManager = new StatusManager();
 
     @Nullable
     @Override
@@ -71,11 +74,8 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
 
     @Override
     public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
+        if (getActivity() != null) {
+            mStatusManager.showLoading(getActivity());
+        }
     }
 }
