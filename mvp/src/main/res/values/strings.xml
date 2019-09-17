@@ -6,8 +6,9 @@
     <string name="hint_layout_error_request">亲，请求出错了</string>
     <string name="hint_layout_error_network">亲，没有网络了</string>
     <string name="navigation_home">首页</string>
-    <string name="navigation_catalog">分类</string>
+    <string name="navigation_category">分类</string>
     <string name="navigation_note">笔记</string>
     <string name="navigation_mine">我的</string>
+    <string name="title_home_girls">美女们</string>
 
 </resources>

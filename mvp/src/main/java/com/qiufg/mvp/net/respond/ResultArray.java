@@ -27,7 +27,7 @@ public class ResultArray<T> {
         this.error = error;
     }
 
-    public List<?> getResults() {
+    public List<T> getResults() {
         return results;
     }
 

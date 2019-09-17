@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.gyf.immersionbar.ImmersionBar;
 import com.qiufg.mvp.R;
 import com.qiufg.mvp.adapter.MainPagerAdapter;
 import com.qiufg.mvp.listener.OnFragmentInteractionListener;
@@ -72,7 +73,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
                 mNaviView.setSelectedItemId(R.id.navigation_home);
                 break;
             case NAVI_INDEX_CATEGORY:
-                mNaviView.setSelectedItemId(R.id.navigation_catalog);
+                mNaviView.setSelectedItemId(R.id.navigation_category);
                 break;
             case NAVI_INDEX_NOTE:
                 mNaviView.setSelectedItemId(R.id.navigation_note);
@@ -96,10 +97,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.navigation_home:
+                ImmersionBar.with(this).keyboardEnable(false).transparentBar().statusBarDarkFont(false).init();
                 mViewPager.setCurrentItem(NAVI_INDEX_HOME,
                         mViewPager.getCurrentItem() == NAVI_INDEX_CATEGORY);
                 return true;
-            case R.id.navigation_catalog:
+            case R.id.navigation_category:
                 mViewPager.setCurrentItem(NAVI_INDEX_CATEGORY,
                         mViewPager.getCurrentItem() == NAVI_INDEX_HOME
                                 || mViewPager.getCurrentItem() == NAVI_INDEX_NOTE);

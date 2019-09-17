@@ -4,15 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.qiufg.mvp.App;
-import com.qiufg.mvp.util.StatusManager;
+import com.qiufg.mvp.R;
+import com.qiufg.mvp.util.CommonUtils;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -26,8 +34,9 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     protected P mPresenter;
     private View mRootView;
     private Unbinder mBinder;
-
-    protected final StatusManager mStatusManager = new StatusManager();
+    private ViewGroup mHintLayout;
+    @BindView(R.id.toolbar)
+    protected Toolbar mToolbar;
 
     @Nullable
     @Override
@@ -44,6 +53,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
             mPresenter.attach(this);
         }
         mBinder = ButterKnife.bind(this, mRootView);
+        ImmersionBar.setTitleBar(this, mToolbar);
         viewCreated(mRootView);
         return mRootView;
     }
@@ -75,7 +85,38 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     @Override
     public void showLoading() {
         if (getActivity() != null) {
-            mStatusManager.showLoading(getActivity());
+//            mStatusManager.showLoading(getActivity());
         }
+    }
+
+    protected ViewGroup getEmptyView() {
+        return getHintLayout(R.mipmap.icon_hint_empty, R.string.hint_layout_no_data);
+    }
+
+    protected ViewGroup getErrorView() {
+        // 判断当前网络是否可用
+        if (CommonUtils.isNetworkAvailable()) {
+            return getHintLayout(R.mipmap.icon_hint_request, R.string.hint_layout_error_request);
+        } else {
+            return getHintLayout(R.mipmap.icon_hint_nerwork, R.string.hint_layout_error_network);
+        }
+    }
+
+    /**
+     * 获取提示的布局
+     */
+    private ViewGroup getHintLayout(@DrawableRes int iconId, @StringRes int textId) {
+        if (mHintLayout == null) {
+            mHintLayout = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.widget_hint_layout, null);
+        }
+        ImageView imageView = mHintLayout.findViewById(R.id.iv_hint_icon);
+        TextView textView = mHintLayout.findViewById(R.id.iv_hint_text);
+        if (imageView != null) {
+            imageView.setImageDrawable(getResources().getDrawable(iconId));
+        }
+        if (textView != null) {
+            textView.setText(getString(textId));
+        }
+        return mHintLayout;
     }
 }

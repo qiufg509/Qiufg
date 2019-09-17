@@ -1,7 +1,7 @@
 package com.qiufg.mvp.module.main.model;
 
 import com.qiufg.mvp.module.base.BaseFragment;
-import com.qiufg.mvp.module.girl.view.GirlFragment;
+import com.qiufg.mvp.module.home.view.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,10 @@ public class MainModel {
 
     public List<BaseFragment> getData() {
         List<BaseFragment> fragments = new ArrayList<>();
-        GirlFragment girlFragment1 = GirlFragment.newInstance("美女们1");
-        GirlFragment girlFragment2 = GirlFragment.newInstance("美女们2");
-        GirlFragment girlFragment3 = GirlFragment.newInstance("美女们3");
-        GirlFragment girlFragment4 = GirlFragment.newInstance("美女们4");
+        HomeFragment girlFragment1 = HomeFragment.newInstance("美女们1");
+        HomeFragment girlFragment2 = HomeFragment.newInstance("美女们2");
+        HomeFragment girlFragment3 = HomeFragment.newInstance("美女们3");
+        HomeFragment girlFragment4 = HomeFragment.newInstance("美女们4");
         fragments.add(girlFragment1);
         fragments.add(girlFragment2);
         fragments.add(girlFragment3);

@@ -7,6 +7,8 @@ package com.qiufg.mvp.net;
  */
 public interface ServiceUrls {
 
-    String SERVER_URL = "http://gank.io/";
+    String SERVER_GANK = "http://gank.io/";
+    String SERVER_GITHUB = "https://api.github.com/";
     String TEST_TEST_GANK = "api/data/福利/{number}/{page}";
+    String API_BANNER_IMAGES = "repos/qiufg509/Qiufg/contents/images/banner";
 }

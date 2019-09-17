@@ -19,3 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# banner 的混淆代码
+-keep class com.youth.banner.** {
+    *;
+ }
