@@ -73,14 +73,14 @@ public class ErrorAction implements Consumer<Throwable> {
                     DBManager.getInstance().clearAll();
                     SPUtils.clearUser();
                     if (Looper.myLooper() == Looper.getMainLooper()) {
-//                        Intent dialogIntent = new Intent(App.getInstance(), LoginActivity.class);
+//                        Intent dialogIntent = new Intent(App.newInstance(), LoginActivity.class);
 //                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        App.getInstance().startActivity(dialogIntent);
+//                        App.newInstance().startActivity(dialogIntent);
                     } else if (mReference != null && mReference.get() != null && mReference.get() instanceof Activity) {
                         ((Activity) mReference.get()).runOnUiThread(() -> {
-//                            Intent dialogIntent = new Intent(App.getInstance(), LoginActivity.class);
+//                            Intent dialogIntent = new Intent(App.newInstance(), LoginActivity.class);
 //                            dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            App.getInstance().startActivity(dialogIntent);
+//                            App.newInstance().startActivity(dialogIntent);
                         });
                     }
                     break;

@@ -73,7 +73,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     @Override
     protected int createView() {
-        return R.layout.fragment_girl;
+        return R.layout.fragment_home;
     }
 
     @Override
@@ -117,12 +117,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         mRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.getData(mPage = 1);
+                mPresenter.refreshData(mPage = 1);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.getData(++mPage);
+                mPresenter.getGirlData(++mPage);
             }
         });
         mRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {

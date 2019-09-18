@@ -36,6 +36,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     private Unbinder mBinder;
     private ViewGroup mHintLayout;
     @BindView(R.id.toolbar)
+    @Nullable
     protected Toolbar mToolbar;
 
     @Nullable
@@ -53,7 +54,9 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
             mPresenter.attach(this);
         }
         mBinder = ButterKnife.bind(this, mRootView);
-        ImmersionBar.setTitleBar(this, mToolbar);
+        if (mToolbar != null) {
+            ImmersionBar.setTitleBar(this, mToolbar);
+        }
         viewCreated(mRootView);
         return mRootView;
     }

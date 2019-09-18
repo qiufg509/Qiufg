@@ -28,8 +28,8 @@ public class HomeModel {
         mApi = HttpClient.getInstance().createApi(HomeApi.class);
     }
 
-    public Disposable getGirlData(int number, int page, Consumer<List<GirlsBean>> consumer, ErrorAction error) {
-        return mApi.getGirlData(number, page)
+    public Disposable getGirlData(String type, int number, int page, Consumer<List<GirlsBean>> consumer, ErrorAction error) {
+        return mApi.getGirlData(type, number, page)
                 .map(ResultArray::getResults)
                 .compose(RxSchedulers.ioSchedulers()).subscribe(consumer, error);
     }

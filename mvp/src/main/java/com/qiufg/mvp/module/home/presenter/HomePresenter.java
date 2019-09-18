@@ -22,28 +22,42 @@ import io.reactivex.functions.Consumer;
 public class HomePresenter extends BasePresenter<HomeView> {
 
     private static final int NUMBER_PER_PAGE = 10;
+    private static final String TYPE = "福利";
     private HomeModel mModel;
 
     public HomePresenter() {
         mModel = new HomeModel();
     }
 
-    public void getData(int page) {
-        mView.showLoading();
-        Disposable bannerDisposable = mModel.getBannerData(new BannerSubscriber(mView), new ErrorAction() {
+    private void getBannerData() {
+        Disposable disposable = mModel.getBannerData(new BannerSubscriber(mView), new ErrorAction() {
             @Override
             public void doNext(ForestException e) {
                 mView.setBannerImages(new ArrayList<>());
             }
         });
-        Disposable girlDisposable = mModel.getGirlData(NUMBER_PER_PAGE, page, new GirlsSubscriber(mView), new ErrorAction() {
+        mDisposable.add(disposable);
+    }
+
+    public void getGirlData(int page) {
+        Disposable disposable = mModel.getGirlData(TYPE, NUMBER_PER_PAGE, page, new GirlsSubscriber(mView), new ErrorAction() {
             @Override
             public void doNext(ForestException e) {
                 mView.getGirlsFail();
             }
         });
-        mDisposable.add(bannerDisposable);
-        mDisposable.add(girlDisposable);
+        mDisposable.add(disposable);
+    }
+
+    public void getData(int page) {
+        mView.showLoading();
+        getBannerData();
+        getGirlData(page);
+    }
+
+    public void refreshData(int page) {
+        getBannerData();
+        getGirlData(page);
     }
 
     private static class BannerSubscriber implements Consumer<List<String>> {

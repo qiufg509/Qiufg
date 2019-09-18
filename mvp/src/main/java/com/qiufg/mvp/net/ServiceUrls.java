@@ -9,6 +9,6 @@ public interface ServiceUrls {
 
     String SERVER_GANK = "http://gank.io/";
     String SERVER_GITHUB = "https://api.github.com/";
-    String TEST_TEST_GANK = "api/data/福利/{number}/{page}";
+    String TEST_TEST_GANK = "api/data/{type}/{number}/{page}";
     String API_BANNER_IMAGES = "repos/qiufg509/Qiufg/contents/images/banner";
 }

@@ -28,7 +28,7 @@ public interface HomeApi {
      * @return result
      */
     @GET(ServiceUrls.TEST_TEST_GANK)
-    Flowable<ResultArray<GirlsBean>> getGirlData(@Path("number") int number, @Path("page") int page);
+    Flowable<ResultArray<GirlsBean>> getGirlData(@Path("type") String type, @Path("number") int number, @Path("page") int page);
 
     @GET
     Flowable<List<BannerBean>> getBannerData(@Url String url, @Query("client_id") String client_id, @Query("client_secret") String client_secret);

@@ -1,14 +1,17 @@
 <resources>
-    <string name="app_name">mvp</string>
+    <string name="app_name">Qiufg\'s App</string>
+
+    <string name="navigation_home">首页</string>
+    <string name="navigation_category">分类</string>
+    <string name="navigation_note">笔记</string>
+    <string name="navigation_mine">我的</string>
+    <string name="title_home">美女们</string>
+    <string name="title_category">gank.io</string>
+    <string name="title_note">学习笔记</string>
+    <string name="title_mine">关于我</string>
 
     <!-- 提示 -->
     <string name="hint_layout_no_data">亲，暂无数据</string>
     <string name="hint_layout_error_request">亲，请求出错了</string>
     <string name="hint_layout_error_network">亲，没有网络了</string>
-    <string name="navigation_home">首页</string>
-    <string name="navigation_category">分类</string>
-    <string name="navigation_note">笔记</string>
-    <string name="navigation_mine">我的</string>
-    <string name="title_home_girls">美女们</string>
-
 </resources>

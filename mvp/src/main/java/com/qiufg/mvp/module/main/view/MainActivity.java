@@ -102,16 +102,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
                         mViewPager.getCurrentItem() == NAVI_INDEX_CATEGORY);
                 return true;
             case R.id.navigation_category:
+                ImmersionBar.with(this).keyboardEnable(false).statusBarDarkFont(true, 0.2f).init();
                 mViewPager.setCurrentItem(NAVI_INDEX_CATEGORY,
                         mViewPager.getCurrentItem() == NAVI_INDEX_HOME
                                 || mViewPager.getCurrentItem() == NAVI_INDEX_NOTE);
                 return true;
             case R.id.navigation_note:
+                ImmersionBar.with(this).keyboardEnable(false).transparentBar().statusBarDarkFont(false).init();
                 mViewPager.setCurrentItem(NAVI_INDEX_NOTE,
                         mViewPager.getCurrentItem() == NAVI_INDEX_CATEGORY
                                 || mViewPager.getCurrentItem() == NAVI_INDEX_MINE);
                 return true;
             case R.id.navigation_mine:
+                ImmersionBar.with(this).keyboardEnable(false).transparentBar().statusBarDarkFont(false).init();
                 mViewPager.setCurrentItem(NAVI_INDEX_MINE,
                         mViewPager.getCurrentItem() == NAVI_INDEX_NOTE);
                 return true;

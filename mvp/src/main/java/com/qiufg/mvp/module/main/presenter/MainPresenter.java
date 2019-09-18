@@ -21,7 +21,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public List<BaseFragment> getFragments() {
-        return mModel.getData();
+        return mModel.getFragments();
     }
 
 }
