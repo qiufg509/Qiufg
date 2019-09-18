@@ -1,5 +1,6 @@
 package com.qiufg.mvp.module.home.model;
 
+import com.qiufg.mvp.Const;
 import com.qiufg.mvp.bean.BannerBean;
 import com.qiufg.mvp.bean.GirlsBean;
 import com.qiufg.mvp.bus.RxSchedulers;
@@ -34,7 +35,7 @@ public class HomeModel {
     }
 
     public Disposable getBannerData(Consumer<List<String>> consumer, ErrorAction error) {
-        return mApi.getBannerData(ServiceUrls.SERVER_GITHUB + ServiceUrls.API_BANNER_IMAGES)
+        return mApi.getBannerData(ServiceUrls.SERVER_GITHUB + ServiceUrls.API_BANNER_IMAGES, Const.CLIENT_ID, Const.CLIENT_SECRET)
                 .map(bannerBeans -> {
                     List<String> strings = new ArrayList<>(bannerBeans.size());
                     for (BannerBean bannerBean : bannerBeans) {

@@ -27,9 +27,31 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="qiufg509.github.io"
+                    android:path="/HomePage"
+                    android:scheme="https" />
+                <!--<a href="[scheme]://[host]/[path]?[query]">启动应用程序</a>-->
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="qiufg509.github.io"
+                    android:path="/HomePage"
+                    android:scheme="qiufg" />
+                <!--<a href="[scheme]://[host]/[path]?[query]">启动应用程序</a>-->
             </intent-filter>
         </activity>
 

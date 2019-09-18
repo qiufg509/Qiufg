@@ -281,8 +281,8 @@ public class HttpClient {
             // uwca.crt 打包在 asset 中，该证书可以从https://itconnect.uw.edu/security/securing-computer/install/safari-os-x/下载
             caInput = new BufferedInputStream(App.getInstance().getAssets().open("https.crt"));
             Certificate ca = cf.generateCertificate(caInput);
-            Logger.i("Longer", "ca=" + ((X509Certificate) ca).getSubjectDN());
-            Logger.i("Longer", "key=" + ca.getPublicKey());
+            Logger.i("ca=" + ((X509Certificate) ca).getSubjectDN());
+            Logger.i("key=" + ca.getPublicKey());
             // Create a KeyStore containing our trusted CAs
             String keyStoreType = KeyStore.getDefaultType();
             KeyStore keyStore = KeyStore.getInstance(keyStoreType);

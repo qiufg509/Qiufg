@@ -10,6 +10,7 @@ import java.util.List;
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 /**
@@ -30,5 +31,5 @@ public interface HomeApi {
     Flowable<ResultArray<GirlsBean>> getGirlData(@Path("number") int number, @Path("page") int page);
 
     @GET
-    Flowable<List<BannerBean>> getBannerData(@Url String url);
+    Flowable<List<BannerBean>> getBannerData(@Url String url, @Query("client_id") String client_id, @Query("client_secret") String client_secret);
 }
