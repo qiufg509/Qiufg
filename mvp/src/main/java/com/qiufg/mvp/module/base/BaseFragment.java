@@ -18,9 +18,10 @@ import androidx.fragment.app.Fragment;
 import com.gyf.immersionbar.ImmersionBar;
 import com.qiufg.mvp.App;
 import com.qiufg.mvp.R;
+import com.qiufg.mvp.exception.QiufgCode;
+import com.qiufg.mvp.exception.QiufgException;
 import com.qiufg.mvp.util.CommonUtils;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -35,8 +36,6 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     private View mRootView;
     private Unbinder mBinder;
     private ViewGroup mHintLayout;
-    @BindView(R.id.toolbar)
-    @Nullable
     protected Toolbar mToolbar;
 
     @Nullable
@@ -54,6 +53,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
             mPresenter.attach(this);
         }
         mBinder = ButterKnife.bind(this, mRootView);
+        mToolbar = mRootView.findViewById(R.id.toolbar);
         if (mToolbar != null) {
             ImmersionBar.setTitleBar(this, mToolbar);
         }
@@ -92,13 +92,10 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
         }
     }
 
-    protected ViewGroup getEmptyView() {
-        return getHintLayout(R.mipmap.icon_hint_empty, R.string.hint_layout_no_data);
-    }
-
-    protected ViewGroup getErrorView() {
-        // 判断当前网络是否可用
-        if (CommonUtils.isNetworkAvailable()) {
+    protected ViewGroup getEmptyView(QiufgException e) {
+        if (e.getErrorCode() == QiufgCode.CODE_DATA_EMPTY) {
+            return getHintLayout(R.mipmap.icon_hint_empty, R.string.hint_layout_no_data);
+        } else if (CommonUtils.isNetworkAvailable()) {// 判断当前网络是否可用
             return getHintLayout(R.mipmap.icon_hint_request, R.string.hint_layout_error_request);
         } else {
             return getHintLayout(R.mipmap.icon_hint_nerwork, R.string.hint_layout_error_network);

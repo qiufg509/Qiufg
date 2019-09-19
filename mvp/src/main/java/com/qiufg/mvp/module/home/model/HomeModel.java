@@ -5,9 +5,10 @@ import com.qiufg.mvp.bean.BannerBean;
 import com.qiufg.mvp.bean.GirlsBean;
 import com.qiufg.mvp.bus.RxSchedulers;
 import com.qiufg.mvp.exception.ErrorAction;
+import com.qiufg.mvp.exception.QiufgCode;
+import com.qiufg.mvp.exception.QiufgException;
 import com.qiufg.mvp.net.HttpClient;
 import com.qiufg.mvp.net.ServiceUrls;
-import com.qiufg.mvp.net.respond.ResultArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,13 @@ public class HomeModel {
 
     public Disposable getGirlData(String type, int number, int page, Consumer<List<GirlsBean>> consumer, ErrorAction error) {
         return mApi.getGirlData(type, number, page)
-                .map(ResultArray::getResults)
+                .map(girlsBeanResultArray -> {
+                    List<GirlsBean> results = girlsBeanResultArray.getResults();
+                    if (results.isEmpty()) {
+                        throw new QiufgException(QiufgCode.CODE_DATA_EMPTY);
+                    }
+                    return results;
+                })
                 .compose(RxSchedulers.ioSchedulers()).subscribe(consumer, error);
     }
 

@@ -2,7 +2,7 @@ package com.qiufg.mvp.module.home.presenter;
 
 import com.qiufg.mvp.bean.GirlsBean;
 import com.qiufg.mvp.exception.ErrorAction;
-import com.qiufg.mvp.exception.ForestException;
+import com.qiufg.mvp.exception.QiufgException;
 import com.qiufg.mvp.module.base.BasePresenter;
 import com.qiufg.mvp.module.home.model.HomeModel;
 import com.qiufg.mvp.module.home.view.HomeView;
@@ -23,6 +23,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
 
     private static final int NUMBER_PER_PAGE = 10;
     private static final String TYPE = "福利";
+    public int mPage = 1;
     private HomeModel mModel;
 
     public HomePresenter() {
@@ -32,32 +33,38 @@ public class HomePresenter extends BasePresenter<HomeView> {
     private void getBannerData() {
         Disposable disposable = mModel.getBannerData(new BannerSubscriber(mView), new ErrorAction() {
             @Override
-            public void doNext(ForestException e) {
-                mView.setBannerImages(new ArrayList<>());
+            public void doNext(QiufgException e) {
+                List<String> placeholder = new ArrayList<>();
+                placeholder.add("http://");
+                mView.setBannerImages(placeholder);
             }
         });
         mDisposable.add(disposable);
     }
 
-    public void getGirlData(int page) {
+    private void getGirlData(int page) {
         Disposable disposable = mModel.getGirlData(TYPE, NUMBER_PER_PAGE, page, new GirlsSubscriber(mView), new ErrorAction() {
             @Override
-            public void doNext(ForestException e) {
-                mView.getGirlsFail();
+            public void doNext(QiufgException e) {
+                mView.getGirlsFail(e);
             }
         });
         mDisposable.add(disposable);
     }
 
-    public void getData(int page) {
+    public void initData() {
         mView.showLoading();
         getBannerData();
-        getGirlData(page);
+        getGirlData(mPage);
     }
 
-    public void refreshData(int page) {
+    public void refreshData() {
         getBannerData();
-        getGirlData(page);
+        getGirlData(mPage = 1);
+    }
+
+    public void loadMoreData() {
+        getGirlData(++mPage);
     }
 
     private static class BannerSubscriber implements Consumer<List<String>> {

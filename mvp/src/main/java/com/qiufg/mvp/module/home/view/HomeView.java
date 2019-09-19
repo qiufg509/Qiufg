@@ -1,6 +1,7 @@
 package com.qiufg.mvp.module.home.view;
 
 import com.qiufg.mvp.bean.GirlsBean;
+import com.qiufg.mvp.exception.QiufgException;
 import com.qiufg.mvp.module.base.IView;
 
 import java.util.List;
@@ -16,5 +17,5 @@ public interface HomeView extends IView {
 
     void getGirlsSuccess(List<GirlsBean> girlsBeans);
 
-    void getGirlsFail();
+    void getGirlsFail(QiufgException e);
 }

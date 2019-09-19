@@ -4,12 +4,21 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.qiufg.mvp.R;
+import com.qiufg.mvp.adapter.GankAdapter;
+import com.qiufg.mvp.bean.GankBean;
+import com.qiufg.mvp.exception.QiufgException;
 import com.qiufg.mvp.module.base.BaseFragment;
 import com.qiufg.mvp.module.category.presenter.CategoryPresenter;
+import com.qiufg.mvp.util.ToastUtils;
+import com.qiufg.mvp.wedget.GankDecoration;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -18,7 +27,7 @@ import butterknife.BindView;
  * <p>
  * Desc：
  */
-public class GankFragment extends BaseFragment<CategoryPresenter> {
+public class GankFragment extends BaseFragment<CategoryPresenter> implements CategoryView {
 
     private static final String ARG_TYPE = "type";
     @BindView(R.id.recycler)
@@ -27,6 +36,7 @@ public class GankFragment extends BaseFragment<CategoryPresenter> {
     TwinklingRefreshLayout mRefreshLayout;
 
     private String mType;
+    private GankAdapter mAdapter;
 
     public static GankFragment newInstance(String type) {
         GankFragment fragment = new GankFragment();
@@ -56,6 +66,50 @@ public class GankFragment extends BaseFragment<CategoryPresenter> {
 
     @Override
     protected void viewCreated(View view) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecycler.setLayoutManager(layoutManager);
+        mRecycler.addItemDecoration(new GankDecoration());
+        mAdapter = new GankAdapter();
+        mRecycler.setAdapter(mAdapter);
+        initListener();
+        mPresenter.initData(mType);
+    }
 
+    private void initListener() {
+        mRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                mPresenter.refreshData(mType);
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                mPresenter.loadMoreData(mType);
+            }
+        });
+    }
+
+    @Override
+    public void getGankSuccess(List<GankBean> gankBeans) {
+        mRefreshLayout.finishRefreshing();
+        mRefreshLayout.finishLoadmore();
+        if (mPresenter.mPage == 1) {
+            mAdapter.setNewData(gankBeans);
+        } else {
+            mAdapter.addData(gankBeans);
+        }
+    }
+
+    @Override
+    public void getGankFail(QiufgException e) {
+        if (mPresenter.mPage == 1) {
+            mAdapter.setNewData(null);
+            mAdapter.setEmptyView(getEmptyView(e));
+        } else {
+            ToastUtils.toast(e.getMessage());
+        }
+        mRefreshLayout.finishRefreshing();
+        mRefreshLayout.finishLoadmore();
     }
 }

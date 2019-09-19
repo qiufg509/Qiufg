@@ -1,6 +1,7 @@
 package com.qiufg.mvp.module.category.view;
 
 import com.qiufg.mvp.bean.GankBean;
+import com.qiufg.mvp.exception.QiufgException;
 import com.qiufg.mvp.module.base.IView;
 
 import java.util.List;
@@ -14,5 +15,5 @@ public interface CategoryView extends IView {
 
     void getGankSuccess(List<GankBean> gankBeans);
 
-    void getGankFail();
+    void getGankFail(QiufgException e);
 }

@@ -21,10 +21,12 @@ import com.qiufg.mvp.App;
 import com.qiufg.mvp.R;
 import com.qiufg.mvp.adapter.HomeAdapter;
 import com.qiufg.mvp.bean.GirlsBean;
+import com.qiufg.mvp.exception.QiufgException;
 import com.qiufg.mvp.listener.OnFragmentInteractionListener;
 import com.qiufg.mvp.module.base.BaseFragment;
 import com.qiufg.mvp.module.home.presenter.HomePresenter;
 import com.qiufg.mvp.util.GlideImageLoader;
+import com.qiufg.mvp.util.ToastUtils;
 import com.qiufg.mvp.wedget.HomeDecoration;
 import com.youth.banner.Banner;
 
@@ -48,10 +50,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     TextView mTvTitle;
     Banner mBanner;
 
-    private String mTitleString;
-    private int mPage = 1;
-
     private OnFragmentInteractionListener mListener;
+    private String mTitleString;
     private HomeAdapter mAdapter;
     private int mBannerHeight;
 
@@ -106,23 +106,24 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), HomeDecoration.SPAN_COUNT);
         mRecycler.setLayoutManager(gridLayoutManager);
         mRecycler.addItemDecoration(new HomeDecoration());
+        mAdapter.setHeaderAndEmpty(true);
         mRecycler.setAdapter(mAdapter);
         addHeaderView();
         mAdapter.setPreLoadNumber(1);
         initListener();
-        mPresenter.getData(mPage);
+        mPresenter.initData();
     }
 
     private void initListener() {
         mRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.refreshData(mPage = 1);
+                mPresenter.refreshData();
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.getGirlData(++mPage);
+                mPresenter.loadMoreData();
             }
         });
         mRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -160,20 +161,21 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     public void getGirlsSuccess(List<GirlsBean> girlsBeans) {
         mRefreshLayout.finishRefreshing();
         mRefreshLayout.finishLoadmore();
-        if (girlsBeans == null || girlsBeans.isEmpty()) {
-            mAdapter.setEmptyView(getEmptyView());
+        if (mPresenter.mPage == 1) {
+            mAdapter.setNewData(girlsBeans);
         } else {
-            if (mPage == 1) {
-                mAdapter.setNewData(girlsBeans);
-            } else {
-                mAdapter.addData(girlsBeans);
-            }
+            mAdapter.addData(girlsBeans);
         }
     }
 
     @Override
-    public void getGirlsFail() {
-        mAdapter.setEmptyView(getErrorView());
+    public void getGirlsFail(QiufgException e) {
+        if (mPresenter.mPage == 1) {
+            mAdapter.setNewData(null);
+            mAdapter.setEmptyView(getEmptyView(e));
+        } else {
+            ToastUtils.toast(e.getMessage());
+        }
         mRefreshLayout.finishRefreshing();
         mRefreshLayout.finishLoadmore();
     }

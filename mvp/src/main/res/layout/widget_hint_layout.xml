@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingTop="60dp"
-    android:paddingBottom="150dp"
+    android:paddingBottom="96dp"
     tools:ignore="UseCompoundDrawables">
 
     <ImageView

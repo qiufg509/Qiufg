@@ -2,7 +2,7 @@ package com.qiufg.mvp.module.category.presenter;
 
 import com.qiufg.mvp.bean.GankBean;
 import com.qiufg.mvp.exception.ErrorAction;
-import com.qiufg.mvp.exception.ForestException;
+import com.qiufg.mvp.exception.QiufgException;
 import com.qiufg.mvp.module.base.BaseFragment;
 import com.qiufg.mvp.module.base.BasePresenter;
 import com.qiufg.mvp.module.category.model.CategoryModel;
@@ -22,7 +22,7 @@ import io.reactivex.functions.Consumer;
 public class CategoryPresenter extends BasePresenter<CategoryView> {
 
     private static final int NUMBER_PER_PAGE = 10;
-
+    public int mPage = 1;
     private CategoryModel mModel;
 
     public CategoryPresenter() {
@@ -33,14 +33,27 @@ public class CategoryPresenter extends BasePresenter<CategoryView> {
         return mModel.getFragments();
     }
 
-    public void getGankData(String type, int page) {
+    private void getGankData(String type, int page) {
         Disposable disposable = mModel.getCategoryData(type, NUMBER_PER_PAGE, page, new GankSubscriber(mView), new ErrorAction() {
             @Override
-            public void doNext(ForestException e) {
-                mView.getGankFail();
+            public void doNext(QiufgException e) {
+                mView.getGankFail(e);
             }
         });
         mDisposable.add(disposable);
+    }
+
+    public void initData(String type) {
+        mView.showLoading();
+        getGankData(type, mPage);
+    }
+
+    public void refreshData(String type) {
+        getGankData(type, mPage = 1);
+    }
+
+    public void loadMoreData(String type) {
+        getGankData(type, ++mPage);
     }
 
     private static class GankSubscriber implements Consumer<List<GankBean>> {

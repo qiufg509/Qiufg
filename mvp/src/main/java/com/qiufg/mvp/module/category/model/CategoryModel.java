@@ -4,10 +4,11 @@ import com.qiufg.mvp.bean.Category;
 import com.qiufg.mvp.bean.GankBean;
 import com.qiufg.mvp.bus.RxSchedulers;
 import com.qiufg.mvp.exception.ErrorAction;
+import com.qiufg.mvp.exception.QiufgCode;
+import com.qiufg.mvp.exception.QiufgException;
 import com.qiufg.mvp.module.base.BaseFragment;
 import com.qiufg.mvp.module.category.view.GankFragment;
 import com.qiufg.mvp.net.HttpClient;
-import com.qiufg.mvp.net.respond.ResultArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,13 @@ public class CategoryModel {
 
     public Disposable getCategoryData(String type, int number, int page, Consumer<List<GankBean>> consumer, ErrorAction error) {
         return mApi.getGankData(type, number, page)
-                .map(ResultArray::getResults)
+                .map(gankBeanResultArray -> {
+                    List<GankBean> results = gankBeanResultArray.getResults();
+                    if (results.isEmpty()) {
+                        throw new QiufgException(QiufgCode.CODE_DATA_EMPTY);
+                    }
+                    return results;
+                })
                 .compose(RxSchedulers.ioSchedulers()).subscribe(consumer, error);
     }
 }

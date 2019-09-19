@@ -8,44 +8,44 @@ import com.qiufg.mvp.net.respond.ResultObject;
  * <p>
  * Desc：自定义异常
  */
-public class ForestException extends Exception {
+public class QiufgException extends Exception {
 
     private int errorCode;
 
-    public ForestException(int resultCode) {
+    public QiufgException(int resultCode) {
         this(getApiExceptionMessage(resultCode));
         setErrorCode(resultCode);
     }
 
-    public ForestException(String detailMessage) {
+    public QiufgException(String detailMessage) {
         super(detailMessage);
-        setErrorCode(ForestCode.CODE_OTHER);
+        setErrorCode(QiufgCode.CODE_OTHER);
     }
 
-    public ForestException(int resultCode, String detailMessage) {
+    public QiufgException(int resultCode, String detailMessage) {
         super(detailMessage);
         setErrorCode(resultCode);
     }
 
-    public ForestException(ResultObject resultObject) {
+    public QiufgException(ResultObject resultObject) {
 //        this((TextUtils.isEmpty(resultObject.getMsg()) || resultObject.getRet() == 1)
 //                ? getApiExceptionMessage(resultObject.getRet())
 //                : resultObject.getMsg());
 //        setErrorCode(resultObject.getRet());
-        this(getApiExceptionMessage(resultObject.isError() ? ForestCode.CODE_OTHER : ForestCode.CODE_OTHER));
-        setErrorCode(ForestCode.CODE_HTTP_ERROR);
+        this(getApiExceptionMessage(resultObject.isError() ? QiufgCode.CODE_OTHER : QiufgCode.CODE_OTHER));
+        setErrorCode(QiufgCode.CODE_HTTP_ERROR);
     }
 
-    public ForestException(ResultArray resultArray) {
+    public QiufgException(ResultArray resultArray) {
 //        this((TextUtils.isEmpty(resultArray.getMsg()) || resultArray.getRet() == 1)
 //                ? getApiExceptionMessage(resultArray.getRet())
 //                : resultArray.getMsg());
 //        setErrorCode(resultArray.getRet());
-        this(getApiExceptionMessage(resultArray.isError() ? ForestCode.CODE_OTHER : ForestCode.CODE_OTHER));
-        setErrorCode(ForestCode.CODE_HTTP_ERROR);
+        this(getApiExceptionMessage(resultArray.isError() ? QiufgCode.CODE_OTHER : QiufgCode.CODE_OTHER));
+        setErrorCode(QiufgCode.CODE_HTTP_ERROR);
     }
 
-    int getErrorCode() {
+    public int getErrorCode() {
         return errorCode;
     }
 
@@ -63,29 +63,29 @@ public class ForestException extends Exception {
     private static String getApiExceptionMessage(int code) {
         String message;
         switch (code) {
-            case ForestCode.CODE_LOGIN_INVALID:
+            case QiufgCode.CODE_LOGIN_INVALID:
                 message = "登录信息失效";
                 break;
-            case ForestCode.CODE_TIME_OUT:
+            case QiufgCode.CODE_TIME_OUT:
                 message = "连接超时";
                 break;
-            case ForestCode.CODE_HTTP_ERROR:
+            case QiufgCode.CODE_HTTP_ERROR:
                 message = "网络错误";
                 break;
-            case ForestCode.CODE_CONNECT_FAIL:
+            case QiufgCode.CODE_CONNECT_FAIL:
                 message = "无法连接到服务器";
                 break;
-            case ForestCode.CODE_SERVER_ERROR:
+            case QiufgCode.CODE_SERVER_ERROR:
                 message = "服务器异常";
                 break;
-            case ForestCode.CODE_PARSE_ERROR:
+            case QiufgCode.CODE_PARSE_ERROR:
                 message = "解析错误";
                 break;
-            case ForestCode.CODE_INTERFACE_ERROR:
-                message = "服务器接口错误";
-                break;
-            case ForestCode.CODE_SECURITY_ERROR:
+            case QiufgCode.CODE_SECURITY_ERROR:
                 message = "非安全请求";
+                break;
+            case QiufgCode.CODE_DATA_EMPTY:
+                message = "没有数据";
                 break;
             default:
                 message = "未知错误";
