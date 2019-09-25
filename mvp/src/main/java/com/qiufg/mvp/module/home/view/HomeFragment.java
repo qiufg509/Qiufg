@@ -1,6 +1,7 @@
 package com.qiufg.mvp.module.home.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -24,6 +27,7 @@ import com.qiufg.mvp.bean.GirlsBean;
 import com.qiufg.mvp.exception.QiufgException;
 import com.qiufg.mvp.listener.OnFragmentInteractionListener;
 import com.qiufg.mvp.module.base.BaseFragment;
+import com.qiufg.mvp.module.common.WebActivity;
 import com.qiufg.mvp.module.home.presenter.HomePresenter;
 import com.qiufg.mvp.util.GlideImageLoader;
 import com.qiufg.mvp.util.ToastUtils;
@@ -145,6 +149,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
                     mTvTitle.setTextColor(ColorUtils.blendARGB(Color.TRANSPARENT
                             , Color.WHITE, 1));
                 }
+            }
+        });
+        mRecycler.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                GirlsBean girlsBean = (GirlsBean) adapter.getData().get(position);
+                Intent intent = new Intent(getContext(), WebActivity.class);
+                intent.putExtra(WebActivity.EXTRA_URL, girlsBean.getUrl());
+                intent.putExtra(WebActivity.EXTRA_TITLE, girlsBean.getDesc());
             }
         });
     }

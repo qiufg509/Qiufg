@@ -19,21 +19,6 @@
             android:overScrollMode="never" />
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/colorPrimary"
-        app:contentInsetStart="0dp">
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/title_home"
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-    </androidx.appcompat.widget.Toolbar>
+    <include layout="@layout/layout_toolbar_only_title"/>
 
 </FrameLayout>

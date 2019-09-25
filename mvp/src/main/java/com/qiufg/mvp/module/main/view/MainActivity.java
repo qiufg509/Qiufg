@@ -1,6 +1,7 @@
 package com.qiufg.mvp.module.main.view;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -12,9 +13,10 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.qiufg.mvp.R;
 import com.qiufg.mvp.adapter.MainPagerAdapter;
 import com.qiufg.mvp.listener.OnFragmentInteractionListener;
-import com.qiufg.mvp.module.base.BaseActivity;
 import com.qiufg.mvp.module.base.BaseFragment;
+import com.qiufg.mvp.module.base.MVPActivity;
 import com.qiufg.mvp.module.main.presenter.MainPresenter;
+import com.qiufg.mvp.util.ToastUtils;
 import com.qiufg.mvp.wedget.CustomViewPager;
 
 import java.util.List;
@@ -27,7 +29,7 @@ import butterknife.ButterKnife;
  * <p>
  * Desc：主界面Activity
  */
-public class MainActivity extends BaseActivity<MainPresenter> implements MainView,
+public class MainActivity extends MVPActivity<MainPresenter> implements MainView,
         ViewPager.OnPageChangeListener, NavigationView.OnNavigationItemSelectedListener,
         OnFragmentInteractionListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -39,6 +41,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     CustomViewPager mViewPager;
     @BindView(R.id.nav_view)
     BottomNavigationView mNaviView;
+
+    private long[] mHits = new long[2];
 
     @Override
     protected int createView() {
@@ -120,6 +124,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+        mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+        if (mHits[0] >= (SystemClock.uptimeMillis() - 3500)) {
+            super.onBackPressed();
+        } else {
+            ToastUtils.toast("再按一次退出应用");
+        }
     }
 
     @Override

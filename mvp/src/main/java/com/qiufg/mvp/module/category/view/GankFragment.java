@@ -1,5 +1,6 @@
 package com.qiufg.mvp.module.category.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -7,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.qiufg.mvp.R;
@@ -15,6 +18,7 @@ import com.qiufg.mvp.bean.GankBean;
 import com.qiufg.mvp.exception.QiufgException;
 import com.qiufg.mvp.module.base.BaseFragment;
 import com.qiufg.mvp.module.category.presenter.CategoryPresenter;
+import com.qiufg.mvp.module.common.WebActivity;
 import com.qiufg.mvp.util.ToastUtils;
 import com.qiufg.mvp.wedget.GankDecoration;
 
@@ -86,6 +90,15 @@ public class GankFragment extends BaseFragment<CategoryPresenter> implements Cat
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 mPresenter.loadMoreData(mType);
+            }
+        });
+        mRecycler.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                GankBean gankBean = (GankBean) adapter.getData().get(position);
+                Intent intent = new Intent(getContext(), WebActivity.class);
+                intent.putExtra(WebActivity.EXTRA_URL, gankBean.getUrl());
+                intent.putExtra(WebActivity.EXTRA_TITLE, gankBean.getDesc());
             }
         });
     }

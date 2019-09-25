@@ -1,5 +1,7 @@
 package com.qiufg.mvp.module.main.model;
 
+import com.qiufg.mvp.App;
+import com.qiufg.mvp.R;
 import com.qiufg.mvp.module.base.BaseFragment;
 import com.qiufg.mvp.module.category.view.CategoryFragment;
 import com.qiufg.mvp.module.home.view.HomeFragment;
@@ -16,10 +18,10 @@ public class MainModel {
 
     public List<BaseFragment> getFragments() {
         List<BaseFragment> fragments = new ArrayList<>();
-        HomeFragment girlFragment1 = HomeFragment.newInstance("美女们");
-        CategoryFragment categoryFragment = CategoryFragment.newInstance("gank.io");
-        HomeFragment girlFragment3 = HomeFragment.newInstance("美女们3");
-        HomeFragment girlFragment4 = HomeFragment.newInstance("美女们4");
+        HomeFragment girlFragment1 = HomeFragment.newInstance(App.getInstance().getString(R.string.title_home));
+        CategoryFragment categoryFragment = CategoryFragment.newInstance(App.getInstance().getString(R.string.title_category));
+        HomeFragment girlFragment3 = HomeFragment.newInstance(App.getInstance().getString(R.string.title_note));
+        HomeFragment girlFragment4 = HomeFragment.newInstance(App.getInstance().getString(R.string.title_mine));
         fragments.add(girlFragment1);
         fragments.add(categoryFragment);
         fragments.add(girlFragment3);

@@ -54,6 +54,12 @@
                 <!--<a href="[scheme]://[host]/[path]?[query]">启动应用程序</a>-->
             </intent-filter>
         </activity>
+        <activity
+            android:name=".module.common.WebActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.openinstall.APP_KEY"
