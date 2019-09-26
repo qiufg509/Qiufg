@@ -8,8 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.qiufg.mvp.R;
@@ -92,14 +90,12 @@ public class GankFragment extends BaseFragment<CategoryPresenter> implements Cat
                 mPresenter.loadMoreData(mType);
             }
         });
-        mRecycler.addOnItemTouchListener(new OnItemClickListener() {
-            @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                GankBean gankBean = (GankBean) adapter.getData().get(position);
-                Intent intent = new Intent(getContext(), WebActivity.class);
-                intent.putExtra(WebActivity.EXTRA_URL, gankBean.getUrl());
-                intent.putExtra(WebActivity.EXTRA_TITLE, gankBean.getDesc());
-            }
+        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            GankBean gankBean = (GankBean) adapter.getData().get(position);
+            Intent intent = new Intent(getContext(), WebActivity.class);
+            intent.putExtra(WebActivity.EXTRA_URL, gankBean.getUrl());
+            intent.putExtra(WebActivity.EXTRA_TITLE, gankBean.getDesc());
+            startActivity(intent);
         });
     }
 

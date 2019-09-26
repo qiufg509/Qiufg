@@ -107,7 +107,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
      */
     private ViewGroup getHintLayout(@DrawableRes int iconId, @StringRes int textId) {
         if (mHintLayout == null) {
-            mHintLayout = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.widget_hint_layout, null);
+            mHintLayout = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.layout_non_content_hint, null);
         }
         ImageView imageView = mHintLayout.findViewById(R.id.iv_hint_icon);
         TextView textView = mHintLayout.findViewById(R.id.iv_hint_text);

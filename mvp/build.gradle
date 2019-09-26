@@ -73,4 +73,5 @@ dependencies {
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
 }

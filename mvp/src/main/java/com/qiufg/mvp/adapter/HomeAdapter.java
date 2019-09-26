@@ -1,5 +1,7 @@
 package com.qiufg.mvp.adapter;
 
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -17,15 +19,27 @@ import com.qiufg.mvp.bean.GirlsBean;
  */
 public class HomeAdapter extends BaseQuickAdapter<GirlsBean, BaseViewHolder> {
 
+    private final ColorMatrixColorFilter mColorFilter;
+
     public HomeAdapter() {
         super(R.layout.item_home_content);
+        float[] array = new float[]{
+                1, 0, 0, 0, -10,
+                0, 1, 0, 0, -10,
+                0, 0, 1, 0, -10,
+                0, 0, 0, 1, 0,
+        };
+        mColorFilter = new ColorMatrixColorFilter(new ColorMatrix(array));
     }
 
     @Override
     protected void convert(BaseViewHolder helper, GirlsBean item) {
         helper.setText(R.id.tv_time, item.getDesc());
+        ImageView imageView = helper.getView(R.id.iv_photo);
+        imageView.setColorFilter(mColorFilter);
         Glide.with(mContext).load(item.getUrl())
-                .apply(new RequestOptions().placeholder(R.mipmap.pic_default).diskCacheStrategy(DiskCacheStrategy.ALL))
-                .into((ImageView) helper.getView(R.id.iv_photo));
+                .apply(new RequestOptions().placeholder(R.mipmap.pic_default)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                .into(imageView);
     }
 }

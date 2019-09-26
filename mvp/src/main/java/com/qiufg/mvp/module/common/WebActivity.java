@@ -9,12 +9,14 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.qiufg.mvp.R;
 import com.qiufg.mvp.module.base.BaseActivity;
 
 import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -39,6 +41,12 @@ public class WebActivity extends BaseActivity {
 
     @Override
     protected void viewCreated() {
+        ImmersionBar.with(this)
+                .fitsSystemWindows(true)
+                .statusBarDarkFont(false)
+                .statusBarColor(R.color.colorPrimary)
+                .init();
+        ButterKnife.bind(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         mWebView = new WebView(getApplicationContext());

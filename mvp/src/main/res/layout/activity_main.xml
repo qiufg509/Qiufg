@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".module.main.view.MainActivity">
 
-<com.qiufg.mvp.wedget.CustomViewPager
+    <com.qiufg.mvp.wedget.CustomViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -22,8 +22,8 @@
         android:background="?android:attr/windowBackground"
         app:itemBackground="@null"
         app:itemHorizontalTranslationEnabled="false"
-        app:itemTextColor="@color/navigation_bottom_color"
         app:itemIconTint="@color/navigation_bottom_color"
+        app:itemTextColor="@color/navigation_bottom_color"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

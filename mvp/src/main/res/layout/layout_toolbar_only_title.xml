@@ -11,7 +11,11 @@
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="?actionBarSize"
+        android:layout_marginEnd="?actionBarSize"
+        android:ellipsize="marquee"
         android:gravity="center"
+        android:singleLine="true"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 </androidx.appcompat.widget.Toolbar>
