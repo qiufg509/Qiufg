@@ -25,14 +25,14 @@ import com.qiufg.mvp.bean.GirlsBean;
 import com.qiufg.mvp.exception.QiufgException;
 import com.qiufg.mvp.listener.OnFragmentInteractionListener;
 import com.qiufg.mvp.module.base.BaseFragment;
-import com.qiufg.mvp.module.common.PreviewPhotoActivity;
-import com.qiufg.mvp.module.common.WebActivity;
+import com.qiufg.mvp.module.common.PhotoPreviewActivity;
 import com.qiufg.mvp.module.home.presenter.HomePresenter;
 import com.qiufg.mvp.util.GlideImageLoader;
 import com.qiufg.mvp.util.ToastUtils;
 import com.qiufg.mvp.wedget.HomeDecoration;
 import com.youth.banner.Banner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -152,9 +152,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         });
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             GirlsBean girlsBean = (GirlsBean) adapter.getData().get(position);
-            Intent intent = new Intent(getContext(), PreviewPhotoActivity.class);
-            intent.putExtra(WebActivity.EXTRA_URL, girlsBean.getUrl());
-            intent.putExtra(WebActivity.EXTRA_TITLE, girlsBean.getDesc());
+            Intent intent = new Intent(getContext(), PhotoPreviewActivity.class);
+            ArrayList<String> urls = new ArrayList<>();
+            urls.add(girlsBean.getUrl());
+            intent.putExtra(PhotoPreviewActivity.EXTRA_URL_LIST, urls);
             startActivity(intent);
         });
     }

@@ -4,24 +4,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    tools:context=".module.common.PreviewPhotoActivity">
+    tools:context=".module.common.PhotoPreviewActivity">
 
     <com.qiufg.mvp.wedget.CustomViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <include layout="@layout/layout_toolbar_preview_image" />
+    <include layout="@layout/layout_toolbar_photo_preview" />
 
     <ImageView
-        android:id="@+id/iv_image_preview_download"
+        android:id="@+id/iv_download"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/preview_photo_btn_download"
+        android:background="@drawable/photo_preview_btn_download"
         android:contentDescription="@null"
         android:padding="6dp"
         android:src="@mipmap/icon_download" />
+
+    <TextView
+        android:id="@+id/tv_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/photo_preview_page_index"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="1 / 1"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:visibility="gone" />
 </FrameLayout>

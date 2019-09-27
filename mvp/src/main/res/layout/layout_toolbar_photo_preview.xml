@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:layout_gravity="top"
+    android:background="@drawable/preview_photo_toolbar_gradient"
+    app:contentInsetStart="0dp">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="?actionBarSize"
+        android:layout_height="?actionBarSize"
+        android:background="?actionBarItemBackground"
+        android:contentDescription="@null"
+        android:src="@drawable/arrow_black_16dp" />
+
+</androidx.appcompat.widget.Toolbar>

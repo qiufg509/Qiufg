@@ -14,4 +14,6 @@
     <string name="hint_layout_no_data">亲，暂无数据</string>
     <string name="hint_layout_error_request">亲，请求出错了</string>
     <string name="hint_layout_error_network">亲，没有网络了</string>
+
+    <string name="page_indicator">%1$d/%2$d</string>
 </resources>
