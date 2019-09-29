@@ -1,10 +1,16 @@
 package com.qiufg.mvp.util;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 
 import androidx.annotation.NonNull;
 
+import com.qiufg.mvp.App;
+
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -129,6 +135,71 @@ public class FileUtils {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        }
+    }
+
+    /**
+     * 保存文件到相册
+     *
+     * @param source 源文件
+     * @return 保存路径
+     */
+    public static String saveFile2Album(File source) {
+        FileInputStream is = null;
+        FileOutputStream os = null;
+        String galleryPath = Environment.getExternalStorageDirectory()
+                + File.separator + Environment.DIRECTORY_DCIM
+                + File.separator + "Camera";
+        try {
+            int hashCode = source.getName().hashCode();
+            String fileName = ((hashCode < 0) ? -hashCode : hashCode) + ".jpg";
+            File dir = new File(galleryPath);
+            if (dir.exists()) {
+                if (!dir.isDirectory()) {
+                    boolean delete = dir.delete();
+                    boolean mkdirs = dir.mkdirs();
+                    Logger.v("delete = " + delete + "\tmkdirs = " + mkdirs);
+                }
+            } else {
+                boolean mkdirs = dir.mkdirs();
+                Logger.v("mkdirs = " + mkdirs);
+            }
+            File target = new File(galleryPath, fileName);
+            if (!target.exists()) {
+                boolean newFile = target.createNewFile();
+                Logger.v("newFile = " + newFile);
+            }
+            is = new FileInputStream(source);
+            os = new FileOutputStream(target);
+            byte[] buffer = new byte[1024];
+            while (is.read(buffer) > 0) {
+                os.write(buffer);
+            }
+            os.flush();
+
+            //通知相册更新
+            MediaStore.Images.Media.insertImage(App.getInstance().getContentResolver(),
+                    target.getAbsolutePath(), target.getName(), null);
+            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            Uri uri = Uri.fromFile(target);
+            intent.setData(uri);
+            App.getInstance().sendBroadcast(intent);
+
+            return galleryPath;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                if (is != null) {
+                    is.close();
+                }
+                if (os != null) {
+                    os.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

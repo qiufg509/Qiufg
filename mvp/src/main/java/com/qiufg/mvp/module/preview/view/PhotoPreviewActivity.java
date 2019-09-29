@@ -1,14 +1,20 @@
-package com.qiufg.mvp.module.common;
+package com.qiufg.mvp.module.preview.view;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.gyf.immersionbar.ImmersionBar;
 import com.qiufg.mvp.R;
 import com.qiufg.mvp.adapter.PhotoPreviewAdapter;
-import com.qiufg.mvp.module.base.BaseActivity;
+import com.qiufg.mvp.module.base.MVPActivity;
+import com.qiufg.mvp.module.preview.presenter.PreviewPresenter;
 import com.qiufg.mvp.util.ToastUtils;
 import com.qiufg.mvp.wedget.CustomViewPager;
 
@@ -23,10 +29,11 @@ import butterknife.OnClick;
  * <p>
  * Desc：照片预览页
  */
-public class PhotoPreviewActivity extends BaseActivity {
+public class PhotoPreviewActivity extends MVPActivity<PreviewPresenter> implements PreviewView {
 
     public static final String EXTRA_URL_LIST = "url_list";
     public static final String EXTRA_PAGE_INDEX = "index";
+    private static final int PERMISSIONS_CODE = 1;
     @BindView(R.id.viewPager)
     CustomViewPager mViewPager;
     @BindView(R.id.tv_indicator)
@@ -38,6 +45,11 @@ public class PhotoPreviewActivity extends BaseActivity {
     @Override
     protected int createView() {
         return R.layout.activity_photo_preview;
+    }
+
+    @Override
+    protected PreviewPresenter initPresenter() {
+        return new PreviewPresenter();
     }
 
     @Override
@@ -58,7 +70,7 @@ public class PhotoPreviewActivity extends BaseActivity {
         mCurrentIndex = getIntent().getIntExtra(EXTRA_PAGE_INDEX, 0);
         mCurrentIndex = mCurrentIndex >= mUrls.size() ? 0 : mCurrentIndex;
         if (mUrls.size() > 1) {
-            mTvIndicator.setVisibility(View.GONE);
+            mTvIndicator.setVisibility(View.VISIBLE);
         }
         PhotoPreviewAdapter adapter = new PhotoPreviewAdapter(this, mUrls);
         mViewPager.setAdapter(adapter);
@@ -79,7 +91,47 @@ public class PhotoPreviewActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.iv_download:
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,}, PERMISSIONS_CODE);
+                } else {
+                    mPresenter.downloadPhoto(mUrls.get(mCurrentIndex));
+                }
                 break;
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSIONS_CODE) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    mPresenter.downloadPhoto(mUrls.get(mCurrentIndex));
+                } else {
+                    ToastUtils.toast("您拒绝了存储权限，下载失败！");
+                }
+            }
+        }
+    }
+
+    @Override
+    public void downloadPhotoSuccess(String path) {
+        ToastUtils.toast("图片已保存至相册");
+    }
+
+    @Override
+    public void downloadPhotoFail() {
+        ToastUtils.toast("保存图片失败");
+    }
+
+    @Override
+    public void setWallpaperSuccess() {
+        ToastUtils.toast("设置成功");
+    }
+
+    @Override
+    public void setLockWrapperSuccess() {
+        ToastUtils.toast("设置成功");
     }
 }

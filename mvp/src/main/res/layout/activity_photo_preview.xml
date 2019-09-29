@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
-    tools:context=".module.common.PhotoPreviewActivity">
+    tools:context=".module.preview.view.PhotoPreviewActivity">
 
     <com.qiufg.mvp.wedget.CustomViewPager
         android:id="@+id/viewPager"
@@ -34,7 +34,6 @@
         android:background="@drawable/photo_preview_page_index"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="1 / 1"
         android:textColor="#ffffff"
         android:textSize="16sp"
         android:visibility="gone" />

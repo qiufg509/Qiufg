@@ -61,7 +61,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".module.common.PhotoPreviewActivity"
+            android:name=".module.preview.view.PhotoPreviewActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
             android:exported="false"
             android:launchMode="singleTop"

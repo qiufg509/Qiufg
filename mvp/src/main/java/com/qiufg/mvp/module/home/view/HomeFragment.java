@@ -25,7 +25,7 @@ import com.qiufg.mvp.bean.GirlsBean;
 import com.qiufg.mvp.exception.QiufgException;
 import com.qiufg.mvp.listener.OnFragmentInteractionListener;
 import com.qiufg.mvp.module.base.BaseFragment;
-import com.qiufg.mvp.module.common.PhotoPreviewActivity;
+import com.qiufg.mvp.module.preview.view.PhotoPreviewActivity;
 import com.qiufg.mvp.module.home.presenter.HomePresenter;
 import com.qiufg.mvp.util.GlideImageLoader;
 import com.qiufg.mvp.util.ToastUtils;
@@ -52,6 +52,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     @BindView(R.id.tv_title)
     TextView mTvTitle;
     Banner mBanner;
+    private List<String> mBannerData;
 
     private OnFragmentInteractionListener mListener;
     private String mTitleString;
@@ -158,10 +159,34 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
             intent.putExtra(PhotoPreviewActivity.EXTRA_URL_LIST, urls);
             startActivity(intent);
         });
+        mBanner.setOnBannerListener(position -> {
+            Intent intent = new Intent(getContext(), PhotoPreviewActivity.class);
+            ArrayList<String> urls = new ArrayList<>(mBannerData);
+            intent.putExtra(PhotoPreviewActivity.EXTRA_URL_LIST, urls);
+            intent.putExtra(PhotoPreviewActivity.EXTRA_PAGE_INDEX, position);
+            startActivity(intent);
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mBanner != null) {
+            mBanner.startAutoPlay();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mBanner != null) {
+            mBanner.stopAutoPlay();
+        }
     }
 
     @Override
     public void setBannerImages(List<String> images) {
+        mBannerData = images;
         mBanner.setImages(images)
                 .setImageLoader(new GlideImageLoader())
                 .setDelayTime(5000)
