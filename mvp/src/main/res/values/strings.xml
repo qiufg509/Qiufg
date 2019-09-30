@@ -16,4 +16,6 @@
     <string name="hint_layout_error_network">亲，没有网络了</string>
 
     <string name="page_indicator">%1$d/%2$d</string>
+    <string name="photo_preview_set_wallpaper">设为桌面背景</string>
+    <string name="photo_preview_set_lockwrapper">设为锁屏背景</string>
 </resources>

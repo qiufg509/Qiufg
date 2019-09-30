@@ -15,5 +15,9 @@ public interface PreviewView extends IView {
 
     void setWallpaperSuccess();
 
+    void setWallpaperFail();
+
     void setLockWrapperSuccess();
+
+    void setLockWrapperFail();
 }

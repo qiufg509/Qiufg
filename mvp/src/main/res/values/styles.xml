@@ -11,4 +11,10 @@
     <style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
     </style>
+
+    <style name="Dialog_Divider">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/dialog_divider</item>
+        <item name="android:background">@color/dialog_divider</item>
+    </style>
 </resources>

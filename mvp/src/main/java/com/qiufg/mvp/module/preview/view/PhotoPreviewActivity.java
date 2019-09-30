@@ -13,10 +13,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.gyf.immersionbar.ImmersionBar;
 import com.qiufg.mvp.R;
 import com.qiufg.mvp.adapter.PhotoPreviewAdapter;
+import com.qiufg.mvp.listener.OnPhotoPreviewClickListener;
 import com.qiufg.mvp.module.base.MVPActivity;
 import com.qiufg.mvp.module.preview.presenter.PreviewPresenter;
 import com.qiufg.mvp.util.ToastUtils;
 import com.qiufg.mvp.wedget.CustomViewPager;
+import com.qiufg.mvp.wedget.dialog.SelectDialog;
 
 import java.util.List;
 
@@ -71,13 +73,16 @@ public class PhotoPreviewActivity extends MVPActivity<PreviewPresenter> implemen
         mCurrentIndex = mCurrentIndex >= mUrls.size() ? 0 : mCurrentIndex;
         if (mUrls.size() > 1) {
             mTvIndicator.setVisibility(View.VISIBLE);
+            mTvIndicator.setText(
+                    String.format(getString(R.string.page_indicator), mCurrentIndex + 1, mUrls.size()));
         }
-        PhotoPreviewAdapter adapter = new PhotoPreviewAdapter(this, mUrls);
+        PhotoPreviewAdapter adapter = new PhotoPreviewAdapter(this, mUrls, mPhotoPreviewClickListener);
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(mCurrentIndex);
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                mCurrentIndex = position;
                 mTvIndicator.setText(
                         String.format(getString(R.string.page_indicator), mCurrentIndex + 1, mUrls.size()));
             }
@@ -101,6 +106,21 @@ public class PhotoPreviewActivity extends MVPActivity<PreviewPresenter> implemen
                 break;
         }
     }
+
+    private OnPhotoPreviewClickListener mPhotoPreviewClickListener = new OnPhotoPreviewClickListener() {
+        @Override
+        public void onClickListener() {
+            finish();
+        }
+
+        @Override
+        public void onLongClickListener(String url) {
+            SelectDialog.with(PhotoPreviewActivity.this)
+                    .setCancelable(true)
+                    .setNegativeButton(getString(R.string.photo_preview_set_lockwrapper), v -> mPresenter.setLockWrapper(url))
+                    .setPositiveButton(getString(R.string.photo_preview_set_wallpaper), v -> mPresenter.setWallPaper(url)).show();
+        }
+    };
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -131,7 +151,17 @@ public class PhotoPreviewActivity extends MVPActivity<PreviewPresenter> implemen
     }
 
     @Override
+    public void setWallpaperFail() {
+        ToastUtils.toast("设置失败");
+    }
+
+    @Override
     public void setLockWrapperSuccess() {
         ToastUtils.toast("设置成功");
+    }
+
+    @Override
+    public void setLockWrapperFail() {
+        ToastUtils.toast("设置失败");
     }
 }

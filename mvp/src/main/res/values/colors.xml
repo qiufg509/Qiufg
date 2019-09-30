@@ -8,4 +8,8 @@
     <color name="navigation_bottom_selected">#46c01b</color>
 
     <color name="black">#000000</color>
+
+    <color name="dialog_background">#ffffff</color>
+    <color name="dialog_text">#000000</color>
+    <color name="dialog_divider">#a0a9ae</color>
 </resources>

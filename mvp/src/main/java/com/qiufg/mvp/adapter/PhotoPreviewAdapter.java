@@ -1,6 +1,6 @@
 package com.qiufg.mvp.adapter;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -17,6 +17,7 @@ import com.bumptech.glide.request.transition.Transition;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.qiufg.mvp.R;
+import com.qiufg.mvp.listener.OnPhotoPreviewClickListener;
 import com.qiufg.mvp.util.ToastUtils;
 
 import java.io.File;
@@ -29,27 +30,33 @@ import java.util.List;
  */
 public class PhotoPreviewAdapter extends PagerAdapter {
 
-    private Activity mActivity;
+    private Context mContext;
     private List<String> mUrls;
+    private OnPhotoPreviewClickListener mListener;
 
-    public PhotoPreviewAdapter(Activity activity, List<String> urls) {
-        mActivity = activity;
+    public PhotoPreviewAdapter(Context context, List<String> urls, OnPhotoPreviewClickListener listener) {
+        mContext = context;
         mUrls = urls;
+        mListener = listener;
     }
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View inflate = LayoutInflater.from(mActivity).inflate(R.layout.item_photo_preview, container, false);
+        View inflate = LayoutInflater.from(mContext).inflate(R.layout.item_photo_preview, container, false);
         SubsamplingScaleImageView scaleImageView = inflate.findViewById(R.id.photo_view);
         scaleImageView.setDoubleTapZoomDuration(500);
         scaleImageView.setMinScale(1);
         scaleImageView.setMaxScale(8);
         scaleImageView.setDoubleTapZoomScale(3);
-        scaleImageView.setOnClickListener(v -> mActivity.finish());
+        scaleImageView.setOnClickListener(v -> mListener.onClickListener());
+        String url = mUrls.get(position);
+        scaleImageView.setOnLongClickListener(v -> {
+            mListener.onLongClickListener(url);
+            return true;
+        });
 
-
-        Glide.with(mActivity).asFile().load(mUrls.get(position))
+        Glide.with(mContext).asFile().load(url)
                 .into(new CustomViewTarget<SubsamplingScaleImageView, File>(scaleImageView) {
                     @Override
                     public void onLoadFailed(@Nullable Drawable errorDrawable) {
@@ -88,7 +95,7 @@ public class PhotoPreviewAdapter extends PagerAdapter {
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         try {
             container.removeView((View) object);
-            Glide.get(mActivity).clearMemory();
+            Glide.get(mContext).clearMemory();
         } catch (Exception e) {
             e.printStackTrace();
         }
