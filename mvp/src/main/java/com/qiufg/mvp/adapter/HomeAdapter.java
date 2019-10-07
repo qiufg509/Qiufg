@@ -38,7 +38,7 @@ public class HomeAdapter extends BaseQuickAdapter<GirlsBean, BaseViewHolder> {
         ImageView imageView = helper.getView(R.id.iv_photo);
         imageView.setColorFilter(mColorFilter);
         Glide.with(mContext).load(item.getUrl())
-                .apply(new RequestOptions().placeholder(R.mipmap.pic_default)
+                .apply(new RequestOptions().placeholder(R.mipmap.img_default)
                         .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(imageView);
     }

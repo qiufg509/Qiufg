@@ -8,15 +8,21 @@ import com.qiufg.content.ResultBean;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.InputStream;
+import java.nio.channels.Selector;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeSet;
+import java.util.function.IntPredicate;
+import java.util.stream.IntStream;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -43,8 +49,89 @@ public class JavaTest {
     }
 
     @Test
-    public void test19() {
+    public void test20(){
 
+    }
+
+    @Test
+    public void test19() {
+        System.out.println(true?Integer.valueOf(1):Double.valueOf(2));
+        System.out.println(Integer.valueOf(1));
+        sop("---------------------------------");
+
+        sop("-128 == new Integer(-128)  "+(-128 == new Integer(-128)));
+        sop("new Integer(-128) == new Integer(-128) "+(new Integer(-128) == new Integer(-128)));
+        sop("Integer.valueOf(-128) == Integer.valueOf(-128) "+(Integer.valueOf(-128) == Integer.valueOf(-128)));
+        sop("Integer.valueOf(128) == Integer.valueOf(128)   "+(Integer.valueOf(128) == Integer.valueOf(128)));
+
+        sop("---------------------------------");
+
+        sop("-128 == new Integer(-128)  "+(-128 == new Long(-128)));
+        sop("new Integer(-128) == new Integer(-128) "+(new Long(-128) == new Long(-128)));
+        sop("Integer.valueOf(-128) == Integer.valueOf(-128) "+(Long.valueOf(-128) == Long.valueOf(-128)));
+        sop("Integer.valueOf(128) == Integer.valueOf(128)   "+(Long.valueOf(128) == Long.valueOf(128)));
+
+        sop("---------------------------------");
+
+        int x = 0x80000000;
+        System.out.println(Integer.toHexString(-x));
+
+        Integer i1 = new Integer(257);
+        byte x1 = i1.byteValue();
+        sop(x1);
+
+        sop("---------------------------------");
+        LinkedList list = new LinkedList<Integer>();
+        for (int i = -3; i < 3; i++) {
+            list.add(i);
+        }
+        for (int i = 0; i < 3; i++) {
+            list.remove(i);
+            sop(list);
+        }
+        System.out.println(list);
+
+
+        sop("---------------------------------");
+        Double a = new Double(127);
+        Double b = 127d;
+        Double c = Double.valueOf("127");
+
+        System.out.println(a == b);  //1
+        System.out.println(a == c);  //2
+        System.out.println(b == c);  //3
+
+        sop("---------------------------------");
+        String s1 = "ZJU";
+        String s2 = new String("ZJU");
+        String s3 = "ZJ";
+        s3 += "U";
+        String s4 = s2.intern();
+
+        System.out.println(s1 == s2);  //1
+        System.out.println(s1 == s3);  //2
+        System.out.println(s1 == s4);  //3
+
+        sop("---------------------------------");
+
+        int value=IntStream.range(2, 20)
+                .filter(xx -> IntStream.range(2, xx).filter(k -> xx % k == 0).sum() > 0)
+                .sum();
+        sop(value);
+
+        IntStream.range(2,20).filter(new IntPredicate() {
+            @Override
+            public boolean test(int value) {
+                return IntStream.range(2, value).filter(new IntPredicate() {
+                    @Override
+                    public boolean test(int value2) {
+                        return value % value2 == 0;
+                    }
+                }).sum()>0;
+            }
+        }).sum();
+
+        sop("---------------------------------");
 
     }
 

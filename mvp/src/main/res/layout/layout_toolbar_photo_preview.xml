@@ -14,6 +14,7 @@
         android:layout_height="?actionBarSize"
         android:background="?actionBarItemBackground"
         android:contentDescription="@null"
-        android:src="@drawable/arrow_back_16dp" />
+        android:scaleType="center"
+        android:src="@drawable/ic_arrow_back_black_24dp" />
 
 </androidx.appcompat.widget.Toolbar>

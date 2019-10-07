@@ -33,7 +33,7 @@ public class GankAdapter extends BaseQuickAdapter<GankBean, BaseViewHolder> {
         ImageView imageView = helper.getView(R.id.iv_sample_graph);
         if (images != null && images.size() >= 1) {
             Glide.with(mContext).load(images.get(0))
-                    .apply(new RequestOptions().placeholder(R.mipmap.pic_default).diskCacheStrategy(DiskCacheStrategy.ALL))
+                    .apply(new RequestOptions().placeholder(R.mipmap.img_default).diskCacheStrategy(DiskCacheStrategy.ALL))
                     .into(imageView);
             imageView.setVisibility(View.VISIBLE);
         } else {

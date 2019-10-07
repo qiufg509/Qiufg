@@ -18,7 +18,7 @@ public class GlideImageLoader extends ImageLoader {
     public void displayImage(Context context, Object path, ImageView imageView) {
         Glide.with(context)
                 .load(path)
-                .apply(new RequestOptions().placeholder(R.mipmap.pic_default))
+                .apply(new RequestOptions().placeholder(R.mipmap.img_default))
                 .into(imageView);
     }
 }

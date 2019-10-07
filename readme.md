@@ -9,3 +9,6 @@
 8. 响应以流形式返回 @Streaming（用于下载文件）
 9. @FormUrlEncoded、@Multipart、@Body三者互斥，任意两个不能同时使用
 10. @Path、@Url不能同时使用
+
+二、换肤
+参考 git@github.com:qiufg509/Android-skin-support.git

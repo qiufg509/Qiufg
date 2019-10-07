@@ -94,11 +94,11 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
 
     protected ViewGroup getEmptyView(QiufgException e) {
         if (e.getErrorCode() == QiufgCode.CODE_DATA_EMPTY) {
-            return getHintLayout(R.mipmap.icon_hint_empty, R.string.hint_layout_no_data);
+            return getHintLayout(R.mipmap.img_hint_empty, R.string.hint_layout_no_data);
         } else if (CommonUtils.isNetworkAvailable()) {// 判断当前网络是否可用
-            return getHintLayout(R.mipmap.icon_hint_request, R.string.hint_layout_error_request);
+            return getHintLayout(R.mipmap.img_hint_request, R.string.hint_layout_error_request);
         } else {
-            return getHintLayout(R.mipmap.icon_hint_nerwork, R.string.hint_layout_error_network);
+            return getHintLayout(R.mipmap.img_hint_nerwork, R.string.hint_layout_error_network);
         }
     }
 

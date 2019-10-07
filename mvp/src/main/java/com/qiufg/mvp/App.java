@@ -6,10 +6,16 @@ import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 
 import com.fm.openinstall.OpenInstall;
+import com.qiufg.mvp.bus.CustomSkinLoader;
 import com.qiufg.mvp.util.CommonUtils;
 import com.qiufg.mvp.util.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+
+import skin.support.SkinCompatManager;
+import skin.support.app.SkinAppCompatViewInflater;
+import skin.support.constraint.app.SkinConstraintViewInflater;
+import skin.support.design.app.SkinMaterialViewInflater;
 
 /**
  * Created by fengguang.qiu on 2019/08/07 10:43.
@@ -28,6 +34,16 @@ public class App extends Application {
         INSTANCE = this;
 
         mRefWatcher = LeakCanary.install(this);
+
+        SkinCompatManager.withoutActivity(this)
+                .addStrategy(new CustomSkinLoader())
+                .addInflater(new SkinAppCompatViewInflater())           // 基础控件换肤初始化
+                .addInflater(new SkinMaterialViewInflater())            // material design 控件换肤初始化[可选]
+                .addInflater(new SkinConstraintViewInflater())          // ConstraintLayout 控件换肤初始化[可选]
+//                .addInflater(new SkinCardViewInflater())                // CardView v7 控件换肤初始化[可选]
+//                .setSkinStatusBarColorEnable(false)                     // 关闭状态栏换肤，默认打开[可选]
+                .setSkinWindowBackgroundEnable(false)                   // 关闭windowBackground换肤，默认打开[可选]
+                .loadSkin();
         if (CommonUtils.isMainProcess()) {
             OpenInstall.init(this);
             registerLifecycle();

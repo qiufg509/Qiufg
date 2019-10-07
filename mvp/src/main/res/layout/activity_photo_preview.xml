@@ -23,7 +23,7 @@
         android:background="@drawable/photo_preview_btn_download"
         android:contentDescription="@null"
         android:padding="6dp"
-        android:src="@mipmap/icon_download" />
+        android:src="@mipmap/ic_download" />
 
     <TextView
         android:id="@+id/tv_indicator"

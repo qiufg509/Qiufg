@@ -3,8 +3,11 @@ package com.qiufg.mvp.module.base;
 import android.os.Bundle;
 
 import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.app.SkinAppCompatDelegateImpl;
 
 import com.gyf.immersionbar.ImmersionBar;
 
@@ -30,5 +33,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void viewCreated();
 
     protected void initBeforeView() {
+    }
+
+    @NonNull
+    @Override
+    public AppCompatDelegate getDelegate() {
+        return SkinAppCompatDelegateImpl.get(this, this);
     }
 }

@@ -105,7 +105,11 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
                 .doOnNext(file -> {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(App.getInstance().getContentResolver(), Uri.fromFile(file));
                     WallpaperManager wallpaperManager = WallpaperManager.getInstance(App.getInstance());
-                    wallpaperManager.setBitmap(bitmap);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        wallpaperManager.setBitmap(bitmap, null, true, WallpaperManager.FLAG_SYSTEM);
+                    } else {
+                        wallpaperManager.setBitmap(bitmap);
+                    }
                     bitmap.recycle();
                 })
                 .subscribeOn(Schedulers.io())
