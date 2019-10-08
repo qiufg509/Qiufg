@@ -16,6 +16,6 @@
         android:ellipsize="marquee"
         android:gravity="center"
         android:singleLine="true"
-        android:textColor="@android:color/white"
+        android:textColor="@color/toolbar_title_text"
         android:textSize="18sp" />
 </androidx.appcompat.widget.Toolbar>

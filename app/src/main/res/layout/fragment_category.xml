@@ -16,20 +16,20 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@android:color/white"
+            android:background="@color/category_app_bar_bg"
             app:title="@string/title_category" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="42dp"
-            android:background="@android:color/white"
-            app:tabIndicatorColor="@android:color/black"
+            android:background="@color/category_app_bar_bg"
+            app:tabIndicatorColor="@color/category_tab_indicator"
             app:tabIndicatorFullWidth="false"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="@android:color/black"
+            app:tabSelectedTextColor="@color/category_tab_text_selected"
             app:tabTextAppearance="@style/TabLayoutTextStyle"
-            app:tabTextColor="#aaaaaa" />
+            app:tabTextColor="@color/category_tab_text_normal" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager

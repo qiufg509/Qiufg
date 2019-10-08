@@ -12,6 +12,7 @@ public class CustomSkinLoader extends SkinSDCardLoader {
 
     @Override
     protected String getSkinPath(Context context, String skinName) {
+        //修改此处更改皮肤文件路径
         return new File(SkinFileUtils.getSkinDir(context), skinName).getAbsolutePath();
     }
 

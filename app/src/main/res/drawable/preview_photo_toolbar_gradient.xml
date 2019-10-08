@@ -5,7 +5,7 @@
     <gradient
         android:angle="270"
         android:endColor="@android:color/transparent"
-        android:startColor="@android:color/black" />
+        android:startColor="@color/photo_preview_toolbar_bg_start" />
     <size android:height="?actionBarSize" />
 
 </shape>

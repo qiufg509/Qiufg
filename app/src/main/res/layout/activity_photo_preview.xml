@@ -34,7 +34,7 @@
         android:background="@drawable/photo_preview_page_index"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:textColor="#ffffff"
+        android:textColor="@color/photo_preview_indicator_text"
         android:textSize="16sp"
         android:visibility="gone" />
 </FrameLayout>

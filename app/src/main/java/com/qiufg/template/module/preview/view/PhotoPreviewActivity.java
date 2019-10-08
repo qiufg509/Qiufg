@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.qiufg.template.App;
 import com.qiufg.template.R;
 import com.qiufg.template.adapter.PhotoPreviewAdapter;
 import com.qiufg.template.listener.OnPhotoPreviewClickListener;
@@ -25,6 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import skin.support.content.res.SkinCompatResources;
 
 /**
  * Created by fengguang.qiu on 2019/09/26 17:49.
@@ -57,10 +59,10 @@ public class PhotoPreviewActivity extends MVPActivity<PreviewPresenter> implemen
     @Override
     protected void viewCreated() {
         ImmersionBar.with(this).fitsSystemWindows(true)
-                .statusBarColor(R.color.black)
+                .statusBarColor(SkinCompatResources.getColor(App.getInstance(), R.color.photo_preview_toolbar_bg_start))
                 .statusBarDarkFont(false)
                 .navigationBarEnable(true)
-                .navigationBarColor(R.color.black)
+                .navigationBarColor(SkinCompatResources.getColor(App.getInstance(), R.color.photo_preview_toolbar_bg_start))
                 .init();
         ButterKnife.bind(this);
         mUrls = getIntent().getStringArrayListExtra(EXTRA_URL_LIST);

@@ -25,7 +25,7 @@
         android:layout_toStartOf="@+id/iv_sample_graph"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="@android:color/black" />
+        android:textColor="@color/category_gank_item_des" />
 
     <TextView
         android:id="@+id/tv_who"
@@ -37,7 +37,7 @@
         android:drawableStart="@drawable/category_gank_author"
         android:drawablePadding="3dp"
         android:gravity="center"
-        android:textColor="#aaaaaa" />
+        android:textColor="@color/category_gank_item_who" />
 
     <TextView
         android:id="@+id/tv_publish_time"
@@ -49,5 +49,5 @@
         android:drawableStart="@drawable/category_gank_publish_time"
         android:drawablePadding="3dp"
         android:gravity="center"
-        android:textColor="#aaaaaa" />
+        android:textColor="@color/category_gank_item_time" />
 </RelativeLayout>

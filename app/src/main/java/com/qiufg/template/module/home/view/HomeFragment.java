@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,9 +24,10 @@ import com.qiufg.template.bean.GirlsBean;
 import com.qiufg.template.exception.QiufgException;
 import com.qiufg.template.listener.OnFragmentInteractionListener;
 import com.qiufg.template.module.base.BaseFragment;
-import com.qiufg.template.module.preview.view.PhotoPreviewActivity;
 import com.qiufg.template.module.home.presenter.HomePresenter;
+import com.qiufg.template.module.preview.view.PhotoPreviewActivity;
 import com.qiufg.template.util.GlideImageLoader;
+import com.qiufg.template.util.Logger;
 import com.qiufg.template.util.ToastUtils;
 import com.qiufg.template.wedget.HomeDecoration;
 import com.youth.banner.Banner;
@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import skin.support.content.res.SkinCompatResources;
 
 /**
  * Created by fengguang.qiu on 2019/08/12 17:51.
@@ -51,7 +52,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     TwinklingRefreshLayout mRefreshLayout;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
-    Banner mBanner;
+    private Banner mBanner;
     private List<String> mBannerData;
 
     private OnFragmentInteractionListener mListener;
@@ -140,12 +141,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
                 if (mTotalDy <= mBannerHeight) {
                     float alpha = (float) mTotalDy / mBannerHeight;
                     mToolbar.setBackgroundColor(ColorUtils.blendARGB(Color.TRANSPARENT
-                            , ContextCompat.getColor(App.getInstance(), R.color.colorPrimary), alpha));
+                            , SkinCompatResources.getColor(App.getInstance(), R.color.colorPrimary), alpha));
                     mTvTitle.setTextColor(ColorUtils.blendARGB(Color.TRANSPARENT
                             , Color.WHITE, alpha));
                 } else {
                     mToolbar.setBackgroundColor(ColorUtils.blendARGB(Color.TRANSPARENT
-                            , ContextCompat.getColor(App.getInstance(), R.color.colorPrimary), 1));
+                            , SkinCompatResources.getColor(App.getInstance(), R.color.colorPrimary), 1));
                     mTvTitle.setTextColor(ColorUtils.blendARGB(Color.TRANSPARENT
                             , Color.WHITE, 1));
                 }
@@ -159,6 +160,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
             intent.putExtra(PhotoPreviewActivity.EXTRA_URL_LIST, urls);
             startActivity(intent);
         });
+        if (mBanner == null) {
+            Logger.e(" must call addHeaderView() first !");
+            return;
+        }
         mBanner.setOnBannerListener(position -> {
             Intent intent = new Intent(getContext(), PhotoPreviewActivity.class);
             ArrayList<String> urls = new ArrayList<>(mBannerData);

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#008577</color>
+    <color name="colorPrimary">#FF725C</color>
+    <color name="colorPrimaryDark">#FF725C</color>
     <color name="colorAccent">#aaaaaa</color>
 
     <color name="navigation_bottom_normal">#999999</color>
-    <color name="navigation_bottom_selected">#46c01b</color>
+    <color name="navigation_bottom_selected">#FF725C</color>
 
     <color name="home_item_time_text">#ffffff</color>
 
@@ -24,7 +24,7 @@
     <color name="category_gank_item_des">#000000</color>
     <color name="category_gank_item_who">#aaaaaa</color>
     <color name="category_gank_item_time">#aaaaaa</color>
-    <color name="category_gank_item_ic_tint">#5696C0</color>
+    <color name="category_gank_item_ic_tint">#FF725C</color>
 
     <color name="photo_preview_indicator_text">#ffffff</color>
     <color name="photo_preview_bar_bg">#4C000000</color>

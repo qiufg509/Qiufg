@@ -21,7 +21,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="25dp"
         android:layout_marginRight="40dp"
-        android:textColor="#666666"
+        android:textColor="@color/layout_non_content_hint_text"
         android:textSize="14sp" />
 
 </LinearLayout>

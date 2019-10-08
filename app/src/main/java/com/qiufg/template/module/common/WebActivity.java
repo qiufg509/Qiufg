@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.qiufg.template.App;
 import com.qiufg.template.R;
 import com.qiufg.template.module.base.BaseActivity;
 
@@ -18,6 +19,7 @@ import java.lang.ref.WeakReference;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import skin.support.content.res.SkinCompatResources;
 
 /**
  * Created by fengguang.qiu on 2019/09/25 10:50.
@@ -44,7 +46,7 @@ public class WebActivity extends BaseActivity {
         ImmersionBar.with(this)
                 .fitsSystemWindows(true)
                 .statusBarDarkFont(false)
-                .statusBarColor(R.color.colorPrimary)
+                .statusBarColor(SkinCompatResources.getColor(App.getInstance(), R.color.colorPrimary))
                 .init();
         ButterKnife.bind(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
