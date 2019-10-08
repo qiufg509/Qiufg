@@ -2,11 +2,17 @@ package com.qiufg.mvp.module.mine.view;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.qiufg.mvp.R;
+import com.qiufg.mvp.bus.CustomSkinLoader;
 import com.qiufg.mvp.listener.OnFragmentInteractionListener;
 import com.qiufg.mvp.module.base.BaseFragment;
 import com.qiufg.mvp.module.mine.presenter.MinePresenter;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+import skin.support.SkinCompatManager;
 
 /**
  * Created by fengguang.qiu on 2019/10/08 10:20.
@@ -16,6 +22,10 @@ import com.qiufg.mvp.module.mine.presenter.MinePresenter;
 public class MineFragment extends BaseFragment<MinePresenter> implements MineView {
 
     private static final String ARG_TITLE = "title";
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
+    @BindView(R.id.tv_select_theme_style)
+    TextView mTvSelectThemeStyle;
 
     private OnFragmentInteractionListener mListener;
     private String mTitleString;
@@ -48,6 +58,17 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineVie
 
     @Override
     protected void viewCreated(View view) {
+        mTvTitle.setText(mTitleString);
+        if (getActivity() == null) return;
 
+    }
+
+    @OnClick(R.id.tv_select_theme_style)
+    public void onViewClicked() {
+        // 指定皮肤插件
+        SkinCompatManager.getInstance().loadSkin("new.skin", CustomSkinLoader.SKIN_LOADER_STRATEGY_SDCARD);
+
+// 恢复应用默认皮肤
+//        SkinCompatManager.getInstance().restoreDefaultTheme();
     }
 }
