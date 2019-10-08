@@ -5,6 +5,8 @@ import com.qiufg.mvp.R;
 import com.qiufg.mvp.module.base.BaseFragment;
 import com.qiufg.mvp.module.category.view.CategoryFragment;
 import com.qiufg.mvp.module.home.view.HomeFragment;
+import com.qiufg.mvp.module.mine.view.MineFragment;
+import com.qiufg.mvp.module.note.view.NoteFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +20,14 @@ public class MainModel {
 
     public List<BaseFragment> getFragments() {
         List<BaseFragment> fragments = new ArrayList<>();
-        HomeFragment girlFragment1 = HomeFragment.newInstance(App.getInstance().getString(R.string.title_home));
+        HomeFragment girlFragment = HomeFragment.newInstance(App.getInstance().getString(R.string.title_home));
         CategoryFragment categoryFragment = CategoryFragment.newInstance(App.getInstance().getString(R.string.title_category));
-        HomeFragment girlFragment3 = HomeFragment.newInstance(App.getInstance().getString(R.string.title_note));
-        HomeFragment girlFragment4 = HomeFragment.newInstance(App.getInstance().getString(R.string.title_mine));
-        fragments.add(girlFragment1);
+        NoteFragment noteFragment = NoteFragment.newInstance(App.getInstance().getString(R.string.title_note));
+        MineFragment mineFragment = MineFragment.newInstance(App.getInstance().getString(R.string.title_mine));
+        fragments.add(girlFragment);
         fragments.add(categoryFragment);
-        fragments.add(girlFragment3);
-        fragments.add(girlFragment4);
+        fragments.add(noteFragment);
+        fragments.add(mineFragment);
         return fragments;
     }
 }

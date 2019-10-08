@@ -1,6 +1,11 @@
 package com.qiufg.mvp.bus;
 
+import android.content.Context;
+
+import java.io.File;
+
 import skin.support.load.SkinSDCardLoader;
+import skin.support.utils.SkinFileUtils;
 
 public class CustomSkinLoader extends SkinSDCardLoader {
     public static final int SKIN_LOADER_STRATEGY_SDCARD = Integer.MAX_VALUE;
