@@ -4,29 +4,30 @@
     <color name="colorPrimaryDark">#FF725C</color>
     <color name="colorAccent">#aaaaaa</color>
 
-    <color name="navigation_bottom_normal">#999999</color>
+    <color name="navigation_bottom_normal">#999900</color>
     <color name="navigation_bottom_selected">#FF725C</color>
 
-    <color name="home_item_time_text">#ffffff</color>
+    <color name="home_item_time_text">#FF725C</color>
 
     <color name="layout_non_content_hint_text">#666666</color>
-    <color name="toolbar_title_text">#ffffff</color>
-    <color name="toolbar_ic_back_tint">#ffffff</color>
+    <color name="toolbar_title_text">#496DFF</color>
+    <color name="toolbar_ic_back_tint">#FF725C</color>
 
     <color name="dialog_background">#ffffff</color>
     <color name="dialog_text">#000000</color>
     <color name="dialog_divider">#a0a9ae</color>
 
+    <color name="category_app_bar_title_text">#999900</color>
     <color name="category_app_bar_bg">#ffffff</color>
-    <color name="category_tab_indicator">#000000</color>
-    <color name="category_tab_text_selected">#000000</color>
-    <color name="category_tab_text_normal">#aaaaaa</color>
-    <color name="category_gank_item_des">#000000</color>
-    <color name="category_gank_item_who">#aaaaaa</color>
-    <color name="category_gank_item_time">#aaaaaa</color>
+    <color name="category_tab_indicator">#FF725C</color>
+    <color name="category_tab_text_selected">#FF725C</color>
+    <color name="category_tab_text_normal">#999900</color>
+    <color name="category_gank_item_des">#FF725C</color>
+    <color name="category_gank_item_who">#999900</color>
+    <color name="category_gank_item_time">#999900</color>
     <color name="category_gank_item_ic_tint">#FF725C</color>
 
     <color name="photo_preview_indicator_text">#ffffff</color>
-    <color name="photo_preview_bar_bg">#4C000000</color>
-    <color name="photo_preview_toolbar_bg_start">#000000</color>
+    <color name="photo_preview_bar_bg">#4C999900</color>
+    <color name="photo_preview_toolbar_bg_start">#ffffff</color>
 </resources>

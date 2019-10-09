@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="@color/category_app_bar_bg"
-            app:title="@string/title_category" />
+            app:titleTextColor="@color/category_app_bar_title_text" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
@@ -27,9 +27,7 @@
             app:tabIndicatorColor="@color/category_tab_indicator"
             app:tabIndicatorFullWidth="false"
             app:tabMode="scrollable"
-            app:tabSelectedTextColor="@color/category_tab_text_selected"
-            app:tabTextAppearance="@style/TabLayoutTextStyle"
-            app:tabTextColor="@color/category_tab_text_normal" />
+            app:tabTextAppearance="@style/TabLayoutTextStyle" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager

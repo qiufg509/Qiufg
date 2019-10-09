@@ -10,6 +10,7 @@
 
     <style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
+        <item name="android:textColor">@color/category_tab_text_selector</item>
     </style>
 
     <style name="Dialog_Divider">

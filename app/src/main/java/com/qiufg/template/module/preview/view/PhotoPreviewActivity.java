@@ -59,10 +59,10 @@ public class PhotoPreviewActivity extends MVPActivity<PreviewPresenter> implemen
     @Override
     protected void viewCreated() {
         ImmersionBar.with(this).fitsSystemWindows(true)
-                .statusBarColor(SkinCompatResources.getColor(App.getInstance(), R.color.photo_preview_toolbar_bg_start))
+                .statusBarColorInt(SkinCompatResources.getColor(App.getInstance(), R.color.photo_preview_toolbar_bg_start))
                 .statusBarDarkFont(false)
                 .navigationBarEnable(true)
-                .navigationBarColor(SkinCompatResources.getColor(App.getInstance(), R.color.photo_preview_toolbar_bg_start))
+                .navigationBarColorInt(SkinCompatResources.getColor(App.getInstance(), R.color.photo_preview_toolbar_bg_start))
                 .init();
         ButterKnife.bind(this);
         mUrls = getIntent().getStringArrayListExtra(EXTRA_URL_LIST);

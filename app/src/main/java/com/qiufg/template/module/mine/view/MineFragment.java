@@ -27,6 +27,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineVie
     TextView mTvSelectThemeStyle;
 
     private String mTitleString;
+    private int mIndex = 0;
 
     public static MineFragment newInstance(String title) {
         MineFragment fragment = new MineFragment();
@@ -63,10 +64,10 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineVie
 
     @OnClick(R.id.tv_select_theme_style)
     public void onViewClicked() {
-        // 指定皮肤插件
-        SkinCompatManager.getInstance().loadSkin("new.skin", CustomSkinLoader.SKIN_LOADER_STRATEGY_SDCARD);
-
-// 恢复应用默认皮肤
-//        SkinCompatManager.getInstance().restoreDefaultTheme();
+        if (mIndex++ % 2 == 0) {
+            SkinCompatManager.getInstance().loadSkin("orange.skin", CustomSkinLoader.SKIN_LOADER_STRATEGY_SDCARD);
+        } else {
+            SkinCompatManager.getInstance().restoreDefaultTheme();
+        }
     }
 }

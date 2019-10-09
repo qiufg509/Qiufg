@@ -143,12 +143,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
                     mToolbar.setBackgroundColor(ColorUtils.blendARGB(Color.TRANSPARENT
                             , SkinCompatResources.getColor(App.getInstance(), R.color.colorPrimary), alpha));
                     mTvTitle.setTextColor(ColorUtils.blendARGB(Color.TRANSPARENT
-                            , Color.WHITE, alpha));
+                            , SkinCompatResources.getColor(App.getInstance(), R.color.toolbar_title_text), alpha));
                 } else {
-                    mToolbar.setBackgroundColor(ColorUtils.blendARGB(Color.TRANSPARENT
-                            , SkinCompatResources.getColor(App.getInstance(), R.color.colorPrimary), 1));
-                    mTvTitle.setTextColor(ColorUtils.blendARGB(Color.TRANSPARENT
-                            , Color.WHITE, 1));
+                    mToolbar.setBackgroundColor(SkinCompatResources.getColor(App.getInstance(), R.color.colorPrimary));
+                    mTvTitle.setTextColor(SkinCompatResources.getColor(App.getInstance(), R.color.toolbar_title_text));
                 }
             }
         });

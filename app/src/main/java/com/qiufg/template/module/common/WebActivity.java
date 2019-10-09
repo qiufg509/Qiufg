@@ -46,7 +46,7 @@ public class WebActivity extends BaseActivity {
         ImmersionBar.with(this)
                 .fitsSystemWindows(true)
                 .statusBarDarkFont(false)
-                .statusBarColor(SkinCompatResources.getColor(App.getInstance(), R.color.colorPrimary))
+                .statusBarColorInt(SkinCompatResources.getColor(App.getInstance(), R.color.colorPrimary))
                 .init();
         ButterKnife.bind(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
