@@ -1,6 +1,5 @@
 package com.qiufg.template.module.category.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -18,7 +17,7 @@ import com.qiufg.template.module.base.BaseFragment;
 import com.qiufg.template.module.category.presenter.CategoryPresenter;
 import com.qiufg.template.module.common.WebActivity;
 import com.qiufg.template.util.ToastUtils;
-import com.qiufg.template.wedget.GankDecoration;
+import com.qiufg.template.wedget.decoration.GankDecoration;
 
 import java.util.List;
 
@@ -92,10 +91,7 @@ public class GankFragment extends BaseFragment<CategoryPresenter> implements Cat
         });
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             GankBean gankBean = (GankBean) adapter.getData().get(position);
-            Intent intent = new Intent(getContext(), WebActivity.class);
-            intent.putExtra(WebActivity.EXTRA_URL, gankBean.getUrl());
-            intent.putExtra(WebActivity.EXTRA_TITLE, gankBean.getDesc());
-            startActivity(intent);
+            WebActivity.startPreview(getActivity(), gankBean.getUrl(), gankBean.getDesc());
         });
     }
 

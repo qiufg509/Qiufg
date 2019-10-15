@@ -25,7 +25,7 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -70,7 +70,7 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
     }
 
     private void downloadPhoto(File image) {
-        Disposable disposable = Flowable.just(image)
+        Disposable disposable = Observable.just(image)
                 .map(FileUtils::saveFile2Album)
                 .compose(RxSchedulers.ioSchedulers())
                 .subscribe(new DownloadSubscriber(mView), new ErrorAction() {
@@ -101,7 +101,7 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
     }
 
     private void setWallPaper(File image) {
-        Disposable disposable = Flowable.just(image)
+        Disposable disposable = Observable.just(image)
                 .doOnNext(file -> {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(App.getInstance().getContentResolver(), Uri.fromFile(file));
                     WallpaperManager wallpaperManager = WallpaperManager.getInstance(App.getInstance());
@@ -142,7 +142,7 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
     }
 
     private void setLockWrapper(File image) {
-        Disposable disposable = Flowable.just(image)
+        Disposable disposable = Observable.just(image)
                 .doOnNext(file -> {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(App.getInstance().getContentResolver(), Uri.fromFile(file));
                     WallpaperManager wallpaperManager = WallpaperManager.getInstance(App.getInstance());

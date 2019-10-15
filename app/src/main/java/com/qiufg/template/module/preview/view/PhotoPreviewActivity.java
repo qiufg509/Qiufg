@@ -1,6 +1,8 @@
 package com.qiufg.template.module.preview.view;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import com.qiufg.template.util.ToastUtils;
 import com.qiufg.template.wedget.CustomViewPager;
 import com.qiufg.template.wedget.dialog.SelectDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -165,5 +168,21 @@ public class PhotoPreviewActivity extends MVPActivity<PreviewPresenter> implemen
     @Override
     public void setLockWrapperFail() {
         ToastUtils.toast("设置失败");
+    }
+
+    public static void startPreview(Activity activity, ArrayList<String> urls, int position) {
+        Intent intent = new Intent(activity, PhotoPreviewActivity.class);
+        intent.putExtra(PhotoPreviewActivity.EXTRA_URL_LIST, urls);
+        intent.putExtra(PhotoPreviewActivity.EXTRA_PAGE_INDEX, position);
+        activity.startActivity(intent);
+    }
+
+    public static void startPreview(Activity activity, String url) {
+        Intent intent = new Intent(activity, PhotoPreviewActivity.class);
+        ArrayList<String> urls = new ArrayList<>(1);
+        urls.add(url);
+        intent.putExtra(PhotoPreviewActivity.EXTRA_URL_LIST, urls);
+        intent.putExtra(PhotoPreviewActivity.EXTRA_PAGE_INDEX, 0);
+        activity.startActivity(intent);
     }
 }

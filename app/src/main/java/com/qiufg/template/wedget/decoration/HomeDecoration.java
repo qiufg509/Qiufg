@@ -1,4 +1,4 @@
-package com.qiufg.template.wedget;
+package com.qiufg.template.wedget.decoration;
 
 import android.graphics.Rect;
 import android.view.View;
@@ -24,7 +24,7 @@ public class HomeDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         int position = parent.getChildAdapterPosition(view);
 //        int count = parent.getChildCount();//获取子View的个数,但是这个并不是获取RecyclerView所有的item个数,而是当前屏幕可见的item个数
-        int itemCount = state.getItemCount();
+//        int itemCount = state.getItemCount();
         if (position == 0) return;//头部无间隙
         outRect.top = (position <= SPAN_COUNT) ? ITEM_MARGIN_VERTICAL : ITEM_GAP;
 //        outRect.bottom = (position > itemCount - 3) ? ITEM_MARGIN_VERTICAL : 0;//加载更多时，底部item和新添加item有不同间距

@@ -7,7 +7,7 @@ import com.qiufg.template.net.respond.ResultArray;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -28,8 +28,8 @@ public interface HomeApi {
      * @return result
      */
     @GET(ServiceUrls.TEST_TEST_GANK)
-    Flowable<ResultArray<GirlsBean>> getGirlData(@Path("type") String type, @Path("number") int number, @Path("page") int page);
+    Observable<ResultArray<GirlsBean>> getGirlData(@Path("type") String type, @Path("number") int number, @Path("page") int page);
 
     @GET
-    Flowable<List<BannerBean>> getBannerData(@Url String url, @Query("client_id") String client_id, @Query("client_secret") String client_secret);
+    Observable<List<BannerBean>> getBannerData(@Url String url, @Query("client_id") String client_id, @Query("client_secret") String client_secret);
 }

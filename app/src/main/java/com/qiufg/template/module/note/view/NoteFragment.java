@@ -2,11 +2,20 @@ package com.qiufg.template.module.note.view;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.qiufg.template.R;
+import com.qiufg.template.adapter.NoteAdapter;
+import com.qiufg.template.bean.GitHub;
+import com.qiufg.template.exception.QiufgException;
 import com.qiufg.template.module.base.BaseFragment;
+import com.qiufg.template.module.common.WebActivity;
 import com.qiufg.template.module.note.presenter.NotePresenter;
+import com.qiufg.template.wedget.decoration.NoteDecoration;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -18,10 +27,12 @@ import butterknife.BindView;
 public class NoteFragment extends BaseFragment<NotePresenter> implements NoteView {
 
     private static final String ARG_TITLE = "title";
-    @BindView(R.id.tv_title)
-    TextView mTvTitle;
+    @BindView(R.id.recycler)
+    RecyclerView mRecycler;
 
     private String mTitleString;
+    private NoteAdapter mAdapter;
+    private NoteDecoration mDecor;
 
     public static NoteFragment newInstance(String title) {
         NoteFragment fragment = new NoteFragment();
@@ -51,6 +62,34 @@ public class NoteFragment extends BaseFragment<NotePresenter> implements NoteVie
 
     @Override
     protected void viewCreated(View view) {
-        mTvTitle.setText(mTitleString);
+        mToolbar.setTitle(mTitleString);
+        if (getActivity() == null) return;
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 4);
+        mRecycler.setLayoutManager(gridLayoutManager);
+        mDecor = new NoteDecoration();
+        mAdapter = new NoteAdapter();
+        mRecycler.addItemDecoration(mDecor);
+        mAdapter.bindToRecyclerView(mRecycler);
+        initListener();
+        mPresenter.getArticle();
+    }
+
+    private void initListener() {
+        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            GitHub gitHub = (GitHub) adapter.getData().get(position);
+            WebActivity.startPreview(getActivity(), gitHub.getDownload_url(), gitHub.getName());
+        });
+    }
+
+    @Override
+    public void getArtSuccess(List<GitHub> gitHubs) {
+        mDecor.setGitHubs(gitHubs);
+        mAdapter.setNewData(gitHubs);
+    }
+
+    @Override
+    public void getArtFail(QiufgException e) {
+        mAdapter.setNewData(null);
+        mAdapter.setEmptyView(getEmptyView(e));
     }
 }

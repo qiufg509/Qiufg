@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#008577</color>
-    <color name="colorAccent">#aaaaaa</color>
+    <color name="colorPrimary">#E64D4A</color>
+    <color name="colorPrimaryDark">#E64D4A</color>
+    <color name="colorAccent">#645F98</color>
 
-    <color name="navigation_bottom_normal">#999999</color>
-    <color name="navigation_bottom_selected">#46c01b</color>
+    <color name="navigation_bottom_normal">#91949A</color>
+    <color name="navigation_bottom_selected">#E64D4A</color>
 
-    <color name="home_item_time_text">#ffffff</color>
+    <color name="home_item_time_text">#FFFFFF</color>
 
-    <color name="layout_non_content_hint_text">#666666</color>
-    <color name="toolbar_title_text">#ffffff</color>
-    <color name="toolbar_ic_back_tint">#ffffff</color>
+    <color name="layout_non_content_hint_text">#B8BCC2</color>
+    <color name="toolbar_title_text">#FFFFFF</color>
+    <color name="toolbar_ic_back_tint">#FFFFFF</color>
+    <color name="toolbar_note_title_text">#FFFFFF</color>
 
-    <color name="dialog_background">#ffffff</color>
-    <color name="dialog_text">#000000</color>
-    <color name="dialog_divider">#a0a9ae</color>
+    <color name="dialog_background">#FFFFFF</color>
+    <color name="dialog_text">#262427</color>
+    <color name="dialog_divider">#56505F</color>
 
-    <color name="category_app_bar_title_text">#000000</color>
-    <color name="category_app_bar_bg">#ffffff</color>
-    <color name="category_tab_indicator">#000000</color>
-    <color name="category_tab_text_selected">#000000</color>
-    <color name="category_tab_text_normal">#aaaaaa</color>
-    <color name="category_gank_item_des">#000000</color>
-    <color name="category_gank_item_who">#aaaaaa</color>
-    <color name="category_gank_item_time">#aaaaaa</color>
-    <color name="category_gank_item_ic_tint">#5696C0</color>
+    <color name="category_app_bar_title_text">#262427</color>
+    <color name="category_app_bar_bg">#FFFFFF</color>
+    <color name="category_tab_indicator">#262427</color>
+    <color name="category_tab_text_selected">#262427</color>
+    <color name="category_tab_text_normal">#A1A4A8</color>
+    <color name="category_gank_item_des">#262427</color>
+    <color name="category_gank_item_who">#B8BCC2</color>
+    <color name="category_gank_item_time">#B8BCC2</color>
+    <color name="category_gank_item_ic_tint">#645F98</color>
 
-    <color name="photo_preview_indicator_text">#ffffff</color>
+    <color name="photo_preview_indicator_text">#FFFFFF</color>
     <color name="photo_preview_bar_bg">#4C000000</color>
     <color name="photo_preview_toolbar_bg_start">#000000</color>
+
+    <color name="note_item_name_index_red">#E64D4A</color>
+    <color name="note_item_name_index_purple">#645F98</color>
+    <color name="note_item_name_index_white">#FFFFFF</color>
+    <color name="note_item_name_index_black">#262427</color>
+    <color name="note_item_name_index_gray">#B8BCC2</color>
+    <color name="note_item_dir_text">#B8BCC2</color>
+    <color name="note_item_name_text">#FFFFFF</color>
 </resources>

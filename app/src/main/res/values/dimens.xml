@@ -14,4 +14,12 @@
     <dimen name="dialog_margin_left_right">25dp</dimen>
     <dimen name="dialog_content_line_space">6dp</dimen>
 
+    <dimen name="note_dir_height">56dp</dimen>
+    <dimen name="note_art_height">16dp</dimen>
+    <dimen name="note_padding_left_right">12dp</dimen>
+    <dimen name="note_item_horizontal_gap">16dp</dimen>
+    <dimen name="note_item_height">88dp</dimen>
+    <dimen name="note_item_width">64dp</dimen>
+    <dimen name="note_item_dir_text">14sp</dimen>
+
 </resources>

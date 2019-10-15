@@ -1,5 +1,7 @@
 package com.qiufg.template.module.common;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -154,5 +156,12 @@ public class WebActivity extends BaseActivity {
             }
             return true;
         }
+    }
+
+    public static void startPreview(Activity activity, String url, String title) {
+        Intent intent = new Intent(activity, WebActivity.class);
+        intent.putExtra(WebActivity.EXTRA_URL, url);
+        intent.putExtra(WebActivity.EXTRA_TITLE, title);
+        activity.startActivity(intent);
     }
 }

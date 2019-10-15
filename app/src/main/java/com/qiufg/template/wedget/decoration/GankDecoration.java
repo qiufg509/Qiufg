@@ -1,4 +1,4 @@
-package com.qiufg.template.wedget;
+package com.qiufg.template.wedget.decoration;
 
 import android.content.res.TypedArray;
 import android.graphics.Canvas;

@@ -1,7 +1,6 @@
 package com.qiufg.template.module.home.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,7 +28,7 @@ import com.qiufg.template.module.preview.view.PhotoPreviewActivity;
 import com.qiufg.template.util.GlideImageLoader;
 import com.qiufg.template.util.Logger;
 import com.qiufg.template.util.ToastUtils;
-import com.qiufg.template.wedget.HomeDecoration;
+import com.qiufg.template.wedget.decoration.HomeDecoration;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
@@ -152,22 +151,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         });
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
             GirlsBean girlsBean = (GirlsBean) adapter.getData().get(position);
-            Intent intent = new Intent(getContext(), PhotoPreviewActivity.class);
-            ArrayList<String> urls = new ArrayList<>();
-            urls.add(girlsBean.getUrl());
-            intent.putExtra(PhotoPreviewActivity.EXTRA_URL_LIST, urls);
-            startActivity(intent);
+            PhotoPreviewActivity.startPreview(getActivity(), girlsBean.getUrl());
         });
         if (mBanner == null) {
             Logger.e(" must call addHeaderView() first !");
             return;
         }
         mBanner.setOnBannerListener(position -> {
-            Intent intent = new Intent(getContext(), PhotoPreviewActivity.class);
             ArrayList<String> urls = new ArrayList<>(mBannerData);
-            intent.putExtra(PhotoPreviewActivity.EXTRA_URL_LIST, urls);
-            intent.putExtra(PhotoPreviewActivity.EXTRA_PAGE_INDEX, position);
-            startActivity(intent);
+            PhotoPreviewActivity.startPreview(getActivity(), urls, position);
         });
     }
 

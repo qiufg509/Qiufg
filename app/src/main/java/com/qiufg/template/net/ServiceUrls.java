@@ -11,4 +11,5 @@ public interface ServiceUrls {
     String SERVER_GITHUB = "https://api.github.com/";
     String TEST_TEST_GANK = "api/data/{type}/{number}/{page}";
     String API_BANNER_IMAGES = "repos/qiufg509/Qiufg/contents/images/banner";
+    String API_NOTE = "repos/qiufg509/MyNote/contents";
 }

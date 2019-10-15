@@ -1,6 +1,6 @@
 package com.qiufg.template.bus;
 
-import io.reactivex.FlowableTransformer;
+import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -17,7 +17,7 @@ public class RxSchedulers {
      * @param <T> Observable操作的数据类型
      * @return Observable
      */
-    public static <T> FlowableTransformer<T, T> ioSchedulers() {
+    public static <T> ObservableTransformer<T, T> ioSchedulers() {
         return upstream -> upstream.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -28,7 +28,7 @@ public class RxSchedulers {
      * @param <T> Observable操作的数据类型
      * @return Observable
      */
-    public static <T> FlowableTransformer<T, T> normalSchedulers() {
+    public static <T> ObservableTransformer<T, T> normalSchedulers() {
         return upstream -> upstream.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
