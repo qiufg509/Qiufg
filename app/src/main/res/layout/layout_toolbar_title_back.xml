@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="?actionBarSize"
+    android:layout_height="?android:actionBarSize"
     android:layout_gravity="top"
     android:background="@color/colorPrimary"
     app:contentInsetStart="0dp">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize">
+        android:layout_height="?android:actionBarSize">
 
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_width="?actionBarSize"
-            android:layout_height="?actionBarSize"
+            android:layout_width="?android:actionBarSize"
+            android:layout_height="?android:actionBarSize"
             android:background="?actionBarItemBackground"
             android:contentDescription="@null"
             android:scaleType="center"
@@ -27,8 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="?actionBarSize"
-            android:layout_marginEnd="?actionBarSize"
+            android:layout_marginStart="?android:actionBarSize"
+            android:layout_marginEnd="?android:actionBarSize"
             android:ellipsize="marquee"
             android:singleLine="true"
             android:textColor="@color/toolbar_title_text"

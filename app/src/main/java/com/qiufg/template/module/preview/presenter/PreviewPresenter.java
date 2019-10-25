@@ -26,10 +26,8 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by fengguang.qiu on 2019/09/29 16:30.
@@ -112,8 +110,7 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
                     }
                     bitmap.recycle();
                 })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxSchedulers.ioSchedulers())
                 .subscribe(new WallPaperSubscriber(mView), new ErrorAction() {
                     @Override
                     public void doNext(QiufgException e) {
@@ -155,8 +152,7 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
                     }
                     bitmap.recycle();
                 })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxSchedulers.ioSchedulers())
                 .subscribe(new LockWrapperSubscriber(mView), new ErrorAction() {
                     @Override
                     public void doNext(QiufgException e) {

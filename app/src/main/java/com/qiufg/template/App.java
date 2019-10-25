@@ -5,12 +5,18 @@ import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.fm.openinstall.OpenInstall;
 import com.qiufg.template.bus.CustomSkinLoader;
 import com.qiufg.template.util.CommonUtils;
 import com.qiufg.template.util.Logger;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+
+import java.lang.ref.WeakReference;
+import java.util.LinkedList;
+import java.util.List;
 
 import skin.support.SkinCompatManager;
 import skin.support.app.SkinAppCompatViewInflater;
@@ -42,8 +48,10 @@ public class App extends Application {
                 .addInflater(new SkinConstraintViewInflater())          // ConstraintLayout 控件换肤初始化[可选]
 //                .addInflater(new SkinCardViewInflater())                // CardView v7 控件换肤初始化[可选]
 //                .setSkinStatusBarColorEnable(false)                     // 关闭状态栏换肤，默认打开[可选]
-                .setSkinWindowBackgroundEnable(false)                   // 关闭windowBackground换肤，默认打开[可选]
+//                .setSkinWindowBackgroundEnable(false)                   // 关闭windowBackground换肤，默认打开[可选]
                 .loadSkin();
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
         if (CommonUtils.isMainProcess()) {
             OpenInstall.init(this);
             registerLifecycle();
@@ -60,6 +68,26 @@ public class App extends Application {
 
     public static RefWatcher getRefWatcher() {
         return INSTANCE.mRefWatcher;
+    }
+
+    private List<WeakReference<Activity>> mActs = new LinkedList<>();
+
+    public void addActs(Activity act) {
+        WeakReference<Activity> a = new WeakReference<>(act);
+        mActs.add(a);
+    }
+
+    public void clearTask() {
+        clearAllTaskExcept(null);
+    }
+
+    public void clearAllTaskExcept(Activity act) {
+        for (WeakReference<Activity> wr : mActs) {
+            Activity a = wr.get();
+            if (a != null && a != act) {
+                a.finish();
+            }
+        }
     }
 
     private void registerLifecycle() {

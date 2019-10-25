@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="WelcomeTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/welcome_bg</item>
+    </style>
+
     <style name="TabLayoutTextStyle" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
         <item name="android:textColor">@color/category_tab_text_selector</item>

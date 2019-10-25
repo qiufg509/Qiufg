@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <!--使用层层嵌套是为了使用百分比布局和宽高比-->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <skin.support.constraint.SkinCompatConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/dialog_rounded"
@@ -86,5 +86,5 @@
             app:layout_constraintRight_toLeftOf="@+id/tv_dialog_common_positive"
             app:layout_constraintTop_toTopOf="@+id/tv_dialog_common_positive" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </skin.support.constraint.SkinCompatConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.gyf.immersionbar.ImmersionBar;
+import com.qiufg.template.App;
 import com.qiufg.template.R;
 import com.qiufg.template.adapter.MainPagerAdapter;
 import com.qiufg.template.listener.OnFragmentInteractionListener;
@@ -22,7 +23,7 @@ import com.qiufg.template.wedget.CustomViewPager;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import skin.support.design.widget.SkinMaterialBottomNavigationView;
 
 /**
  * Created by fengguang.qiu on 2019/08/8 18:09.
@@ -40,7 +41,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainView
     @BindView(R.id.viewPager)
     CustomViewPager mViewPager;
     @BindView(R.id.nav_view)
-    BottomNavigationView mNaviView;
+    SkinMaterialBottomNavigationView mNaviView;
 
     private long[] mHits = new long[2];
 
@@ -56,7 +57,6 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainView
 
     @Override
     protected void viewCreated() {
-        ButterKnife.bind(this);
         mViewPager.addOnPageChangeListener(this);
 
         List<BaseFragment> fragments = mPresenter.getFragments();
@@ -132,6 +132,7 @@ public class MainActivity extends MVPActivity<MainPresenter> implements MainView
         mHits[mHits.length - 1] = SystemClock.uptimeMillis();
         if (mHits[0] >= (SystemClock.uptimeMillis() - 3500)) {
             super.onBackPressed();
+            App.getInstance().clearTask();
         } else {
             ToastUtils.toast("再按一次退出应用");
         }

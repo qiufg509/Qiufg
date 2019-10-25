@@ -65,7 +65,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineVie
     @OnClick(R.id.tv_select_theme_style)
     public void onViewClicked() {
         if (mIndex++ % 2 == 0) {
-            SkinCompatManager.getInstance().loadSkin("black.skin", CustomSkinLoader.SKIN_LOADER_STRATEGY_SDCARD);
+            SkinCompatManager.getInstance().loadSkin("skin.skin", null, CustomSkinLoader.SKIN_LOADER_STRATEGY_SDCARD);
         } else {
             SkinCompatManager.getInstance().restoreDefaultTheme();
         }

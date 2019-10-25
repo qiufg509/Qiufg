@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.app.SkinAppCompatDelegateImpl;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.qiufg.template.App;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by fengguang.qiu on 2019/09/25 10:56.
@@ -21,8 +24,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        App.getInstance().addActs(this);
         setContentView(createView());
         ImmersionBar.with(this).navigationBarEnable(false).init();
+        ButterKnife.bind(this);
         initBeforeView();
         viewCreated();
     }

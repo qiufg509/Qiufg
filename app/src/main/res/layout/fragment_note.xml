@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/agk"
+    android:background="@mipmap/img_note_bg"
     android:orientation="vertical"
     tools:context=".module.note.view.NoteFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="?android:actionBarSize"
         app:titleTextColor="@color/toolbar_note_title_text" />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import skin.support.content.res.SkinCompatResources;
 
@@ -67,7 +66,6 @@ public class PhotoPreviewActivity extends MVPActivity<PreviewPresenter> implemen
                 .navigationBarEnable(true)
                 .navigationBarColorInt(SkinCompatResources.getColor(App.getInstance(), R.color.photo_preview_toolbar_bg_start))
                 .init();
-        ButterKnife.bind(this);
         mUrls = getIntent().getStringArrayListExtra(EXTRA_URL_LIST);
         if (mUrls == null || mUrls.isEmpty()) {
             ToastUtils.toast("图片加载错误");

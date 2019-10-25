@@ -6,6 +6,6 @@
         android:angle="270"
         android:endColor="@android:color/transparent"
         android:startColor="@color/photo_preview_toolbar_bg_start" />
-    <size android:height="?actionBarSize" />
+    <size android:height="?android:actionBarSize" />
 
 </shape>

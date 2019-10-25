@@ -22,10 +22,11 @@
         android:theme="@style/AppTheme"
         tools:targetApi="n">
         <activity
-            android:name="com.qiufg.template.module.main.view.MainActivity"
+            android:name=".module.welcome.view.WelcomeActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -55,6 +56,11 @@
                 <!--<a href="[scheme]://[host]/[path]?[query]">启动应用程序</a>-->
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.qiufg.template.module.main.view.MainActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.qiufg.template.module.common.WebActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"

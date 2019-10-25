@@ -19,7 +19,6 @@ import com.qiufg.template.module.base.BaseActivity;
 import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import skin.support.content.res.SkinCompatResources;
 
@@ -50,7 +49,6 @@ public class WebActivity extends BaseActivity {
                 .statusBarDarkFont(false)
                 .statusBarColorInt(SkinCompatResources.getColor(App.getInstance(), R.color.colorPrimary))
                 .init();
-        ButterKnife.bind(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
         mWebView = new WebView(getApplicationContext());
