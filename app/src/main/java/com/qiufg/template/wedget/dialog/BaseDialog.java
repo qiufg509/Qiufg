@@ -27,7 +27,7 @@ public class BaseDialog extends AppCompatDialogFragment implements View.OnClickL
         this.dialogParams = new DialogParams();
     }
 
-    protected void show(AppCompatActivity activity, String tag) {
+    private void show(AppCompatActivity activity, String tag) {
         if (!TextUtils.isEmpty(tag)) {
             show(activity.getSupportFragmentManager(), tag);
         } else {
@@ -35,8 +35,7 @@ public class BaseDialog extends AppCompatDialogFragment implements View.OnClickL
         }
     }
 
-
-    protected void show(AppCompatActivity activity) {
+    public void show(AppCompatActivity activity) {
         show(activity.getSupportFragmentManager(), activity.getClass().getSimpleName());
     }
 
@@ -54,7 +53,6 @@ public class BaseDialog extends AppCompatDialogFragment implements View.OnClickL
         }
         return super.onCreateView(inflater, container, savedInstanceState);
     }
-
 
     protected boolean setCancelable() {
         return dialogParams.isCancelable;

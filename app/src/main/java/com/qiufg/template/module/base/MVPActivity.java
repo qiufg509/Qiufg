@@ -1,5 +1,7 @@
 package com.qiufg.template.module.base;
 
+import com.qiufg.template.wedget.dialog.LoadingDialog;
+
 /**
  * Created by fengguang.qiu on 2019/08/12 15:43.
  * <p>
@@ -8,6 +10,7 @@ package com.qiufg.template.module.base;
 public abstract class MVPActivity<P extends IPresenter> extends BaseActivity implements IView {
 
     protected P mPresenter;
+    private LoadingDialog mLoadingDialog;
 
     @Override
     protected void initBeforeView() {
@@ -32,6 +35,17 @@ public abstract class MVPActivity<P extends IPresenter> extends BaseActivity imp
 
     @Override
     public void showLoading() {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = LoadingDialog.with(this).show();
+        } else if (!mLoadingDialog.isVisible()) {
+            mLoadingDialog.show(this);
+        }
+    }
 
+    @Override
+    public void hideLoading() {
+        if (mLoadingDialog != null && !mLoadingDialog.isHidden()) {
+            mLoadingDialog.dismiss();
+        }
     }
 }

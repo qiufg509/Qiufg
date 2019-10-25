@@ -22,6 +22,7 @@ import com.qiufg.template.adapter.HomeAdapter;
 import com.qiufg.template.bean.GirlsBean;
 import com.qiufg.template.exception.QiufgException;
 import com.qiufg.template.listener.OnFragmentInteractionListener;
+import com.qiufg.template.module.base.BaseActivity;
 import com.qiufg.template.module.base.BaseFragment;
 import com.qiufg.template.module.home.presenter.HomePresenter;
 import com.qiufg.template.module.preview.view.PhotoPreviewActivity;
@@ -29,6 +30,7 @@ import com.qiufg.template.util.GlideImageLoader;
 import com.qiufg.template.util.Logger;
 import com.qiufg.template.util.ToastUtils;
 import com.qiufg.template.wedget.decoration.HomeDecoration;
+import com.qiufg.template.wedget.dialog.LoadingDialog;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
@@ -58,6 +60,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     private String mTitleString;
     private HomeAdapter mAdapter;
     private int mBannerHeight;
+    private LoadingDialog mLoadingDialog;
 
     public static HomeFragment newInstance(String title) {
         HomeFragment fragment = new HomeFragment();
@@ -116,6 +119,24 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         mAdapter.setPreLoadNumber(1);
         initListener();
         mPresenter.initData();
+    }
+
+    @Override
+    public void showLoading() {
+        if (getActivity() != null) {
+            if (mLoadingDialog == null) {
+                mLoadingDialog = LoadingDialog.with((BaseActivity) getActivity()).isShowText(true).show();
+            } else if (!mLoadingDialog.isVisible()) {
+                mLoadingDialog.show((BaseActivity) getActivity());
+            }
+        }
+    }
+
+    @Override
+    public void hideLoading() {
+        if (mLoadingDialog != null && !mLoadingDialog.isHidden()) {
+            mLoadingDialog.dismiss();
+        }
     }
 
     private void initListener() {
@@ -194,6 +215,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         mRefreshLayout.finishLoadmore();
         if (mPresenter.mPage == 1) {
             mAdapter.setNewData(girlsBeans);
+            hideLoading();
         } else {
             mAdapter.addData(girlsBeans);
         }
@@ -204,6 +226,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         if (mPresenter.mPage == 1) {
             mAdapter.setNewData(null);
             mAdapter.setEmptyView(getEmptyView(e));
+            hideLoading();
         } else {
             ToastUtils.toast(e.getMessage());
         }

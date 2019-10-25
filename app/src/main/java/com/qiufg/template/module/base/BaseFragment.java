@@ -1,5 +1,6 @@
 package com.qiufg.template.module.base;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,9 +88,10 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
 
     @Override
     public void showLoading() {
-        if (getActivity() != null) {
-//            mStatusManager.showLoading(getActivity());
-        }
+    }
+
+    @Override
+    public void hideLoading() {
     }
 
     protected ViewGroup getEmptyView(QiufgException e) {
@@ -105,6 +107,7 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment implem
     /**
      * 获取提示的布局
      */
+    @SuppressLint("InflateParams")
     private ViewGroup getHintLayout(@DrawableRes int iconId, @StringRes int textId) {
         if (mHintLayout == null) {
             mHintLayout = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.layout_non_content_hint, null);

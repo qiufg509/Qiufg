@@ -41,6 +41,7 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
     private static final int TYPE_LOCK_WRAPPER = 2;
 
     private void download(String url, int type) {
+        mView.showLoading();
         Glide.with(App.getInstance()).asFile().load(url).into(new CustomTarget<File>() {
             @Override
             public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
@@ -74,6 +75,7 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
                 .subscribe(new DownloadSubscriber(mView), new ErrorAction() {
                     @Override
                     public void doNext(QiufgException e) {
+                        mView.hideLoading();
                         mView.downloadPhotoFail();
                     }
                 });
@@ -90,7 +92,9 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
         @Override
         public void accept(String data) {
             if (mReference == null || mReference.get() == null) return;
-            mReference.get().downloadPhotoSuccess(data);
+            PreviewView view = mReference.get();
+            view.hideLoading();
+            view.downloadPhotoSuccess(data);
         }
     }
 
@@ -114,6 +118,7 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
                 .subscribe(new WallPaperSubscriber(mView), new ErrorAction() {
                     @Override
                     public void doNext(QiufgException e) {
+                        mView.hideLoading();
                         mView.setWallpaperFail();
                     }
                 });
@@ -130,7 +135,9 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
         @Override
         public void accept(File data) {
             if (mReference == null || mReference.get() == null) return;
-            mReference.get().setWallpaperSuccess();
+            PreviewView view = mReference.get();
+            view.hideLoading();
+            view.setWallpaperSuccess();
         }
     }
 
@@ -156,6 +163,7 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
                 .subscribe(new LockWrapperSubscriber(mView), new ErrorAction() {
                     @Override
                     public void doNext(QiufgException e) {
+                        mView.hideLoading();
                         mView.setLockWrapperFail();
                     }
                 });
@@ -172,7 +180,9 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
         @Override
         public void accept(File data) {
             if (mReference == null || mReference.get() == null) return;
-            mReference.get().setLockWrapperSuccess();
+            PreviewView view = mReference.get();
+            view.hideLoading();
+            view.setLockWrapperSuccess();
         }
     }
 }

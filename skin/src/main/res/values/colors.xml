@@ -14,8 +14,10 @@
     <color name="toolbar_ic_back_tint">#FFFFFF</color>
     <color name="toolbar_note_title_text">#FFFFFF</color>
 
-    <color name="dialog_background">#FFFFFF</color>
-    <color name="dialog_text">#3C3D42</color>
+    <color name="dialog_white">#FFFFFF</color>
+    <color name="dialog_black">#80000000</color>
+    <color name="dialog_text_black">#3C3D42</color>
+    <color name="dialog_text_white">#FFFFFF</color>
     <color name="dialog_divider">#B8BCC2</color>
 
     <color name="category_app_bar_title_text">#262427</color>
