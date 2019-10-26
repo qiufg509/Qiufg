@@ -31,6 +31,7 @@ public class HomeModel {
 
     public Disposable getGirlData(String type, int number, int page, Consumer<List<GirlsBean>> consumer, ErrorAction error) {
         return mApi.getGirlData(type, number, page)
+                .retry(3, throwable -> true)
                 .map(girlsBeanResultArray -> {
                     List<GirlsBean> results = girlsBeanResultArray.getResults();
                     if (results.isEmpty()) {

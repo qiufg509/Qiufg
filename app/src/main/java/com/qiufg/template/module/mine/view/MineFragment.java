@@ -2,12 +2,18 @@ package com.qiufg.template.module.mine.view;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.qiufg.template.R;
+import com.qiufg.template.bean.User;
 import com.qiufg.template.bus.CustomSkinLoader;
+import com.qiufg.template.exception.QiufgException;
 import com.qiufg.template.module.base.BaseFragment;
 import com.qiufg.template.module.mine.presenter.MinePresenter;
+import com.qiufg.template.util.Logger;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,10 +27,13 @@ import skin.support.SkinCompatManager;
 public class MineFragment extends BaseFragment<MinePresenter> implements MineView {
 
     private static final String ARG_TITLE = "title";
-    @BindView(R.id.tv_title)
-    TextView mTvTitle;
+    @BindView(R.id.iv_avatar)
+    ImageView mIvAvatar;
+    @BindView(R.id.tv_name)
+    TextView mTvName;
+    @BindView(R.id.tv_account)
+    TextView mTvAccount;
 
-    private String mTitleString;
     private int mIndex = 0;
 
     public static MineFragment newInstance(String title) {
@@ -33,14 +42,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineVie
         args.putString(ARG_TITLE, title);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mTitleString = getArguments().getString(ARG_TITLE);
-        }
     }
 
     @Override
@@ -55,14 +56,22 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineVie
 
     @Override
     protected void viewCreated(View view) {
-        mTvTitle.setText(mTitleString);
         if (getActivity() == null) return;
-
+        mPresenter.getUserInfo();
     }
 
-    @OnClick({R.id.select_theme_style, R.id.aidl, R.id.unknown1, R.id.unknown2, R.id.unknown3, R.id.setting})
+    @OnClick({R.id.iv_photo_camera, R.id.iv_avatar, R.id.tv_name, R.id.tv_account,
+            R.id.select_theme_style, R.id.aidl, R.id.unknown1,
+            R.id.unknown2, R.id.unknown3, R.id.setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_photo_camera:
+                break;
+            case R.id.iv_avatar:
+                break;
+            case R.id.tv_name:
+            case R.id.tv_account:
+                break;
             case R.id.select_theme_style:
                 selectThemeStyle();
                 break;
@@ -77,6 +86,18 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineVie
             case R.id.setting:
                 break;
         }
+    }
+
+    @Override
+    public void getUserSuccess(User user) {
+        mTvName.setText(user.getName());
+        mTvAccount.setText(user.getLogin());
+        Glide.with(this).load(user.getAvatar_url()).apply(RequestOptions.circleCropTransform()).into(mIvAvatar);
+    }
+
+    @Override
+    public void getUserFail(QiufgException e) {
+        Logger.e("获取用户信息失败\te = " + e.getMessage());
     }
 
     private void selectThemeStyle() {

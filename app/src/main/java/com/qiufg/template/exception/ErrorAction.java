@@ -43,7 +43,6 @@ public class ErrorAction implements Consumer<Throwable> {
 
     @Override
     public void accept(Throwable throwable) {
-
         QiufgException exception;
         String message = throwable.getMessage() == null ? throwable.toString() : throwable.getMessage();
         if (throwable instanceof SocketTimeoutException) {

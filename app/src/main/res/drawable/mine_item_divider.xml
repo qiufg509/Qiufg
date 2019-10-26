@@ -3,13 +3,13 @@
 
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/mine_item_bg" />
+            <solid android:color="@color/mine_item_bg_normal" />
             <size android:height="0.5dp" />
         </shape>
     </item>
     <item android:left="@dimen/mine_item_name_margin_left">
         <shape android:shape="rectangle">
-            <solid android:color="@color/mine_divider" />
+            <solid android:color="@color/mine_item_bg_press" />
             <size android:height="0.5dp" />
         </shape>
     </item>

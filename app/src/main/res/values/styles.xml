@@ -26,7 +26,7 @@
     <style name="Mine_Divider_Long">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.5dp</item>
-        <item name="android:background">@color/mine_divider</item>
+        <item name="android:background">@color/mine_item_bg_press</item>
     </style>
 
     <style name="Mine_Divider_Short" parent="Mine_Divider_Long">
@@ -36,6 +36,6 @@
     <style name="Mine_Item">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dp</item>
-        <item name="android:background">@color/mine_item_bg</item>
+        <item name="android:background">@drawable/mine_item_bg</item>
     </style>
 </resources>
