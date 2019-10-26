@@ -66,7 +66,7 @@ public class WelcomeActivity extends MVPActivity<WelcomePresenter> implements We
         ObjectAnimator animatorAlpha = ObjectAnimator.ofFloat(mIvLogo, "alpha", 1f, 0.5f);
         set.play(animatorTranslateY).with(animatorTranslateX)
                 .with(animatorScaleX).with(animatorScaleY).with(animatorAlpha);
-        set.setDuration(2000);
+        set.setDuration(1500);
         set.setInterpolator(new AccelerateInterpolator());
         set.start();
         set.addListener(new Animator.AnimatorListener() {

@@ -21,5 +21,6 @@
     <dimen name="note_item_height">88dp</dimen>
     <dimen name="note_item_width">64dp</dimen>
     <dimen name="note_item_dir_text">14sp</dimen>
+    <dimen name="mine_item_name_margin_left">48dp</dimen>
 
 </resources>

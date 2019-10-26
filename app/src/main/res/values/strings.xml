@@ -19,7 +19,10 @@
     <string name="photo_preview_set_wallpaper">设为桌面背景</string>
     <string name="photo_preview_set_lockwrapper">设为锁屏背景</string>
 
-    <string name="mine_select_theme_style">设置主题</string>
+    <string name="mine_select_theme_style">主题</string>
+    <string name="mine_aidl">AIDL</string>
+    <string name="mine_unknown">暂无</string>
+    <string name="mine_setting">设置</string>
 
     <string name="dialog_loading_text">加载中&#8230;</string>
 </resources>

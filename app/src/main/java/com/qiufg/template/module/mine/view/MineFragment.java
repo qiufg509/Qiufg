@@ -23,8 +23,6 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineVie
     private static final String ARG_TITLE = "title";
     @BindView(R.id.tv_title)
     TextView mTvTitle;
-    @BindView(R.id.tv_select_theme_style)
-    TextView mTvSelectThemeStyle;
 
     private String mTitleString;
     private int mIndex = 0;
@@ -62,10 +60,29 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineVie
 
     }
 
-    @OnClick(R.id.tv_select_theme_style)
-    public void onViewClicked() {
+    @OnClick({R.id.select_theme_style, R.id.aidl, R.id.unknown1, R.id.unknown2, R.id.unknown3, R.id.setting})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.select_theme_style:
+                selectThemeStyle();
+                break;
+            case R.id.aidl:
+                break;
+            case R.id.unknown1:
+                break;
+            case R.id.unknown2:
+                break;
+            case R.id.unknown3:
+                break;
+            case R.id.setting:
+                break;
+        }
+    }
+
+    private void selectThemeStyle() {
         if (mIndex++ % 2 == 0) {
-            SkinCompatManager.getInstance().loadSkin("skin.skin", null, CustomSkinLoader.SKIN_LOADER_STRATEGY_SDCARD);
+            SkinCompatManager.getInstance().loadSkin("skin.skin", null,
+                    CustomSkinLoader.SKIN_LOADER_STRATEGY_SDCARD);
         } else {
             SkinCompatManager.getInstance().restoreDefaultTheme();
         }

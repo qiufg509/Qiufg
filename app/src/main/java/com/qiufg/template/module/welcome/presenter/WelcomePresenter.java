@@ -54,7 +54,7 @@ public class WelcomePresenter extends BasePresenter<WelcomeView> {
     }
 
     public void initData() {
-        Disposable disposable = Observable.timer(4, TimeUnit.SECONDS)
+        Disposable disposable = Observable.timer(3, TimeUnit.SECONDS)
                 .compose(RxSchedulers.normalSchedulers())
                 .subscribe(new InitDataSubscriber(mView), new ErrorAction() {
                     @Override
