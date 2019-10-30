@@ -25,4 +25,15 @@
     <string name="mine_setting">设置</string>
 
     <string name="dialog_loading_text">加载中&#8230;</string>
+    <string name="aidl_input_money_hint">请输入金额</string>
+    <string name="aidl_input_aidl_id_hint">ID</string>
+    <string name="aidl_input_aidl_from_hint">From</string>
+    <string name="aidl_input_aidl_content_hint">Content</string>
+    <string name="aidl_input_aidl_add_bean">发邮件</string>
+    <string name="aidl_input_aidl_get_bean">收邮件</string>
+    <string name="aidl_input_aidl_sort">选择排序</string>
+    <string name="aidl_input_aidl_sort_hint"><![CDATA[<数字>]]></string>
+    <string name="aidl_input_aidl_message_hint">输入要加密内容</string>
+    <string name="aidl_input_aidl_encrypt_hint">加密</string>
+    <string name="aidl_input_aidl_decrypt_hint">解密</string>
 </resources>

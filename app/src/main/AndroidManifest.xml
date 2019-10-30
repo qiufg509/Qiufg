@@ -8,8 +8,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="com.qiufg.permission.SERVER" />
 
     <application
         android:name="com.qiufg.template.App"
@@ -60,7 +62,7 @@
             android:name="com.qiufg.template.module.main.view.MainActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.qiufg.template.module.common.WebActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
@@ -69,6 +71,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.qiufg.template.module.preview.view.PhotoPreviewActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.common.AIDLActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
             android:exported="false"
             android:launchMode="singleTop"

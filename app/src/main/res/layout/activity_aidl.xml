@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".module.common.AIDLActivity">
+
+    <include layout="@layout/layout_toolbar_title_back" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?android:actionBarSize"
+        android:overScrollMode="never">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="18dp"
+            android:paddingTop="36dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="36dp">
+
+            <EditText
+                android:id="@+id/et_money"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:hint="@string/aidl_input_money_hint"
+                android:importantForAutofill="no"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="100dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/et_id"
+                    android:layout_width="60dp"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:hint="@string/aidl_input_aidl_id_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="numberDecimal"
+                    android:lines="1"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/et_from"
+                    android:layout_width="120dp"
+                    android:layout_height="48dp"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@.-_"
+                    android:gravity="center"
+                    android:hint="@string/aidl_input_aidl_from_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="textEmailAddress"
+                    android:lines="1"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/et_content"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:hint="@string/aidl_input_aidl_content_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:singleLine="true" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="152dp"
+                android:background="@drawable/ripple_white_gray_bg"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="8dp"
+                android:text="@string/aidl_input_aidl_add_bean"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_get"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
+                android:background="@drawable/ripple_white_gray_bg"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="8dp"
+                android:text="@string/aidl_input_aidl_get_bean"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_received"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="260dp"
+                android:background="@drawable/ripple_white_gray_bg"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="340dp"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <EditText
+                    android:id="@+id/et_sort0"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:hint="@string/aidl_input_aidl_sort_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="numberSigned"
+                    android:lines="1"
+                    android:maxLength="9"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/et_sort1"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:hint="@string/aidl_input_aidl_sort_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="numberSigned"
+                    android:lines="1"
+                    android:maxLength="9"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/et_sort2"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:hint="@string/aidl_input_aidl_sort_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="numberSigned"
+                    android:lines="1"
+                    android:maxLength="9"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/et_sort3"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:hint="@string/aidl_input_aidl_sort_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="numberSigned"
+                    android:lines="1"
+                    android:maxLength="9"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/et_sort4"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:hint="@string/aidl_input_aidl_sort_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="numberSigned"
+                    android:lines="1"
+                    android:maxLength="9"
+                    android:singleLine="true" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_sort"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="400dp"
+                android:background="@drawable/ripple_white_gray_bg"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:text="@string/aidl_input_aidl_sort"
+                android:textColor="@color/colorAccent" />
+
+
+            <EditText
+                android:id="@+id/et_message"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="520dp"
+                android:gravity="center"
+                android:hint="@string/aidl_input_aidl_message_hint"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:lines="1"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/tv_crypt"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="580dp"
+                android:background="@drawable/ripple_white_gray_bg"
+                android:gravity="center"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:text="@string/aidl_input_aidl_encrypt_hint"
+                android:textColor="@color/colorAccent" />
+
+        </FrameLayout>
+    </ScrollView>
+</FrameLayout>

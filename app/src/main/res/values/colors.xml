@@ -3,6 +3,8 @@
     <color name="colorPrimary">#E64D4A</color>
     <color name="colorPrimaryDark">#00000000</color>
     <color name="colorAccent">#645F98</color>
+    <color name="button_bg_normal">#FFFFFF</color>
+    <color name="button_bg_press">#cecece</color>
 
     <color name="navigation_bottom_normal">#91949A</color>
     <color name="navigation_bottom_selected">#E64D4A</color>
@@ -43,7 +45,5 @@
     <color name="note_item_name_text">#FFFFFF</color>
 
     <color name="mine_bg">#efefef</color>
-    <color name="mine_item_bg_normal">#FFFFFF</color>
-    <color name="mine_item_bg_press">#cecece</color>
     <color name="mine_text">#1e1e1e</color>
 </resources>

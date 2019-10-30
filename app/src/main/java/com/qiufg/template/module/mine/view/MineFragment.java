@@ -12,6 +12,7 @@ import com.qiufg.template.bean.User;
 import com.qiufg.template.bus.CustomSkinLoader;
 import com.qiufg.template.exception.QiufgException;
 import com.qiufg.template.module.base.BaseFragment;
+import com.qiufg.template.module.common.AIDLActivity;
 import com.qiufg.template.module.mine.presenter.MinePresenter;
 import com.qiufg.template.util.Logger;
 
@@ -76,6 +77,7 @@ public class MineFragment extends BaseFragment<MinePresenter> implements MineVie
                 selectThemeStyle();
                 break;
             case R.id.aidl:
+                AIDLActivity.gotoAIDLActivity(getActivity(), "IPC");
                 break;
             case R.id.unknown1:
                 break;

@@ -4,9 +4,10 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
+
+import com.qiufg.template.util.Logger;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.database.Database;
@@ -104,7 +105,7 @@ public final class MigrationHelper {
                 printLog("【Table】" + tableName + "\n ---Columns-->" + getColumnsStr(daoConfig));
                 printLog("【Generate temp table】" + tempTableName);
             } catch (SQLException e) {
-                Log.e(TAG, "【Failed to generate temp table】" + tempTableName, e);
+                Logger.e(TAG, "【Failed to generate temp table】" + tempTableName + "\t" + e.toString());
             }
         }
     }
@@ -220,21 +221,18 @@ public final class MigrationHelper {
                 }
 
                 if (intoColumns.size() != 0) {
-                    StringBuilder insertTableStringBuilder = new StringBuilder();
-                    insertTableStringBuilder.append("REPLACE INTO ").append(tableName).append(" (");
-                    insertTableStringBuilder.append(TextUtils.join(",", intoColumns));
-                    insertTableStringBuilder.append(") SELECT ");
-                    insertTableStringBuilder.append(TextUtils.join(",", selectColumns));
-                    insertTableStringBuilder.append(" FROM ").append(tempTableName).append(";");
-                    db.execSQL(insertTableStringBuilder.toString());
+                    String insertTableStringBuilder = "REPLACE INTO " + tableName + " (" +
+                            TextUtils.join(",", intoColumns) +
+                            ") SELECT " +
+                            TextUtils.join(",", selectColumns) +
+                            " FROM " + tempTableName + ";";
+                    db.execSQL(insertTableStringBuilder);
                     printLog("【Restore data】 to " + tableName);
                 }
-                StringBuilder dropTableStringBuilder = new StringBuilder();
-                dropTableStringBuilder.append("DROP TABLE ").append(tempTableName);
-                db.execSQL(dropTableStringBuilder.toString());
+                db.execSQL("DROP TABLE " + tempTableName);
                 printLog("【Drop temp table】" + tempTableName);
             } catch (SQLException e) {
-                Log.e(TAG, "【Failed to restore data from temp table 】" + tempTableName, e);
+                Logger.e(TAG, "【Failed to restore data from temp table 】" + tempTableName + "\t" + e);
             }
         }
     }
@@ -256,7 +254,7 @@ public final class MigrationHelper {
 
     private static void printLog(String info) {
         if (DEBUG) {
-            Log.d(TAG, info);
+            Logger.d(TAG, info);
         }
     }
 

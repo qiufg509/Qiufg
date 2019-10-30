@@ -12,3 +12,5 @@
 
 二、换肤
 参考 git@github.com:qiufg509/Android-skin-support.git
+
+三、AIDL文件不要出现中文注释，否则build生成java文件异常

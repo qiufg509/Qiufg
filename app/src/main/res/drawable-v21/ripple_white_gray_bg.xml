@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/button_bg_press">
+
+    <item>
+        <shape android:shape="rectangle">
+            <!-- 填充背景色-->
+            <solid android:color="@color/button_bg_normal" />
+        </shape>
+    </item>
+</ripple>
