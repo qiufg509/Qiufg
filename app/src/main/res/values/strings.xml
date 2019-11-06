@@ -36,4 +36,9 @@
     <string name="aidl_input_aidl_message_hint">输入要加密内容</string>
     <string name="aidl_input_aidl_encrypt_hint">加密</string>
     <string name="aidl_input_aidl_decrypt_hint">解密</string>
+
+    <string name="andfix_tip">把补丁拷贝到/sdcard/Android/data/com.qiufg.template/file目录下，并执行修复（补丁命名规则xxx_{目标版本的versionCode}.dex）</string>
+    <string name="andfix_fix">修复</string>
+    <string name="andfix_before">修复前</string>
+    <string name="andfix_after">修复后</string>
 </resources>

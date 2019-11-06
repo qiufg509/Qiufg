@@ -14,7 +14,7 @@
     <uses-permission android:name="com.qiufg.permission.SERVER" />
 
     <application
-        android:name="com.qiufg.template.App"
+        android:name=".App"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -31,6 +31,7 @@
             android:theme="@style/WelcomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -43,7 +44,7 @@
                     android:host="qiufg509.github.io"
                     android:path="/HomePage"
                     android:scheme="https" />
-                <!--<a href="[scheme]://[host]/[path]?[query]">启动应用程序</a>-->
+                <!-- <a href="[scheme]://[host]/[path]?[query]">启动应用程序</a> -->
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -55,28 +56,34 @@
                     android:host="qiufg509.github.io"
                     android:path="/HomePage"
                     android:scheme="qiufg" />
-                <!--<a href="[scheme]://[host]/[path]?[query]">启动应用程序</a>-->
+                <!-- <a href="[scheme]://[host]/[path]?[query]">启动应用程序</a> -->
             </intent-filter>
         </activity>
         <activity
-            android:name="com.qiufg.template.module.main.view.MainActivity"
+            android:name=".module.main.view.MainActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.qiufg.template.module.common.WebActivity"
+            android:name=".module.common.WebActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.qiufg.template.module.preview.view.PhotoPreviewActivity"
+            android:name=".module.preview.view.PhotoPreviewActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.common.AIDLActivity"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.common.AndFixActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|keyboardHidden"
             android:exported="false"
             android:launchMode="singleTop"

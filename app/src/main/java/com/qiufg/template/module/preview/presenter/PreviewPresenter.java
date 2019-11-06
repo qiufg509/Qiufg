@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.qiufg.template.App;
@@ -42,26 +43,43 @@ public class PreviewPresenter extends BasePresenter<PreviewView> {
 
     private void download(String url, int type) {
         mView.showLoading();
-        Glide.with(App.getInstance()).asFile().load(url).into(new CustomTarget<File>() {
-            @Override
-            public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
-                switch (type) {
-                    case TYPE_DOWNLOAD:
-                        downloadPhoto(resource);
-                        break;
-                    case TYPE_WALLPAPER:
-                        setWallPaper(resource);
-                        break;
-                    case TYPE_LOCK_WRAPPER:
-                        setLockWrapper(resource);
-                        break;
-                }
-            }
+        Glide.with(App.getInstance()).asFile()
+                .apply(RequestOptions.skipMemoryCacheOf(true))
+                .load(url)
+                .into(new Target(type, this));
+    }
 
-            @Override
-            public void onLoadCleared(@Nullable Drawable placeholder) {
+    private static class Target extends CustomTarget<File> {
+
+        private int mType;
+        private WeakReference<PreviewPresenter> mReference;
+
+        Target(int type, PreviewPresenter presenter) {
+            mType = type;
+            mReference = new WeakReference<>(presenter);
+        }
+
+        @Override
+        public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
+            if (mReference == null || mReference.get() == null) return;
+            PreviewPresenter presenter = mReference.get();
+            switch (mType) {
+                case TYPE_DOWNLOAD:
+                    presenter.downloadPhoto(resource);
+                    break;
+                case TYPE_WALLPAPER:
+                    presenter.setWallPaper(resource);
+                    break;
+                case TYPE_LOCK_WRAPPER:
+                    presenter.setLockWrapper(resource);
+                    break;
             }
-        });
+        }
+
+        @Override
+        public void onLoadCleared(@Nullable Drawable placeholder) {
+
+        }
     }
 
     public void downloadPhoto(String url) {

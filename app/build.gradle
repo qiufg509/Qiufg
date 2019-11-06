@@ -14,6 +14,15 @@ android {
         resConfigs('zh-rCN')
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        externalNativeBuild {
+            cmake {
+                cppFlags "-frtti -fexceptions"
+            }
+        }
+        ndk {
+            abiFilters /*'armeabi', */"armeabi-v7a", "arm64-v8a"/*, "x86", "x86_64"*///高版本NDK不支持mips、armeabi，需要的话要下载低版本的NDK
+        }
     }
 
     buildTypes {
@@ -31,6 +40,12 @@ android {
 
     greendao {
         schemaVersion 1 //数据库版本号
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
     }
 
     dexOptions {
