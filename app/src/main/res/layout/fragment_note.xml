@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/img_note_bg"
     android:orientation="vertical"
     tools:context=".module.note.view.NoteFragment">
+
+    <ImageView
+        android:id="@+id/iv_note_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"
+        android:fitsSystemWindows="true"
+        android:overScrollMode="never"
+        android:paddingStart="@dimen/note_padding_left_right"
+        android:paddingEnd="@dimen/note_padding_left_right" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:actionBarSize"
         app:titleTextColor="@color/toolbar_note_title_text" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:overScrollMode="never"
-        android:paddingStart="@dimen/note_padding_left_right"
-        android:paddingEnd="@dimen/note_padding_left_right" />
-
-</LinearLayout>
+</FrameLayout>

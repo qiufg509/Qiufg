@@ -60,7 +60,7 @@ public class Arrays {
      */
     private static void _quickSort(int[] array, int left, int right) {
         if (left < right) {
-            int mid = partation(array, left, right);
+            int mid = partition(array, left, right);
             _quickSort(array, left, mid - 1);
             _quickSort(array, mid + 1, right);
         }
@@ -74,7 +74,7 @@ public class Arrays {
      * @param right 要分隔右区间
      * @return 分割后基准点所在位置下标
      */
-    private static int partation(int[] array, int left, int right) {
+    private static int partition(int[] array, int left, int right) {
         int temp = array[left];
         while (left < right) {
             while (left < right && array[right] >= temp)

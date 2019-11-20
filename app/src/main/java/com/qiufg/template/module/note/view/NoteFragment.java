@@ -1,11 +1,16 @@
 package com.qiufg.template.module.note.view;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.ImageViewTarget;
 import com.qiufg.template.R;
 import com.qiufg.template.adapter.NoteAdapter;
 import com.qiufg.template.bean.GitHub;
@@ -13,6 +18,7 @@ import com.qiufg.template.exception.QiufgException;
 import com.qiufg.template.module.base.BaseFragment;
 import com.qiufg.template.module.common.WebActivity;
 import com.qiufg.template.module.note.presenter.NotePresenter;
+import com.qiufg.template.util.DisplayUtils;
 import com.qiufg.template.wedget.decoration.NoteDecoration;
 
 import java.util.List;
@@ -29,6 +35,8 @@ public class NoteFragment extends BaseFragment<NotePresenter> implements NoteVie
     private static final String ARG_TITLE = "title";
     @BindView(R.id.recycler)
     RecyclerView mRecycler;
+    @BindView(R.id.iv_note_bg)
+    ImageView mIvNoteBg;
 
     private String mTitleString;
     private NoteAdapter mAdapter;
@@ -72,6 +80,7 @@ public class NoteFragment extends BaseFragment<NotePresenter> implements NoteVie
         mAdapter.bindToRecyclerView(mRecycler);
         initListener();
         mPresenter.getArticle();
+        setNoteBackground();
     }
 
     private void initListener() {
@@ -91,5 +100,20 @@ public class NoteFragment extends BaseFragment<NotePresenter> implements NoteVie
     public void getArtFail(QiufgException e) {
         mAdapter.setNewData(null);
         mAdapter.setEmptyView(getEmptyView(e));
+    }
+
+    private void setNoteBackground() {
+        Glide.with(this).asBitmap().load(R.mipmap.img_note_bg).into(new ImageViewTarget<Bitmap>(mIvNoteBg) {
+            @Override
+            protected void setResource(@Nullable Bitmap resource) {
+                if (resource == null) return;
+                int windowHeight = DisplayUtils.getWindowHeight();
+                int width = resource.getWidth();
+                int height = resource.getHeight();
+                if (height < windowHeight) return;
+                Bitmap bitmap = Bitmap.createBitmap(resource, 0, height - windowHeight, width, windowHeight);
+                view.setImageBitmap(bitmap);
+            }
+        });
     }
 }
